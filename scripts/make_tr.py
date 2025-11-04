@@ -28,10 +28,15 @@ def main(args):
     if args.right_hyphen_min is not None:
         right_hyph_min = args.right_hyphen_min
 
+    upper_used = set()
     with open(args.wordlist + ".tra", "w") as tra:
         print(f" {left_hyph_min:<2}{right_hyph_min:<2}  {args.hyphmark}", file=tra)
         for char in sorted(chars):
-            print(f" {char} {char.upper()}", file=tra)
+            if char != char.upper() and len(char.upper()) == 1 and char.upper() not in upper_used:
+                print(f" {char} {char.upper()}", file=tra)
+                upper_used.add(char.upper())
+            else:
+                print(f" {char}", file=tra)
 
 
 if __name__ == "__main__":
@@ -43,3 +48,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(args)
+    print(f"Created translate file {args.wordlist}.tra for {args.wordlist}")

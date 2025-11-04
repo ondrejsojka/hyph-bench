@@ -12,7 +12,7 @@ class PatgenScorer:
         self.wordlist_path: str = wordlist_path
         self.translate_path: str = translate_path
 
-        if "tmp" not in os.listdir(""):
+        if "tmp" not in os.listdir("."):
             os.mkdir("tmp")
 
         self.temp_dir: str = "tmp"

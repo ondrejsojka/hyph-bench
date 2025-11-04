@@ -25,15 +25,16 @@ def process_accents(hyph, base_word):
     return deaccented
 
 
-def process_hyph(data, base_word, has_accents = False):
+def process_hyph(data: list, base_word: str, has_accents: bool = False):
     translated = set()
     for hyph in data:
-        hyph_tr = re.sub("‧", "-", hyph)
-        hyph_tr = re.sub("·", "-", hyph_tr)  # different hyphenation marks
-        hyph_tr = re.sub("\.", "-", hyph_tr)
+        hyph_tr = re.sub("[‧·.‐­]", "-", hyph)  # different hyphenation marks
+        hyph_tr = re.sub("-+", "-", hyph_tr)
         hyph_tr = re.sub(r"\s*-\s*", "-", hyph_tr)
+        hyph_tr = re.sub("\d+", "", hyph_tr)  # numbers are reserved for patgen levels
+        hyph_tr = hyph_tr.strip("-")
         if has_accents:
-            hyph_tr = process_accents(hyph_tr.strip("-"), base_word.strip("-"))
+            hyph_tr = process_accents(hyph_tr, base_word.strip("-"))
         translated.add(hyph_tr)
     return list(translated)
 
@@ -104,7 +105,7 @@ if __name__ == "__main__":
                 hyphenations = hyphenations_split
             elif "hyphenations" in parsed:
                 for h in parsed["hyphenations"]:
-                    h = re.sub("-+", "-", "-".join(h["parts"]))
+                    h = "-".join(h["parts"])
                     hyphenations.append(re.sub(r"\(.*\)\s*|\[.*]:?\s*", "", h))
 
             processed = process_hyph(hyphenations, word, has_accents=accents)

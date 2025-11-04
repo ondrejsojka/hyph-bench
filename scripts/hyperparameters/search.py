@@ -1,4 +1,6 @@
 import argparse
+import os
+
 import score
 import sample
 import metaheuristic
@@ -8,7 +10,7 @@ import time
 if __name__ == "__main__":
     t = time.time()
     parser = argparse.ArgumentParser()
-    #parser.add_argument("heuristic", help="Metaheuristic to use")
+    parser.add_argument("datadir", type=str, help="Directory with wordlist and translate file")
     parser.add_argument("--score", choices=["precision", "recall", "f1"], default="precision", help="Function to use for scoring")
     parser.add_argument("--nsamples", required=False, default=10, type=int, help="Number of samples to generate in each iteration")
     parser.add_argument("--accthresh", required=False, default=1.0, type=float, help="Score threshold to pass for termination 0.0 <= accthresh <= 1.0")
@@ -17,13 +19,35 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    datadir = args.datadir.rstrip("/")
+    wl_file, tr_file = "", ""
+    for file in os.listdir(datadir):
+        if file.endswith(".wlh"):
+            wl_file = datadir + "/" + file
+        elif file.endswith(".tra"):
+            tr_file = datadir + "/" + file
+
+    if not wl_file or not tr_file:
+        print(f"Wordlist or translate file not present in {datadir} directory")
+        exit(1)
+
     scorer = score.PatgenScorer(
-        "../../../patgen/cmake-build-debug/patgen_sandbox",
-        "../patgen/sandbox/wortliste.wlh",
-        "../patgen/sandbox/german.tr"
+        "patgen", wl_file, tr_file
     )
 
-    sampler = sample.FileSampler("../../../patgen/sandbox/test_parameters.in")
+    par_file = ""
+    par_dir = datadir
+    for _ in range(3):  # assume the directory structure .../data/<lang>/<dataset>
+        if "patgen_params.in" in os.listdir(par_dir):
+            par_file = par_dir + "/patgen_params.in"
+            break
+        par_dir = par_dir + "/.."
+
+    if not par_file:
+        print(f"Patgen parameters file <patgen_params.in> not found in {datadir} or 2 level above")
+        exit(1)
+
+    sampler = sample.FileSampler(par_file)
 
     meta = metaheuristic.NoMetaheuristic(
         scorer,
