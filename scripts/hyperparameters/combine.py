@@ -1,5 +1,4 @@
 import os
-import sys
 import metaheuristic
 
 class Combiner:
