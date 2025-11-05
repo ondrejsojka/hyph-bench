@@ -202,6 +202,9 @@ class FileSampler(Sampler):
         elif not self.file_open:
             return None
         line = self.file_ptr.readline()
+        while line.startswith("#"):
+            line = self.file_ptr.readline()
+            continue
         if not line.strip():
             self.file_ptr.close()
             self.file_open = False

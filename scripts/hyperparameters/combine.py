@@ -16,6 +16,16 @@ class Combiner:
         """
         pass
 
+    def final_patterns(self):
+        """
+        Move pattern files to wordlist directory
+        """
+        for run_id in self.meta.get_ids():
+            command = (f"mv {self.meta.scorer.temp_dir}/{run_id}.pat "
+                       f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{run_id}.pat")
+            print(command)
+            os.system(command)
+
 class SimpleCombiner(Combiner):
     def __init__(self, meta: metaheuristic.Metaheuristic):
         super().__init__(meta)
@@ -38,6 +48,7 @@ class SimpleCombiner(Combiner):
             if self.meta.statistic is not None:
                 self.meta.statistic.level_outputs.append(self.meta.population.copy())
             s = self.meta.sampler.sample()
+        Combiner.final_patterns(self)
 
 
 class AllWithAllCombiner(Combiner):
@@ -46,9 +57,6 @@ class AllWithAllCombiner(Combiner):
         self.n_levels = n_levels
 
     def run(self):
-        """
-        Run the metaheuristic for all levels
-        """
         while self.level < self.n_levels:
             self.level += 1
             print("Running metaheuristic on level", self.level)
@@ -69,7 +77,4 @@ class AllWithAllCombiner(Combiner):
             print("Population selected for next level:", [str(pop) for pop in self.meta.population])
             if self.meta.statistic is not None:
                 self.meta.statistic.level_outputs.append(self.meta.population.copy())
-
-        for run_id in self.meta.get_ids():
-            os.system(f"mv {self.meta.scorer.temp_dir}/{run_id}.pat "
-                      f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{run_id}.pat")
+        Combiner.final_patterns(self)
