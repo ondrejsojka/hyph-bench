@@ -3,6 +3,22 @@ import json
 import re
 
 
+ALLOWED_HYPHENATORS = "‧·.‐­-"
+DEACCENTED = {
+    "à": "a", "á": "a",
+    "ù": "u", "ú": "u",
+    "ì": "i", "í": "i",
+    "è": "e", "é": "e",
+    "ò": "o", "ó": "o"
+}
+ACCENTED = {
+    "a": "àá",
+    "e": "èé",
+    "i": "ìí",
+    "o": "òó",
+    "u": "ùú"
+}
+
 def process_accents(hyph, base_word):
     if base_word is None:
         return hyph
@@ -10,7 +26,7 @@ def process_accents(hyph, base_word):
     i_hyph = 0
     i_word = 0
     while i_word < len(base_word) and i_hyph < len(hyph):
-        if base_word[i_word] == hyph[i_hyph]:
+        if base_word[i_word] == hyph[i_hyph] or base_word[i_word] == DEACCENTED.get(hyph[i_hyph], ""):
             deaccented += base_word[i_word]
             i_word += 1
         elif hyph[i_hyph] == "-":
@@ -18,21 +34,27 @@ def process_accents(hyph, base_word):
                 i_word += 1
                 continue
             deaccented += "-"
-        else:
-            deaccented += base_word[i_word]
-            i_word += 1
         i_hyph += 1
     return deaccented
 
+def build_regex(base_word: str, has_accents: bool = False):
+    letters = []
+    for letter in base_word:
+        if letter in "()[]":
+            letters.append(f"[\\{letter}]")
+        elif has_accents:
+            letters.append(f"[{letter}{ACCENTED.get(letter, '')}]")
+        else:
+            letters.append(f"[{letter}]")
+    return (f"[-]?".join([letter for letter in letters]))+"\s"
 
 def process_hyph(data: list, base_word: str, has_accents: bool = False):
     translated = set()
     for hyph in data:
-        hyph_tr = re.sub("[‧·.‐­]", "-", hyph)  # different hyphenation marks
-        hyph_tr = re.sub("-+", "-", hyph_tr)
+        hyph_tr = re.sub("-+", "-", hyph)
         hyph_tr = re.sub(r"\s*-\s*", "-", hyph_tr)
         hyph_tr = re.sub("\d+", "", hyph_tr)  # numbers are reserved for patgen levels
-        hyph_tr = hyph_tr.strip("-")
+        hyph_tr = hyph_tr.strip(" -")
         if has_accents:
             hyph_tr = process_accents(hyph_tr, base_word.strip("-"))
         translated.add(hyph_tr)
@@ -74,7 +96,7 @@ if __name__ == "__main__":
         outfilename = args.outfile
 
     accents = False
-    if args.lang in ["it"]:
+    if args.lang in ["it", "ru"]:
         accents = True
 
     counter = 0
@@ -90,35 +112,32 @@ if __name__ == "__main__":
 
             word = None
             if "word" in parsed:
-                word = parsed["word"]
+                word = parsed["word"].lower()
 
-            hyphenations = list()
+            hyphenations = ""
 
             if "hyphenation" in parsed:
                 hyphenations = parsed["hyphenation"]
-                hyphenations_split = []  # sometimes it is ["hyph1, hyph2"]
-                if isinstance(hyphenations, str):
-                    hyphenations = [hyphenations]
-                for h in hyphenations:
-                    h = re.sub(r"\(.*\)\s*|\[.*]:?\s*", "", h)  # sometimes it is "(traditional) hyph" or similar
-                    hyphenations_split += h.split(", ")
-                hyphenations = hyphenations_split
+                if isinstance(hyphenations, list):
+                    hyphenations = " ".join(hyphenations)
+                hyphenations = hyphenations.lower() + " "  # add final space regex matching
             elif "hyphenations" in parsed:
-                for h in parsed["hyphenations"]:
-                    h = "-".join(h["parts"])
-                    hyphenations.append(re.sub(r"\(.*\)\s*|\[.*]:?\s*", "", h))
+                hyphenations = " ".join(["-".join(h["parts"]) for h in parsed["hyphenations"]]).lower() + " "
+            else:
+                continue
 
-            processed = process_hyph(hyphenations, word, has_accents=accents)
+            hyphenations = re.sub(f"[{ALLOWED_HYPHENATORS}]", "-", hyphenations)  # different hyphenation marks
+            regex = build_regex(word, accents)
+            candidates = re.findall(regex, hyphenations)
+            processed = process_hyph(candidates, word, has_accents=accents)
             if(len(processed)) > 1:
                 ambig_count += 1
 
-            hyphenations = processed
-            processed = []
+            hyphenations = []
+            for p in processed:
+                hyphenations += p.split() # process multi-word entries
 
-            for hyphenation in hyphenations:  # process multi-word entries
-                processed += hyphenation.split()
-
-            for hyphenation in processed:
+            for hyphenation in hyphenations:
                 if hyphenation in word_buf:
                     continue
                 outfile.write(hyphenation + "\n")
