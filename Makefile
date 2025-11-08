@@ -17,7 +17,7 @@ translate_wikt: process_wikt
 	$(foreach l,$(WIKT_LANGS),python ./scripts/make_tr.py ./data/$(l)/wiktionary/*.wlh;)
 
 # create translate files for non-Wiktionary wordlists
-translate_other:
+translate_other: prepare_other
 	$(foreach d,$(OTHER_DATASETS),rm -f ./data/$(d)/*.tra;)
 	$(foreach d,$(OTHER_DATASETS),python ./scripts/make_tr.py ./data/$(d)/*.wlh;)
 
@@ -25,3 +25,6 @@ translate_other:
 prepare_wikt:
 	unzip ./wikt_dump.zip -d .
 	$(foreach l,$(WIKT_LANGS),mkdir -p ./data/$(l)/wiktionary;)
+
+prepare_other:
+	python ./scripts/expand_weights.py ./data/cssk/cssk_all_weighted.wlh
