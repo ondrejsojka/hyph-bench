@@ -146,4 +146,4 @@ if __name__ == "__main__":
 
     outfile.close()
 
-    print(f"Parsed {counter} words from {dump_filepath} into {outfilename}, {ambig_count} with multiple hyphenations.")
+    print(f"Parsed {counter} words from {dump_filepath} into {outfilename}.")
