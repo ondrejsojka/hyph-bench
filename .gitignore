@@ -4,4 +4,4 @@ tmp
 scripts/hyperparameters/__pycache__/
 **/wiktionary/
 **/*.tra
-**/_expanded.wlh
+**/*_expanded.wlh
