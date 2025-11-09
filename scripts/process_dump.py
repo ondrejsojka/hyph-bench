@@ -100,7 +100,6 @@ if __name__ == "__main__":
         accents = True
 
     counter = 0
-    ambig_count = 0
 
     outfile = open(outfilename, "w")  # overwrite all previous content of outfile
     word_buf = set()
@@ -130,8 +129,6 @@ if __name__ == "__main__":
             regex = build_regex(word, accents)
             candidates = re.findall(regex, hyphenations)
             processed = process_hyph(candidates, word, has_accents=accents)
-            if(len(processed)) > 1:
-                ambig_count += 1
 
             hyphenations = []
             for p in processed:
