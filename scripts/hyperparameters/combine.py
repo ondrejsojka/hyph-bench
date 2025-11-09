@@ -1,5 +1,7 @@
 import os
+
 import metaheuristic
+
 
 class Combiner:
     """
@@ -14,26 +16,25 @@ class Combiner:
         """
         Run the metaheuristic for all levels. Exact implementation depends on subclasses.
         :param pattern_file: output pattern file name (<timestamp>-<run_id>.pat by default)
-        :return: pattern file names
+        :return: pattern file name
         """
         return NotImplemented
 
     def final_patterns(self, pattern_file: str = ""):
         """
-        Move pattern file to wordlist directory
+        Determine the best sample out of the final population and move its generated patterns into dataset directory.
+        Afterward the temporaries are cleaned.
         :param pattern_file: output pattern file name (<timestamp>-<run_id>.pat by default)
         :return: pattern file names
         """
-        pattern_files = []
-        for pop in self.meta.population:
-            if not pattern_file:
-                pattern_file = f"{pop.timestamp}-{pop.run_id}.pat"
-            command = (f"mv {self.meta.scorer.temp_dir}/{pop.run_id}.pat "
-                       f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{pattern_file}")
-            os.system(command)
-            pattern_files.append(pattern_file)
+        best = self.meta.population[0] #TODO determine the best sample out of the final population
+        if not pattern_file:
+            pattern_file = f"{best.timestamp}-{best.run_id}.pat"
+        command = (f"mv {self.meta.scorer.temp_dir}/{best.run_id}.pat "
+                   f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{pattern_file}")
+        os.system(command)
         self.meta.scorer.clean()
-        return pattern_files
+        return pattern_file
 
 
 class SimpleCombiner(Combiner):

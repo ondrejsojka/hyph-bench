@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 
 import hyperparameters as hp
 
@@ -25,22 +26,24 @@ class Validator:
             pattern_file = "out.pat"
 
         self.model.meta.scorer.wordlist_path = train_file
-
-        self.model.run()
-
+        pattern_file = self.model.run(pattern_file)
         self.model.meta.scorer.wordlist_path = ""
 
         return pattern_file
 
-    def validate_patterns(self, test_file: str, patters_file: str):
+    def validate_patterns(self, test_file: str, pattern_file: str):
         """
         Evaluate trained patterns against test split
         :param test_file: path to test dataset
-        :param patters_file: path to trained patterns
+        :param pattern_file: path to trained patterns
         :return: computed statistics
         """
 
-        # TODO
+        self.model.meta.scorer.wordlist_path = test_file
+
+        # TODO find out how to call patgen as hyphenator, not pattern generator
+
+        self.model.meta.scorer.wordlist_path = ""
 
         pass
 
@@ -106,25 +109,25 @@ class NFoldCrossValidator(Validator):
             results.append(self.validate_patterns(test, patterns))
         return results
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("datadir", type=str, help="Directory with wordlist and translate file")
-    args = parser.parse_args()
 
-    datadir = args.datadir.rstrip("/")
+def extract_files(data_directory: str):
+    """
+    Screen given directory for wordlist, translate file and input parameters (these may be in parent directory as well)
+    :param data_directory: directory to be searched
+    :return: (wordlist name, translate file name, input parameters file name), if they are found '' otherwise
+    """
     wl_file, tr_file = "", ""
-    for file in os.listdir(datadir):
+    for file in os.listdir(data_directory):
         if file.endswith(".wlh"):
-            wl_file = datadir + "/" + file
+            wl_file = data_directory + "/" + file
         elif file.endswith(".tra"):
-            tr_file = datadir + "/" + file
+            tr_file = data_directory + "/" + file
 
     if not wl_file or not tr_file:
-        print(f"Wordlist or translate file not present in {datadir} directory")
-        exit(1)
+        print(f"Wordlist or translate file not present in {data_directory} directory", file=sys.stderr)
 
     par_file = ""
-    par_dir = datadir
+    par_dir = data_directory
     for _ in range(3):  # assume the directory structure .../data/<lang>/<dataset>
         if "patgen_params.in" in os.listdir(par_dir):
             par_file = par_dir + "/patgen_params.in"
@@ -132,14 +135,24 @@ if __name__ == "__main__":
         par_dir = par_dir + "/.."
 
     if not par_file:
-        print(f"Patgen parameters file <patgen_params.in> not found in {datadir} or 2 level above")
-        exit(1)
+        print(f"Patgen parameters file <patgen_params.in> not found in {data_directory} or 2 level above", file=sys.stderr)
+
+    return wl_file, tr_file, par_file
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("datadir", type=str, help="Directory with wordlist and translate file")
+    args = parser.parse_args()
+
+    datadir = args.datadir.rstrip("/")
+    wl, tr, par = extract_files(datadir)
 
     # wordlist is empty so that error is raised when scorer is used prior to setting it
-    scorer = hp.score.PatgenScorer("patgen", "", tr_file, verbose=True)
-    sampler = hp.sample.FileSampler(par_file)
+    scorer = hp.score.PatgenScorer("patgen", "", tr, verbose=True)
+    sampler = hp.sample.FileSampler(par)
     meta = hp.metaheuristic.NoMetaheuristic(scorer, sampler)
     combiner = hp.combine.SimpleCombiner(meta, verbose=True)
 
     validator = NFoldCrossValidator(combiner, 10)
-    print(validator.validate(wl_file))
+    print(validator.validate(wl))
