@@ -1,3 +1,4 @@
+import datetime
 import os
 import re
 import sample
@@ -66,6 +67,7 @@ class PatgenScorer:
 
         s.stats = stats
         s.n_patterns = n_patterns
+        s.timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
         return n_patterns, s.precision(), s.recall()
 

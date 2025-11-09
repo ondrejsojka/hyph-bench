@@ -60,10 +60,10 @@ if __name__ == "__main__":
     comb = combine.SimpleCombiner(meta)
 
     comb.run()
-    print([(pop.f_score(1.0), pop.f_score(100.0)) for pop in meta.population])
-    meta.statistic.visualise(metric=["patterns"])
+    #print([(pop.f_score(1.0), pop.f_score(100.0)) for pop in meta.population])
+    #meta.statistic.visualise(metric=["good_wt", "bad_wt", "threshold"])
 
     for s in meta.population:
-        print(str(stats.PatternsInfo(f"{datadir}/{s.run_id}.pat", s)))
+        print(str(stats.PatternsInfo(f"{datadir}/{s.timestamp}-{s.run_id}.pat", s)))
 
     print("Ran", round(time.time() - t, 2), "seconds")

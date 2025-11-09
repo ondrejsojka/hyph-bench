@@ -1,4 +1,5 @@
 import os
+import datetime
 import metaheuristic
 
 class Combiner:
@@ -17,13 +18,13 @@ class Combiner:
 
     def final_patterns(self):
         """
-        Move pattern files to wordlist directory
+        Move pattern files to wordlist directory and clean temporaries
         """
-        for run_id in self.meta.get_ids():
-            command = (f"mv {self.meta.scorer.temp_dir}/{run_id}.pat "
-                       f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{run_id}.pat")
-            print(command)
+        for pop in self.meta.population:
+            command = (f"mv {self.meta.scorer.temp_dir}/{pop.run_id}.pat "
+                       f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{pop.timestamp}-{pop.run_id}.pat")
             os.system(command)
+        self.meta.scorer.clean()
 
 class SimpleCombiner(Combiner):
     def __init__(self, meta: metaheuristic.Metaheuristic):

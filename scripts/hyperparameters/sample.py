@@ -31,6 +31,8 @@ class Sample:
         self.threshold: int = params.get('threshold', 1)
         self.param_dict["threshold"] = self.threshold
 
+        self.timestamp: str = '00000000000000'
+
         self.stats: dict = dict()
         self.run_id: int = -1
         self.n_patterns: int = -1
