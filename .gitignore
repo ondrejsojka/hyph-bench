@@ -1,7 +1,7 @@
 .idea
 wikt_dump
 tmp
-scripts/hyperparameters/__pycache__/
+**/__pycache__/
 **/wiktionary/
 **/*.tra
 **/*_expanded.wlh
