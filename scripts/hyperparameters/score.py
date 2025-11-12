@@ -1,7 +1,8 @@
 import datetime
 import os
 import re
-import sample
+
+from . import sample
 
 
 class PatgenScorer:
@@ -42,6 +43,8 @@ class PatgenScorer:
             s.stats = stats
             s.n_patterns = pat
             return pat, s.precision(), s.recall()
+
+        #TODO filter out ambiguous hyphenations
 
         with open(f"{self.temp_dir}/{run_id}.in", "w") as par:
             par.write("\n".join([f"{s.level} {s.level}",

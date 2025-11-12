@@ -1,6 +1,6 @@
-import sample
-import score
-import stats
+from . import sample
+from . import score
+from . import stats
 
 PATGEN_MAX_LEVELS = 9
 

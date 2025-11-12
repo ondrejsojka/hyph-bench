@@ -2,11 +2,11 @@ import argparse
 import os
 import time
 
-import score
-import sample
-import metaheuristic
-import combine
-import stats
+from . import score
+from . import sample
+from . import metaheuristic
+from . import combine
+from . import stats
 
 if __name__ == "__main__":
     t = time.time()

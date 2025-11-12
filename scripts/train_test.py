@@ -2,18 +2,20 @@ import argparse
 import os
 import sys
 
-import hyperparameters as hp
+from hyperparameters import combine, score, sample, metaheuristic
+from hyphenator.hyphenator import Hyphenator
 
 class Validator:
     """
     Class for evaluation of patgen runs and their parameters. Abstract class, instantiate one of its subclasses
     """
-    def __init__(self, model: hp.combine.Combiner):
+    def __init__(self, model: combine.Combiner):
         """
         Create superclass validator. Should not be called by itself.
         :param model: model to evaluate
         """
         self.model = model
+        self.hyphenation_mark = "-"
 
     def train_patterns(self, train_file: str, pattern_file: str = ""):
         """
@@ -36,22 +38,33 @@ class Validator:
         Evaluate trained patterns against test split
         :param test_file: path to test dataset
         :param pattern_file: path to trained patterns
-        :return: computed statistics
+        :return: computed statistics (TP, FP, FN)
         """
-
-        self.model.meta.scorer.wordlist_path = test_file
-
-        # TODO find out how to call patgen as hyphenator, not pattern generator
-
-        self.model.meta.scorer.wordlist_path = ""
-
-        pass
+        hyphenator = Hyphenator(pattern_file, hyphenation_mark=self.hyphenation_mark)
+        good, bad, missed = 0, 0, 0
+        with open(test_file) as test:
+            for correct in test:
+                correct = correct.strip()
+                hyphenated = hyphenator.hyphenate(correct)
+                i_corr, i_hyph = 0, 0
+                while i_corr < len(correct) and i_hyph < len(hyphenated):
+                    if correct[i_corr] == self.hyphenation_mark and hyphenated[i_hyph] == self.hyphenation_mark:
+                        good += 1
+                        i_hyph += 1
+                        i_corr += 1
+                    elif hyphenated[i_hyph] == self.hyphenation_mark:
+                        bad += 1
+                        i_hyph += 1
+                    elif correct[i_corr] == self.hyphenation_mark:
+                        missed += 1
+                        i_corr += 1
+        return good, bad, missed
 
     def validate(self, wordlist_file: str):
         """
         Run evaluation against given dataset. Abstract method, implementation differs between subclasses
         :param wordlist_file: path to wordlist
-        :return: computed statistics
+        :return: computed statistics (TP, FP, FN)
         """
         return NotImplemented
 
@@ -59,7 +72,7 @@ class NFoldCrossValidator(Validator):
     """
     N-fold cross-validation
     """
-    def __init__(self, model: hp.combine.Combiner, n: int):
+    def __init__(self, model: combine.Combiner, n: int):
         """
         Create validator
         :param model: model to evaluate
@@ -149,10 +162,10 @@ if __name__ == "__main__":
     wl, tr, par = extract_files(datadir)
 
     # wordlist is empty so that error is raised when scorer is used prior to setting it
-    scorer = hp.score.PatgenScorer("patgen", "", tr, verbose=True)
-    sampler = hp.sample.FileSampler(par)
-    meta = hp.metaheuristic.NoMetaheuristic(scorer, sampler)
-    combiner = hp.combine.SimpleCombiner(meta, verbose=True)
+    scorer = score.PatgenScorer("patgen", "", tr, verbose=True)
+    sampler = sample.FileSampler(par)
+    meta = metaheuristic.NoMetaheuristic(scorer, sampler)
+    combiner = combine.SimpleCombiner(meta, verbose=True)
 
     validator = NFoldCrossValidator(combiner, 10)
     print(validator.validate(wl))

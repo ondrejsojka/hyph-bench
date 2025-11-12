@@ -1,4 +1,4 @@
-import trie
+from . import trie
 
 class Hyphenator:
     """

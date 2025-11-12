@@ -1,6 +1,6 @@
 import os
 
-import metaheuristic
+from . import metaheuristic
 
 
 class Combiner:

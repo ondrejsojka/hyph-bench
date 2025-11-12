@@ -4,7 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import sys
 
-import sample
+from . import sample
 
 class DatasetInfo:
     def __init__(self, file: str):
@@ -147,4 +147,4 @@ class PatternsInfo:
                 f"\tprecision {round(self.s.precision(),3)}, recall {round(self.s.recall(),3)}")
 
 if __name__ == "__main__":
-    print(str(DatasetInfo("../../data/it/wiktionary/it_wiktionary_251001.wlh")))
+    print(str(DatasetInfo("../../data/de/wiktionary/de_wiktionary_251001.wlh")))
