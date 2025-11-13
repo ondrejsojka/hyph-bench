@@ -40,7 +40,7 @@ class DatasetInfo:
         self.size_bytes = os.path.getsize(file)
 
     def __str__(self):
-        return (f"Dataset {self.lang}-{self.dataset_name}:\n "
+        return (f"Dataset {self.lang}/{self.dataset_name}:\n "
                 f"\tsize: {self.size_bytes} B, {self.size_lines} lines\n "
                 f"\t{round(self.hyph_avg, 2)} avg hyphenators per line, {self.ambiguous} ambiguous hyphenations\n"
                 f"\tword lengths: min {self.len_min} max {self.len_max} avg {round(self.len_avg, 2)} (hyphenators incl.)")
@@ -148,6 +148,3 @@ class PatternsInfo:
                 f"\tsize: {self.size_bytes} B, {self.n_patterns} patterns\n"
                 f"\tavg. length {round(self.len_avg, 2)}, {self.levels} levels\n"
                 f"\tprecision {round(self.s.precision(),3)}, recall {round(self.s.recall(),3)}")
-
-if __name__ == "__main__":
-    print(str(DatasetInfo("../../data/de/wiktionary/de_wiktionary_251001.wlh")))
