@@ -28,6 +28,7 @@ class Validator:
             pattern_file = "out.pat"
 
         self.model.meta.scorer.wordlist_path = train_file
+        self.model.reset()
         pattern_file = self.model.run(pattern_file)
         self.model.meta.scorer.wordlist_path = ""
 
@@ -58,12 +59,16 @@ class Validator:
                     elif correct[i_corr] == self.hyphenation_mark:
                         missed += 1
                         i_corr += 1
+                    else:
+                        i_hyph += 1
+                        i_corr += 1
         return good, bad, missed
 
-    def validate(self, wordlist_file: str):
+    def validate(self, wordlist_file: str, verbose: bool = False):
         """
         Run evaluation against given dataset. Abstract method, implementation differs between subclasses
         :param wordlist_file: path to wordlist
+        :param verbose: enable printing out progress status
         :return: computed statistics (TP, FP, FN)
         """
         return NotImplemented
@@ -109,16 +114,24 @@ class NFoldCrossValidator(Validator):
         test.close()
         return outfile_train, outfile_test
 
-    def validate(self, wordlist_file: str):
+    def validate(self, wordlist_file: str, verbose: bool = False):
         """
         Perform n-fold cross-validation of a model against given dataset
         :param wordlist_file: path to wordlist
+        :param verbose: enable printing out progress status
         :return: computed statistics
         """
         results = []
         for i in range(self.n):
+            if verbose:
+                print(f"Validation step {i+1}/{self.n}")
+                print("Creating train-test split...")
             train, test = self.n_fold_split(wordlist_file, index=i)
+            if verbose:
+                print("Generating patterns...")
             patterns = self.train_patterns(train)
+            if verbose:
+                print("Validation on test set...")
             results.append(self.validate_patterns(test, patterns))
         return results
 
@@ -168,4 +181,4 @@ if __name__ == "__main__":
     combiner = combine.SimpleCombiner(meta, verbose=True)
 
     validator = NFoldCrossValidator(combiner, 10)
-    print(validator.validate(wl))
+    print(validator.validate(wl, verbose=True))

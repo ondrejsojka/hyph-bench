@@ -1,3 +1,5 @@
+import re
+
 from . import trie
 
 class Hyphenator:
@@ -19,7 +21,7 @@ class Hyphenator:
         :param word: string to be hyphenated
         :return: word with injected hyphenation marks
         """
-        word_bounded = self.word_boundary + word.lower() + self.word_boundary
+        word_bounded = self.word_boundary + re.sub(self.hyphenation_mark, "", word.lower()) + self.word_boundary
         levels = [0 for _ in range(len(word_bounded)-1)]
 
         for i in range(len(word_bounded)-1):
@@ -31,12 +33,8 @@ class Hyphenator:
                 for index, value in outputs:
                     levels[i + index - 1] = max(int(value), levels[i + index - 1])
         hyphenated = ""
-        for i,letter in enumerate(word):
+        for i,letter in enumerate(re.sub(self.hyphenation_mark, "", word)):
             if levels[i] > 0 and levels[i] % 2 == 1 and self.left_hyphen_min <= i <= len(word) - self.right_hyphen_min:
                 hyphenated += self.hyphenation_mark
             hyphenated += letter
         return hyphenated
-
-if __name__ == "__main__":
-    hyphenator = Hyphenator("../../data/it/wiktionary/20251109093112-3.pat")
-    print(hyphenator.hyphenate("auto"))
