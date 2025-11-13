@@ -41,6 +41,16 @@ class Metaheuristic:
         else:
             return {0}
 
+    def reset(self):
+        """
+        Reset the object to initial state
+        """
+        self.scorer.reset()
+        self.sampler.reset()
+        if self.statistic is not None:
+            self.statistic.reset()
+        self.population = []
+
 
 class HillClimbing(Metaheuristic):
     """
@@ -48,6 +58,10 @@ class HillClimbing(Metaheuristic):
     """
     def __init__(self, scorer: score.PatgenScorer, sampler: sample.Sampler, n_samples: int = 1, statistic: stats.LearningInfo = None):
         super().__init__(scorer, sampler, n_samples, statistic)
+        self.visited = set()
+
+    def reset(self):
+        Metaheuristic.reset(self)
         self.visited = set()
 
     def new_population(self):

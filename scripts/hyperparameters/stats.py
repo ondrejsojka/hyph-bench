@@ -118,6 +118,9 @@ class LearningInfo:
         plt.xticks([n+1 for n in range(len(self.level_outputs))])
         plt.show()
 
+    def reset(self):
+        self.level_outputs = list()
+
 class PatternsInfo:
     def __init__(self, file: str, s: sample.Sample):
         abspath = os.path.abspath(file)

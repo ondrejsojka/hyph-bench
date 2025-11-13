@@ -30,11 +30,18 @@ class Combiner:
         best = self.meta.population[0] #TODO determine the best sample out of the final population
         if not pattern_file:
             pattern_file = f"{best.timestamp}-{best.run_id}.pat"
-        command = (f"mv {self.meta.scorer.temp_dir}/{best.run_id}.pat "
-                   f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{pattern_file}")
+        new_patfile = f"{self.meta.scorer.wordlist_path.rsplit('/', maxsplit=1)[0]}/{pattern_file}"
+        command = f"mv {self.meta.scorer.temp_dir}/{best.run_id}.pat {new_patfile}"
         os.system(command)
         self.meta.scorer.clean()
-        return pattern_file
+        return new_patfile
+
+    def reset(self):
+        """
+        Reset the object to initial state.
+        """
+        self.meta.reset()
+        self.level = 0
 
 
 class SimpleCombiner(Combiner):

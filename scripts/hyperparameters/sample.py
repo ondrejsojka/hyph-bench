@@ -170,12 +170,19 @@ class Sampler:
             return (self.pat_finish_range[0] <= val <= self.pat_finish_range[1]) and val >= sample.pat_start
         return False
 
+    def reset(self):
+        """
+        Reset the object to initial state
+        """
+        return NotImplemented
+
 
 class RandomSampler(Sampler):
     """
     Sampling by random initialisation
     """
     def __init__(self, ranges: dict, random_state=None):
+        self.random_state = random_state
         super().__init__(ranges)
         random.seed(random_state)
 
@@ -189,6 +196,9 @@ class RandomSampler(Sampler):
         values["threshold"] = random.randint(self.threshold_range[0], self.threshold_range[1])
 
         return Sample(values)
+
+    def reset(self):
+        random.seed(self.random_state)
 
 
 class FileSampler(Sampler):
@@ -223,3 +233,8 @@ class FileSampler(Sampler):
         if match is None:
             return None
         return Sample({param: int(match[param]) for param in ["pat_start", "pat_finish", "good_weight", "bad_weight", "threshold"]})
+
+    def reset(self):
+        self.file_ptr.close()
+        self.file_ptr = open(self.file)
+        self.file_open = True

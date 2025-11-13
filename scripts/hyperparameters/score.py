@@ -132,3 +132,19 @@ class PatgenScorer:
         Clear cached scores
         """
         self._cached.clear()
+
+    def reset(self):
+        """
+        Reset the object to initial state
+        """
+        if "tmp" not in os.listdir("."):
+            os.mkdir("tmp")
+
+        self.temp_dir: str = "tmp"
+
+        if "0.pat" not in os.listdir(self.temp_dir):
+            os.system(f"touch {self.temp_dir}/0.pat")
+
+        self.max_id: int = 0
+
+        self.clear_cache()
