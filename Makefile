@@ -8,8 +8,7 @@ OTHER_DATASETS = cs/cshyphen_cstenten cs/cshyphen_ujc is/hyphenation-is th/orchi
 
 # get statistics of all datasets
 stats_all_datasets: #process_wikt prepare_other
-	@python ./scripts/statistics.py -d --header
-	@$(foreach d,$(wildcard data/*/*/*.wlh),python ./scripts/statistics.py -d -t --file $(d);)
+	@$(foreach d,$(wildcard data/*/*/*_dis.wlh),python ./scripts/statistics.py -d -t $(d);)
 
 # parse Wiktionary dumps into wordlists
 process_wikt: prepare_wikt
