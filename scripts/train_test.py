@@ -133,6 +133,9 @@ class NFoldCrossValidator(Validator):
             if verbose:
                 print("Validation on test set...")
             results.append(self.validate_patterns(test, patterns))
+            os.remove(train)
+            os.remove(test)
+            os.remove(patterns)
         return results
 
 
