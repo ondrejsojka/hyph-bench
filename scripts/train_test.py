@@ -243,5 +243,5 @@ if __name__ == "__main__":
     path = args.datadir.split("/")
     language = "" if len(path) < 3 else path[-3]
     d_name = "" if len(path) < 2 else path[-2]
-    validator.report(lang=language, name=d_name, tabular=args.tabular)
+    print(validator.report(lang=language, name=d_name, tabular=args.tabular))
 
