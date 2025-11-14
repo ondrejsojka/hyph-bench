@@ -51,9 +51,10 @@ def build_regex(base_word: str, has_accents: bool = False):
 def process_hyph(data: list, base_word: str, has_accents: bool = False):
     translated = set()
     for hyph in data:
-        hyph_tr = re.sub("-+", "-", hyph)
+        hyph_tr = re.sub(r"\d+|\*|\.", "",
+                         hyph)  # numbers are reserved for patgen levels, * and . for hyphenation marking
+        hyph_tr = re.sub(r"-+", "-", hyph_tr)
         hyph_tr = re.sub(r"\s*-\s*", "-", hyph_tr)
-        hyph_tr = re.sub("\d+", "", hyph_tr)  # numbers are reserved for patgen levels
         hyph_tr = hyph_tr.strip(" -")
         if has_accents:
             hyph_tr = process_accents(hyph_tr, base_word.strip("-"))
