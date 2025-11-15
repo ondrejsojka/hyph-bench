@@ -240,7 +240,7 @@ if __name__ == "__main__":
     validator = NFoldCrossValidator(combiner, args.nfold)
     validator.validate(wl, verbose=args.verbose)
 
-    path = args.datadir.split("/")
+    path = datadir.split("/")
     language = "" if len(path) < 2 else path[-2]
     d_name = "" if len(path) < 1 else path[-1]
     print(validator.report(lang=language, name=d_name, tabular=args.tabular))
