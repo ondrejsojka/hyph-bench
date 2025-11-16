@@ -112,8 +112,11 @@ class PatgenScorer:
                 stat = re.match(r"pattern trie has (?P<trie_nodes>\d+) nodes, trie_max = \d+, \d+ outputs", line)
                 if stat is not None:
                     trie_nodes = int(stat["trie_nodes"])
+                stat = re.match(r"total of (?P<level_patterns>\d+) patterns at hyph_level \d+", line)
+                if stat is not None:
+                    level_patterns = int(stat["level_patterns"])
 
-        return {"tp": tp, "fp": fp, "fn": fn, "trie_nodes" : trie_nodes}
+        return {"tp": tp, "fp": fp, "fn": fn, "trie_nodes" : trie_nodes, "level_patterns": level_patterns}
 
     def clean(self):
         """
