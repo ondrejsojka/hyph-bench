@@ -218,7 +218,7 @@ def extract_files(data_directory: str):
     """
     wl_file, tr_file = "", ""
     for file in os.listdir(data_directory):
-        if file.endswith("_dis.wlh"):
+        if file.endswith("_dis.wlh") or file.endswith("_expanded.wlh"):
             wl_file = data_directory + "/" + file
         elif file.endswith(".tra"):
             tr_file = data_directory + "/" + file
