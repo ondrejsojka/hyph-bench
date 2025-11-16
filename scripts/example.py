@@ -56,7 +56,7 @@ if __name__ == "__main__":
     comb.run()
     #print([(pop.f_score(1.0), pop.f_score(100.0)) for pop in meta.population])
     meta.statistic.visualise(metric=["precision", "recall"])
-    print([(l[0].stats["tp"], l[0].stats["fp"], l[0].stats["fn"], l[0].stats["level_patterns"]) for l in meta.statistic.level_outputs])
+    print([(l[0].level, l[0].stats["tp"], l[0].stats["fp"], l[0].stats["fn"], l[0].stats["level_patterns"]) for l in meta.statistic.level_outputs])
 
     #for s in meta.population:
     #    print(str(stats.PatternsInfo(f"{datadir}/{s.timestamp}-{s.run_id}.pat", s)))
