@@ -36,11 +36,11 @@ translate_other: disambiguate_other
 # resolve data ambiguities and long words
 disambiguate_all: disambiguate_wikt disambiguate_other
 
-disambiguate_wikt: #process_wikt
+disambiguate_wikt: process_wikt
 	@$(foreach d,$(wildcard data/*/wiktionary/*_dis.wlh),rm -f $(d);)
 	@$(foreach d,$(WIKT_LANGS),python ./scripts/disambiguate.py ./data/$(d)/wiktionary/*.wlh;)
 
-disambiguate_other: #prepare_other
+disambiguate_other: prepare_other
 	@$(foreach d,$(OTHER_DATASETS),rm -f ./data/$(d)/*_dis.wlh;)
 	@$(foreach d,$(OTHER_DATASETS),python ./scripts/disambiguate.py ./data/$(d)/*.wlh;)
 
