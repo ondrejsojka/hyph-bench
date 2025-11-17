@@ -32,7 +32,7 @@ translate_other: disambiguate_other
 	@$(foreach d,$(OTHER_DATASETS),rm -f ./data/$(d)/*.tra;)
 	@$(foreach d,$(OTHER_DATASETS),python ./scripts/make_tr.py ./data/$(d)/*_dis.wlh;)
 	@rm -f ./data/$(CSSK)/*.tra
-	@python ./scripts/make_tr.py ./data/$(CSSK)/*_dis.wlh
+	@python ./scripts/make_tr.py ./data/$(CSSK)/*_expanded.wlh
 
 
 # resolve data ambiguities and long words
