@@ -8,9 +8,9 @@ OTHER_DATASETS = cs/cshyphen_cstenten cs/cshyphen_ujc is/hyphenation-is th/orchi
 
 # cross-validate all datasets
 cross_validate_all: translate_all
-	@$(foreach d,$(wildcard data/*/*),echo $(d); python ./scripts/train_test.py -t -v -n 10 -p ./profiles/base.in $(d);)
-	@$(foreach d,$(wildcard data/*/*),echo $(d); python ./scripts/train_test.py -t -v -n 10 -p ./profiles/cshyphen.in $(d);)
-	@$(foreach d,$(wildcard data/*/*),echo $(d); python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste.in $(d);)
+	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/base.in $(d);)
+	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/cshyphen.in $(d);)
+	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste.in $(d);)
 
 # get statistics of all datasets
 stats_all_datasets: disambiguate_all
@@ -18,7 +18,7 @@ stats_all_datasets: disambiguate_all
 
 # parse Wiktionary dumps into wordlists
 process_wikt: prepare_wikt
-	@$(foreach d,$(wildcard data/*/wiktionary/*.wlh),rm -f $(d);)
+	@$(foreach l,$(WIKT_LANGS),rm -f ./data/$(d)/wiktionary/*.wlh;)
 	@$(foreach l,$(WIKT_LANGS),python ./scripts/process_dump.py --lang $(l);)
 
 # create translate files
