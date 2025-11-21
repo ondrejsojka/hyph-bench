@@ -141,8 +141,8 @@ if __name__ == "__main__":
             regex = build_regex(word, accents)
             candidates = re.findall(regex, hyphenations)
             processed = process_hyph(candidates, word, has_accents=accents)
-            if hyphenations and not candidates:
-                print(word, hyphenations, candidates)
+            #if hyphenations and not candidates:
+            #    print(word, hyphenations, candidates)
 
             hyphenations = []
             for p in processed:
