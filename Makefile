@@ -11,6 +11,7 @@ cross_validate_all: translate_all
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/base.in $(d);)
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/cshyphen.in $(d);)
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste.in $(d);)
+	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste8.in $(d);)
 
 # get statistics of all datasets
 stats_all_datasets: disambiguate_all
