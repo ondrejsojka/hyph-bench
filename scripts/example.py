@@ -9,6 +9,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("datadir", type=str, help="Directory with wordlist and translate file")
     parser.add_argument("-p", "--profile", type=str, required=False, default="", help="Parameter profile to use")
+    parser.add_argument("-v", "--verbose", action="store_true", default=False, help="Use verbose printout.")
+    parser.add_argument("-d", "--dynamic", action="store_true", help="Whether to use hill climbing metaheuristic.")
     args = parser.parse_args()
 
     datadir = args.datadir.rstrip("/")
@@ -45,13 +47,16 @@ if __name__ == "__main__":
     sampler = sample.FileSampler(par_file)
     statistic = stats.LearningInfo()
 
-    meta = metaheuristic.NoMetaheuristic(
-        scorer,
-        sampler,
-        statistic=statistic
-    )
+    if not args.dynamic:
+        meta = metaheuristic.NoMetaheuristic(
+            scorer, sampler, statistic=statistic
+        )
+    else:
+        meta = metaheuristic.HillClimbing(
+            scorer, sampler, statistic=statistic
+        )
 
-    comb = combine.SimpleCombiner(meta, verbose=True)
+    comb = combine.SimpleCombiner(meta, verbose=args.verbose)
 
     comb.run()
     #print([(pop.f_score(1.0), pop.f_score(100.0)) for pop in meta.population])

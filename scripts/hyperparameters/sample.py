@@ -35,7 +35,6 @@ class Sample:
 
         self.stats: dict = dict()
         self.run_id: int = -1
-        self.n_patterns: int = -1
 
     def __eq__(self, other):
         """
@@ -63,7 +62,7 @@ class Sample:
     def __str__(self):
         return (f"Sample {self.run_id}: prev={self.prev} pat_start={self.pat_start} pat_finish={self.pat_finish} "
                 f"good_weight={self.good_weight} bad_weight={self.bad_weight} threshold={self.threshold} "
-                f"n_patterns={self.n_patterns} precision={round(self.precision(), 3)} recall={round(self.recall(), 3)}")
+                f"n_patterns={self.stats.get('n_patterns', -1)} precision={round(self.precision(), 3)} recall={round(self.recall(), 3)}")
 
     def copy(self, new_vals=None):
         """

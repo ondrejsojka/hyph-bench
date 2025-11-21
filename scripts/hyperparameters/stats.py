@@ -145,7 +145,7 @@ class PatternsInfo:
         path = abspath.split("/")
         self.lang = "" if len(path) < 3 else path[-3]
         self.dataset_name = "" if len(path) < 2 else path[-2]
-        self.n_patterns = s.n_patterns
+        self.n_patterns = s.stats.get("n_patterns", -1)
         self.size_bytes = os.path.getsize(file)
         self.levels = 0
         len_total = 0

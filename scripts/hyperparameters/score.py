@@ -36,7 +36,6 @@ class PatgenScorer:
         """
         Evaluate hyperparameter setting and set corresponding attributes in sample
         :param s: hyperparameter values in Sample object
-        :return: setting score (number of patterns, precision, recall)
         """
         run_id = self.max_id + 1
         s.run_id = run_id
@@ -44,10 +43,8 @@ class PatgenScorer:
 
         s_hash = s.__hash__()
         if s_hash in self._cached:
-            pat, stats = self._cached[s_hash]
-            s.stats = stats
-            s.n_patterns = pat
-            return pat, s.precision(), s.recall()
+            stats = self._cached[s_hash]
+            s.stats = stats.copy()
 
         with open(f"{self.temp_dir}/{run_id}.in", "w") as par:
             par.write("\n".join([f"{s.level} {s.level}",
@@ -67,19 +64,15 @@ class PatgenScorer:
                             f"{self.temp_dir}/{run_id}.log"])
         os.system(command)
 
-        n_patterns = self.count_patterns(run_id)
-
         stats = self.get_statistics(run_id)
-        self._cached[s_hash] = (n_patterns, stats)
+        stats["n_patterns"] = self.count_patterns(run_id)
+        self._cached[s_hash] = stats
 
         s.stats = stats
-        s.n_patterns = n_patterns
         s.timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
         if self.verbose:
             print(str(s))
-
-        return s.stats["trie_nodes"], s.f_score(1/7)
 
     def count_patterns(self, run_id: int):
         """

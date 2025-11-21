@@ -56,9 +56,13 @@ class HillClimbing(Metaheuristic):
     """
     Hill climbing metaheuristic: always choose the best neighbour
     """
-    def __init__(self, scorer: score.PatgenScorer, sampler: sample.Sampler, n_samples: int = 1, statistic: stats.LearningInfo = None):
+    def __init__(self, scorer: score.PatgenScorer, sampler: sample.Sampler, n_samples: int = 1, statistic: stats.LearningInfo = None, eval_func = None):
         super().__init__(scorer, sampler, n_samples, statistic)
         self.visited = set()
+        if eval_func is None:
+            self.eval_func = (lambda x, y: x.f_score(1) > y.f_score(1) and x.stats.get("n_patterns", -1) < y.stats.get("n_patterns", -1))
+        else:
+            self.eval_func = eval_func
 
     def reset(self):
         Metaheuristic.reset(self)
@@ -69,15 +73,13 @@ class HillClimbing(Metaheuristic):
 
         for i in range(self.population_size):
 
-            nodes_old = self.population[i].stats["trie_nodes"]
-            nodes_new = nodes_old
-            f_old = self.population[i].f_score(1/7)
+            old = self.population[i]
 
             for n in self.get_neighbours(i):
-                trie_nodes, f = self.scorer.score(n)
-                if trie_nodes < nodes_old and f > f_old and trie_nodes < nodes_new:
+                self.scorer.score(n)
+                if self.eval_func(n, old):
                     self.population[i] = n
-                    nodes_new = trie_nodes
+                    old = n
                     climbed = True
 
         return climbed
