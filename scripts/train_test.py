@@ -83,15 +83,16 @@ class Validator:
         trie_nodes = round(self.results["trie_nodes"], 1)
         return f"{lang} & {name} & {profile} & {f_score:.4f} & {trie_nodes:.1f} \\\\"
 
-    def train_patterns(self, train_file: str):
+    def train_patterns(self, train_file: str, tmp_suffix: str = ""):
         """
         Create patterns from train split
         :param train_file: path to train dataset
+        :param tmp_suffix: suffix to temporary directory name
         :return: path to pattern file, the number of nodes in pattern trie
         """
 
         self.model.meta.scorer.wordlist_path = train_file
-        self.model.reset()
+        self.model.reset(tmp_suffix)
         pattern_file, trie_nodes = self.model.run(self.model.meta.scorer.temp_dir)
         self.model.meta.scorer.wordlist_path = ""
 
@@ -150,13 +151,14 @@ class NFoldCrossValidator(Validator):
         super().__init__(model, translate_file)
         self.n = n
 
-    def n_fold_split(self, wordlist_file: str, index: int = 0, outfile_train: str = "", outfile_test: str = ""):
+    def n_fold_split(self, wordlist_file: str, index: int = 0, outfile_train: str = "", outfile_test: str = "", tmp_suffix: str = ""):
         """
         Split dataset into train and test in 1:<n>-1 ratio
         :param wordlist_file: path to wordlist
         :param index: which of the n splits to use for test (when used for cross-validation)
         :param outfile_train: name of output train file (<file>.train by default)
         :param outfile_test: name of output test file (<file>.test by default)
+        :param tmp_suffix: suffix to temporary directory name
         :return: (train file name, test file name)
         """
         p = wordlist_file.rsplit("/", maxsplit=1)
@@ -169,11 +171,11 @@ class NFoldCrossValidator(Validator):
             os.mkdir(wl_dir + "/test")
 
         if not outfile_train:
-            outfile_train = wl_dir + "/test/data.train"
+            outfile_train = wl_dir + "/test/data.train" + tmp_suffix
         train = open(outfile_train, "w")
 
         if not outfile_test:
-            outfile_test = wl_dir + "/test/data.test"
+            outfile_test = wl_dir + "/test/data.test" + tmp_suffix
         test = open(outfile_test, "w")
 
         with open(wordlist_file) as wordlist:
@@ -196,13 +198,14 @@ class NFoldCrossValidator(Validator):
         """
         results = []
         for i in range(self.n):
+            suffix = str(i)
             if verbose:
                 print(f"Validation step {i+1}/{self.n}")
                 print("Creating train-test split...")
-            train, test = self.n_fold_split(wordlist_file, index=i)
+            train, test = self.n_fold_split(wordlist_file, index=i, tmp_suffix=suffix)
             if verbose:
                 print("Generating patterns...")
-            patterns, trie_nodes = self.train_patterns(train)
+            patterns, trie_nodes = self.train_patterns(train, tmp_suffix=suffix)
             if verbose:
                 print("Validation on test set...")
             results.append((self.validate_patterns(test, patterns), trie_nodes))

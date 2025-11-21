@@ -36,11 +36,12 @@ class Combiner:
         os.system(command)
         return new_patfile, best.stats["trie_nodes"]
 
-    def reset(self):
+    def reset(self, tmp_suffix: str = ""):
         """
         Reset the object to initial state.
+        :param tmp_suffix: suffix to temporary directory name
         """
-        self.meta.reset()
+        self.meta.reset(tmp_suffix)
         self.level = 0
 
 

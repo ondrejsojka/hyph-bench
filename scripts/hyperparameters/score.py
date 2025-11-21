@@ -9,7 +9,7 @@ class PatgenScorer:
     """
     Class for patgen hyperparameter setting evaluation
     """
-    def __init__(self, patgen_path: str, wordlist_path: str, translate_path: str, verbose: bool = False):
+    def __init__(self, patgen_path: str, wordlist_path: str, translate_path: str, verbose: bool = False, tmp_suffix: str = ""):
         self.patgen_path: str = patgen_path
         self.wordlist_path: str = wordlist_path
         self.translate_path: str = translate_path
@@ -20,10 +20,10 @@ class PatgenScorer:
             tmp_path = "/".join(wl_dir[:-1])
         else:
             tmp_path = "."
-        if "tmp" not in os.listdir(tmp_path):
-            os.mkdir(tmp_path+"/tmp")
+        if "tmp"+tmp_suffix not in os.listdir(tmp_path):
+            os.mkdir(tmp_path+"/tmp"+tmp_suffix)
 
-        self.temp_dir: str = tmp_path+"/tmp"
+        self.temp_dir: str = tmp_path+"/tmp"+tmp_suffix
 
         if "0.pat" not in os.listdir(self.temp_dir):
             os.system(f"touch {self.temp_dir}/0.pat")
@@ -50,7 +50,7 @@ class PatgenScorer:
             par.write("\n".join([f"{s.level} {s.level}",
                                  f"{s.pat_start} {s.pat_finish}",
                                  f"{s.good_weight} {s.bad_weight} {s.threshold}",
-                                 "n",
+                                 "y",
                                  ""]
                                 )
                       )
@@ -63,6 +63,10 @@ class PatgenScorer:
                             self.translate_path, ") >",
                             f"{self.temp_dir}/{run_id}.log"])
         os.system(command)
+
+        for f in os.listdir():
+            if f.startswith("pattmp."):
+                os.system(f"mv {f} {self.temp_dir}/{run_id}.pattmp")
 
         stats = self.get_statistics(run_id)
         stats["n_patterns"] = self.count_patterns(run_id)
@@ -137,19 +141,20 @@ class PatgenScorer:
         """
         self._cached.clear()
 
-    def reset(self):
+    def reset(self, tmp_suffix: str = ""):
         """
         Reset the object to initial state
+        :param tmp_suffix: suffix to temporary directory name
         """
         wl_dir = self.wordlist_path.split("/")
         if len(wl_dir) > 1:
             tmp_path = "/".join(wl_dir[:-1])
         else:
             tmp_path = "."
-        if "tmp" not in os.listdir(tmp_path):
-            os.mkdir(tmp_path + "/tmp")
+        if "tmp"+tmp_suffix not in os.listdir(tmp_path):
+            os.mkdir(tmp_path + "/tmp" + tmp_suffix)
 
-        self.temp_dir: str = tmp_path + "/tmp"
+        self.temp_dir: str = tmp_path + "/tmp" + tmp_suffix
 
         if "0.pat" not in os.listdir(self.temp_dir):
             os.system(f"touch {self.temp_dir}/0.pat")

@@ -28,7 +28,7 @@ class Metaheuristic:
         """
         while self.new_population():
             continue
-        self.scorer.clean_unused(self.get_ids())
+        #self.scorer.clean_unused(self.get_ids())
         self.scorer.clear_cache()
 
     def get_ids(self):
@@ -41,11 +41,12 @@ class Metaheuristic:
         else:
             return {0}
 
-    def reset(self):
+    def reset(self, tmp_suffix: str = ""):
         """
         Reset the object to initial state
+        :param tmp_suffix: suffix to temporary directory name
         """
-        self.scorer.reset()
+        self.scorer.reset(tmp_suffix)
         self.sampler.reset()
         if self.statistic is not None:
             self.statistic.reset()
