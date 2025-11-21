@@ -9,13 +9,15 @@ class Validator:
     """
     Class for evaluation of patgen runs and their parameters. Abstract class, instantiate one of its subclasses
     """
-    def __init__(self, model: combine.Combiner):
+    def __init__(self, model: combine.Combiner, translate_file: str):
         """
         Create superclass validator. Should not be called by itself.
         :param model: model to evaluate
+        :param translate_file: path to translate file
         """
         self.model = model
         self.hyphenation_mark = "-"
+        self.translate_file = translate_file
         self.results = None
 
     def process_results(self, results: list):
@@ -102,7 +104,7 @@ class Validator:
         :param pattern_file: path to trained patterns
         :return: computed statistics (TP, FP, FN)
         """
-        hyphenator = Hyphenator(pattern_file, hyphenation_mark=self.hyphenation_mark)
+        hyphenator = Hyphenator(pattern_file, hyphenation_mark=self.hyphenation_mark, translate_file=self.translate_file)
         good, bad, missed = 0, 0, 0
         with open(test_file) as test:
             for correct in test:
@@ -138,13 +140,14 @@ class NFoldCrossValidator(Validator):
     """
     N-fold cross-validation
     """
-    def __init__(self, model: combine.Combiner, n: int):
+    def __init__(self, model: combine.Combiner, translate_file: str, n: int):
         """
         Create validator
         :param model: model to evaluate
+        :param translate_file: path to translate file
         :param n: number of folds
         """
-        super().__init__(model)
+        super().__init__(model, translate_file)
         self.n = n
 
     def n_fold_split(self, wordlist_file: str, index: int = 0, outfile_train: str = "", outfile_test: str = ""):
@@ -258,7 +261,7 @@ if __name__ == "__main__":
     meta = metaheuristic.NoMetaheuristic(scorer, sampler)
     combiner = combine.SimpleCombiner(meta, verbose=args.verbose)
 
-    validator = NFoldCrossValidator(combiner, args.nfold)
+    validator = NFoldCrossValidator(combiner, tr, args.nfold)
     validator.validate(wl, verbose=args.verbose)
 
     path = datadir.split("/")

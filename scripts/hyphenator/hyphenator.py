@@ -6,12 +6,18 @@ class Hyphenator:
     """
     Simple word hyphenator
     """
-    def __init__(self, patterns: str = "", word_boundary: str = ".", hyphenation_mark: str = "-", left_hyphen_min: int = 1, right_hyphen_min: int = 1):
+    def __init__(self, patterns: str = "", word_boundary: str = ".", hyphenation_mark: str = "-", left_hyphen_min: int = 1, right_hyphen_min: int = 1, translate_file = None):
         self.patterns = trie.Trie()
         if patterns:
             self.patterns.populate(patterns)
         self.word_boundary = word_boundary if word_boundary else "."
         self.hyphenation_mark = hyphenation_mark
+        if translate_file is not None:
+            with open(translate_file)as tr:
+                line = tr.readline().split()
+                if len(line) >= 2 and line[0].isnumeric() and line[1].isnumeric():
+                    left_hyphen_min = int(line[0])
+                    right_hyphen_min = int(line[1])
         self.left_hyphen_min = left_hyphen_min
         self.right_hyphen_min = right_hyphen_min
 
