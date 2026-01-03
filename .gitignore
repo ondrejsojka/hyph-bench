@@ -8,3 +8,4 @@ wikt_dump
 **/*_dis.wlh
 **/test
 !**/uk/wiktionary/
+results/*
