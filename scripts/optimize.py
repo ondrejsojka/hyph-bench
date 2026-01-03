@@ -172,8 +172,8 @@ def main():
                         help='Beta for F-score (default: 1/7 for F_1/7)')
     parser.add_argument('--trie-weight', type=float, default=0.0001,
                         help='Weight for trie size penalty in f17_trie (default: 0.0001)')
-    parser.add_argument('--trie-normalizer', type=float, default=50000,
-                        help='Normalizer for trie size in f17_trie (default: 50000)')
+    parser.add_argument('--trie-normalizer', type=float, default=30000,
+                        help='Normalizer for trie size in f17_trie (default: 30000)')
 
     # Optimization parameters
     parser.add_argument('--iterations', type=int, default=50,
@@ -254,8 +254,8 @@ def main():
     state_path = os.path.join(args.output_dir, f'{args.lang}_gp_state.pkl')
     csv_path = os.path.join(args.output_dir, f'{args.lang}_history.csv')
 
-    # Define bounds: 4 bad_weights (1-9) + 1 threshold (1-5)
-    bounds = [(1, 9)] * 4 + [(1, 5)]
+    # Define bounds: 4 bad_weights (1-30) + 1 threshold (1-5)
+    bounds = [(1, 30)] * 4 + [(1, 5)]
 
     # Determine min samples for GP based on coarse grid
     if args.coarse_grid:
