@@ -2,8 +2,8 @@ import argparse
 import os
 import sys
 
-from hyperparameters import combine, score, sample, metaheuristic
-from hyphenator.hyphenator import Hyphenator
+from .hyperparameters import combine, score, sample, metaheuristic
+from .hyphenator.hyphenator import Hyphenator
 
 class Validator:
     """

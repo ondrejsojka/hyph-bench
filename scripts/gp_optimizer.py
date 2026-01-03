@@ -19,30 +19,31 @@ class GPOptimizer:
     """
     Gaussian Process optimizer for patgen parameters.
 
-    Optimizes 4 parameters: bad_weight for each of 4 levels.
-    Uses exploration (UCB) and exploitation strategy.
-
-    Parameter space:
-        bad_1, bad_2, bad_3, bad_4 in [1, 9] (integers)
-
-    Fixed values:
-        good_weight = 1 (all layers)
-        threshold = configurable (default 5)
-        pat_start, pat_finish from profile
+    Optimizes N integer parameters using Upper Confidence Bound (UCB).
     """
 
     def __init__(self, objective: ObjectiveFunction, seed: int = 42,
-                 param_range: Tuple[int, int] = (1, 9),
+                 bounds: List[Tuple[int, int]] = None,
                  min_samples_for_gp: int = 5):
+        """
+        Initialize GP Optimizer.
+
+        Args:
+            objective: Objective function to minimize/maximize
+            seed: Random seed
+            bounds: List of (min, max) tuples for each dimension
+            min_samples_for_gp: Minimum samples before fitting GP
+        """
         self.objective = objective
         self.rng = np.random.RandomState(seed)
-        self.param_range = param_range
+        self.bounds = bounds if bounds else [(1, 9)] * 4
+        self.n_dims = len(self.bounds)
         self.min_samples_for_gp = min_samples_for_gp
 
-        # 4-dimensional Matern kernel (good for integer parameters)
+        # N-dimensional Matern kernel
         kernel = Matern(
             nu=2.5,
-            length_scale=[1.0] * 4,
+            length_scale=[1.0] * self.n_dims,
             length_scale_bounds=(1e-3, 1e3)
         ) + WhiteKernel(
             noise_level=0.1,
@@ -60,28 +61,28 @@ class GPOptimizer:
         self.y: List[float] = []          # Score history
         self.results: List[Dict] = []     # Full results history
 
-    def _random_params(self) -> Tuple[int, int, int, int]:
-        """Generate random parameter set within range."""
-        low, high = self.param_range
-        return tuple(self.rng.randint(low, high + 1, size=4))
+    def _random_params(self) -> Tuple[int, ...]:
+        """Generate random parameter set within bounds."""
+        return tuple(self.rng.randint(low, high + 1) for low, high in self.bounds)
 
     def generate_coarse_grid(self, step: int = 4) -> List[Tuple[int, ...]]:
         """
-        Generate coarse grid of parameters for warmup phase.
-
+        Generate coarse grid of parameters.
+        
         Args:
-            step: Step size for grid (default 4 gives [1,5,9] for range [1,9])
-
-        Returns:
-            List of parameter tuples covering the grid
+            step: Step size (applied to all dimensions)
         """
         from itertools import product
-        low, high = self.param_range
-        values = list(range(low, high + 1, step))
-        if high not in values:
-            values.append(high)
-        grid = list(product(values, repeat=4))
-        self.rng.shuffle(grid)  # Randomize order
+        
+        dim_values = []
+        for low, high in self.bounds:
+            vals = list(range(low, high + 1, step))
+            if high not in values:
+                vals.append(high)
+            dim_values.append(vals)
+            
+        grid = list(product(*dim_values))
+        self.rng.shuffle(grid)
         return [tuple(g) for g in grid]
 
     def _predict(self, params: Tuple[int, ...]) -> Tuple[float, float]:
@@ -287,7 +288,7 @@ class GPOptimizer:
             'X': self.X,
             'y': self.y,
             'results': self.results,
-            'param_range': self.param_range,
+            'bounds': self.bounds,
             'objective_name': self.objective.name,
         }
         os.makedirs(os.path.dirname(path) if os.path.dirname(path) else '.', exist_ok=True)
@@ -298,13 +299,6 @@ class GPOptimizer:
     def load(cls, path: str, objective: ObjectiveFunction) -> 'GPOptimizer':
         """
         Load optimizer state from file.
-
-        Args:
-            path: Path to saved state
-            objective: Objective function to use
-
-        Returns:
-            GPOptimizer with loaded state
         """
         opt = cls(objective)
         if os.path.exists(path):
@@ -314,15 +308,17 @@ class GPOptimizer:
             opt.X = state['X']
             opt.y = state['y']
             opt.results = state['results']
-            if 'param_range' in state:
-                opt.param_range = state['param_range']
+            if 'bounds' in state:
+                opt.bounds = state['bounds']
+            elif 'param_range' in state:
+                # Backwards compatibility
+                opt.bounds = [state['param_range']] * 4
+            opt.n_dims = len(opt.bounds)
         return opt
 
     def get_history_dataframe(self):
         """
         Return optimization history as a pandas DataFrame.
-
-        Requires pandas to be installed.
         """
         import pandas as pd
 
@@ -330,10 +326,6 @@ class GPOptimizer:
         for i, r in enumerate(self.results):
             row = {
                 'iteration': i,
-                'bad_1': r['params'][0],
-                'bad_2': r['params'][1],
-                'bad_3': r['params'][2],
-                'bad_4': r['params'][3],
                 'good': r['good'],
                 'bad': r['bad'],
                 'missed': r['missed'],
@@ -341,6 +333,9 @@ class GPOptimizer:
                 'trie_nodes': r['trie_nodes'],
                 'score': r['score'],
             }
+            # Add params dynamically
+            for j, p in enumerate(r['params']):
+                row[f'param_{j+1}'] = p
             rows.append(row)
 
         return pd.DataFrame(rows)

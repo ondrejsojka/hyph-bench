@@ -66,6 +66,45 @@ class F17Score(ObjectiveFunction):
         return f"F_1/{int(1/self.beta)}"
 
 
+class F17WithTrieSize(ObjectiveFunction):
+    """
+    F_{1/7} with penalty for large trie size.
+
+    score = f17 - lambda * (trie_nodes / normalizer)
+
+    This encourages smaller, more generalizable pattern sets.
+    The trie node count correlates with generalization - smaller tries
+    often generalize better to unseen words.
+    """
+
+    def __init__(self, beta: float = 1/7, trie_weight: float = 0.0001,
+                 trie_normalizer: float = 50000):
+        self.beta = beta
+        self.trie_weight = trie_weight
+        self.trie_normalizer = trie_normalizer
+
+    def score(self, good: int, bad: int, missed: int,
+              trie_nodes: int = 0, **kwargs) -> float:
+        # Compute F1/7
+        if good == 0:
+            return 0.0
+        precision = good / (good + bad) if (good + bad) > 0 else 0.0
+        recall = good / (good + missed) if (good + missed) > 0 else 0.0
+        if precision == 0 or recall == 0:
+            return 0.0
+        beta_sq = self.beta ** 2
+        f17 = (1 + beta_sq) * precision * recall / ((beta_sq * precision) + recall)
+
+        # Penalize large tries
+        trie_penalty = self.trie_weight * (trie_nodes / self.trie_normalizer)
+
+        return f17 - trie_penalty
+
+    @property
+    def name(self) -> str:
+        return f"F17+Trie(w={self.trie_weight})"
+
+
 class BoundedBadMinSize(ObjectiveFunction):
     """
     Hard constraint on bad hyphenations, then minimize pattern size.
@@ -157,12 +196,43 @@ class PrecisionRecallCurve(ObjectiveFunction):
         return "PRCurve"
 
 
+class MinimizeSizeUnderBad(ObjectiveFunction):
+    """
+    Minimize pattern count while keeping bad hyphenations under a threshold.
+    Also incorporates a gentle reward for 'good' hyphenations.
+    """
+    def __init__(self, bad_threshold: int = 500, good_weight: float = 0.01):
+        self.bad_threshold = bad_threshold
+        self.good_weight = good_weight
+
+    def score(self, good: int, bad: int, missed: int,
+              n_patterns: int = 0, **kwargs) -> float:
+        # 1. Hard constraint on bad hyphenations
+        if bad > self.bad_threshold:
+            # Penalize heavily if over limit
+            return -float(bad) 
+        
+        # 2. Primary objective: Minimize patterns
+        # We use a large base (10k) so that fewer patterns = higher score.
+        size_score = (10000 - n_patterns)
+        
+        # 3. Secondary objective: Gentle bonus for good hyphenations
+        # 1 pattern saved is worth 100 good hyphenations (at weight 0.01)
+        good_bonus = self.good_weight * good
+        
+        return size_score + good_bonus
+
+    @property
+    def name(self) -> str:
+        return f"MinSizeUnderBad(limit={self.bad_threshold})"
+
+
 def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     """
     Factory function to get objective by name.
 
     Args:
-        name: One of 'f17', 'bounded_bad', 'weighted', 'pr_curve'
+        name: One of 'f17', 'bounded_bad', 'weighted', 'pr_curve', 'min_size'
         **kwargs: Additional arguments for the objective
 
     Returns:
@@ -170,9 +240,11 @@ def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     """
     objectives = {
         'f17': F17Score,
+        'f17_trie': F17WithTrieSize,
         'bounded_bad': BoundedBadMinSize,
         'weighted': WeightedScore,
         'pr_curve': PrecisionRecallCurve,
+        'min_size': MinimizeSizeUnderBad,
     }
 
     if name not in objectives:
