@@ -1,5 +1,7 @@
 # Hyph-bench: Benchmark Dataset of Hyphenated Words for Generating Hyphenation Patterns
 
+version 1.0
+
 Raw data and scripts for creating and evaluating hyphenated word lists in several languages.
 
 ## Repository structure
@@ -24,3 +26,27 @@ Python scripts and packages used for data preprocessing, evaluation, and reporti
 
 ### wikt_dump.zip
 Compressed directory with JSON dump files of Wiktionary datasets.
+
+## Licences
+Please acknowledge the allowed usage of the data:
+
+| Dataset               | Licence          | Note |
+|-----------------------|------------------|------|
+| cs/cshyphen\_cstenten |  CC BY-NC-SA 3.0 | |
+| cs/cshyphen\_ujc      | MIT              | |
+| cs/wiktionary         | CC BY-SA 4.0     | |
+| cssk/cshyphen         | MIT              | |
+| de/wiktionary         | CC BY-SA 4.0     | |
+| de/wortliste          | MIT              | |
+| el/wiktionary         | CC BY-SA 4.0     | |
+| es/wiktionary         | CC BY-SA 4.0     | |
+| is/hyphenation-is     | CC BY 4.0        | |
+| it/wiktionary         | CC BY-SA 4.0     | |
+| ms/wiktionary         | CC BY-SA 4.0     | |
+| nl/wiktionary         | CC BY-SA 4.0     | |
+| pl/wiktionary         | CC BY-SA 4.0     | |
+| pt/wiktionary         | CC BY-SA 4.0     | |
+| ru/wiktionary         | CC BY-SA 4.0     | |
+| th/orchid             | CC BY-SA 4.0     | licensed in 2025 by Sojka from public domain |
+| tr/wiktionary         | CC BY-SA 4.0     | |
+| uk/wiktionary         | CC BY-SA 4.0     | from Sojka, O.: Transfer Learning of Slavic Syllabification for Hyphenation Patterns (Feb 2025), Bachelor Thesis, Masaryk University, Brno, Faculty of Informatics (advisor: Pavel Šmerk) |
