@@ -77,7 +77,7 @@ class GPOptimizer:
         dim_values = []
         for low, high in self.bounds:
             vals = list(range(low, high + 1, step))
-            if high not in values:
+            if high not in vals:
                 vals.append(high)
             dim_values.append(vals)
             
