@@ -22,7 +22,9 @@ With fixed values:
 import argparse
 import os
 import sys
+import time
 from typing import Tuple, Optional, List
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 from .gp_optimizer import GPOptimizer
 from .objectives import get_objective
@@ -151,6 +153,20 @@ def run_patgen_multilevel(scorer: PatgenScorer, params: Tuple[int, ...],
     }
 
 
+def run_parallel_task(patgen_path: str, wl_path: str, tr_path: str,
+                      params: Tuple[int, ...], pat_ranges: List[Tuple[int, int]],
+                      good_weight: int, verbose: bool, worker_id: int) -> Tuple[Tuple[int, ...], dict]:
+    """
+    Helper for parallel execution of patgen.
+    """
+    scorer = PatgenScorer(patgen_path, wl_path, tr_path, verbose=verbose, tmp_suffix=f"_worker_{worker_id}")
+    try:
+        results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=good_weight)
+        return params, results
+    finally:
+        scorer.clean()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='GP optimization for patgen parameters (bad_weights + threshold)',
@@ -188,6 +204,10 @@ def main():
                         help='Run coarse grid warmup before GP optimization')
     parser.add_argument('--grid-step', type=int, default=4,
                         help='Grid step size (default: 4)')
+    parser.add_argument('--max-bad-weight', type=int, default=30,
+                        help='Maximum bad_weight for search (default: 30)')
+    parser.add_argument('--max-threshold', type=int, default=5,
+                        help='Maximum threshold for search (default: 5)')
 
     # Patgen parameters
     parser.add_argument('--good-weight', type=int, default=1,
@@ -254,8 +274,8 @@ def main():
     state_path = os.path.join(args.output_dir, f'{args.lang}_gp_state.pkl')
     csv_path = os.path.join(args.output_dir, f'{args.lang}_history.csv')
 
-    # Define bounds: 4 bad_weights (1-30) + 1 threshold (1-5)
-    bounds = [(1, 30)] * 4 + [(1, 5)]
+    # Define bounds: 4 bad_weights (1-max) + 1 threshold (1-max)
+    bounds = [(1, args.max_bad_weight)] * 4 + [(1, args.max_threshold)]
 
     # Determine min samples for GP based on coarse grid
     if args.coarse_grid:
@@ -330,12 +350,26 @@ def main():
             print(f"Iteration {iteration + 1}/{args.iterations}")
             suggestions = optimizer.suggest_batch(args.batch_size, ucb_kappa=args.ucb_kappa)
 
-            for params in suggestions:
-                print(f"  Testing: params={params}")
-                scorer.reset()
-                results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
-                score = optimizer.update(params, **results)
-                print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+            if args.batch_size > 1:
+                with ProcessPoolExecutor(max_workers=args.batch_size) as executor:
+                    futures = {
+                        executor.submit(run_parallel_task, args.patgen, wl_path, tr_path,
+                                        params, pat_ranges, args.good_weight, args.verbose, i): params
+                        for i, params in enumerate(suggestions)
+                    }
+
+                    for future in as_completed(futures):
+                        params, results = future.result()
+                        score = optimizer.update(params, **results)
+                        print(f"  Tested: params={params}")
+                        print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+            else:
+                for params in suggestions:
+                    print(f"  Testing: params={params}")
+                    scorer.reset()
+                    results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+                    score = optimizer.update(params, **results)
+                    print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
 
             best = optimizer.best_so_far()
             if best:
@@ -350,12 +384,25 @@ def main():
     # Final exploitation phase
     print(f"\n{'=' * 60}")
     print("Final exploitation phase")
-    best_params = optimizer.exploit_best(n=3)
-    for params in best_params:
-        scorer.reset()
-        results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
-        score = optimizer.update(params, **results)
-        print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+    best_params_to_test = optimizer.exploit_best(n=3)
+
+    if len(best_params_to_test) > 1:
+        with ProcessPoolExecutor(max_workers=len(best_params_to_test)) as executor:
+            futures = {
+                executor.submit(run_parallel_task, args.patgen, wl_path, tr_path,
+                                params, pat_ranges, args.good_weight, args.verbose, i): params
+                for i, params in enumerate(best_params_to_test)
+            }
+            for future in as_completed(futures):
+                params, results = future.result()
+                score = optimizer.update(params, **results)
+                print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+    else:
+        for params in best_params_to_test:
+            scorer.reset()
+            results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+            score = optimizer.update(params, **results)
+            print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
 
     # Final report
     best = optimizer.best_so_far()
