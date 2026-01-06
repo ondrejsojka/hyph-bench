@@ -1,6 +1,4 @@
-# Hyph-bench: Benchmark Dataset of Hyphenated Words for Generating Hyphenation Patterns
-
-version 1.0
+# Gaussian Process Optimization of Hyphenation
 
 Raw data and scripts for creating and evaluating hyphenated word lists in several languages.
 
