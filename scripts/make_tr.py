@@ -30,7 +30,7 @@ def main(args):
 
     upper_used = set()
     with open(args.wordlist + ".tra", "w") as tra:
-        print(f" {left_hyph_min:<2}{right_hyph_min:<2}  {args.hyphmark}", file=tra)
+        print(f"{left_hyph_min:>2}{right_hyph_min:>2}  {args.hyphmark}", file=tra)
         for char in sorted(chars):
             if char != char.upper() and len(char.upper()) == 1 and char.upper() not in upper_used:
                 print(f" {char} {char.upper()}", file=tra)
