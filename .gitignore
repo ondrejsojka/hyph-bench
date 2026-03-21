@@ -1,10 +1,8 @@
 .idea
-wikt_dump
+logs/
 **/tmp
 **/__pycache__/
 **/wiktionary/
-**/*.tra
-**/*_expanded.wlh
-**/*_dis.wlh
+**/*.tr
+**/*.wlh
 **/test
-!**/uk/wiktionary/
