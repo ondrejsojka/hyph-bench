@@ -31,12 +31,15 @@ translate: $(WIKT_TR_FILES) $(OTHER_TR_FILES)
 disambiguate: $(WIKT_WLH_FILES) $(OTHER_WLH_FILES)
 
 %.jsonl : wikt_dump.zip
-	@if echo $(WIKT_JSONL_FILES) | grep -q $@; then unzip -n wikt_dump.zip $(notdir $@) -d $(dir $@); fi
+	@if echo $(WIKT_JSONL_FILES) | grep -q $@; then \
+		LANG_CODE=$$(echo $(notdir $<) | cut -c 1-2); \
+		mkdir -p data/$$LANG_CODE/wiktionary; \
+		unzip -n wikt_dump.zip $(notdir $@) -d $(dir $@); \
+	fi
 
 %.wlhamb : %.jsonl
 	@if echo $(WIKT_JSONL_FILES) | grep -q $<; then \
 		LANG_CODE=$$(echo $(notdir $<) | cut -c 1-2); \
-		mkdir -p data/$$LANG_CODE/wiktionary; \
 		python ./scripts/process_dump.py --lang $$LANG_CODE; \
 	fi
 
@@ -48,4 +51,4 @@ disambiguate: $(WIKT_WLH_FILES) $(OTHER_WLH_FILES)
 
 .PHONY : clean
 clean:
-	rm -f data/*/*/*.jsonl data/*/wiktionary/*.wlhamb data/*/*/*.wlh data/*/*/*.tr logs/
+	rm -rf data/*/*/*.jsonl data/*/wiktionary/*.wlhamb data/*/*/*.wlh data/*/*/*.tr logs/
