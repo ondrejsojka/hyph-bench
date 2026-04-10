@@ -15,8 +15,12 @@ Výsledný seznam je tedy vytvořený s těmito parametry
 - uk_fixed.txt je výsledek následujícího promptu v Gemini 3.1 pro
 - uk_hyphenation_rules.txt jsou přepsaná pravidla
 
-### Prompt
+### Starý Prompt
 Using syllabic hyphenation and the rules provided in the uk_hyphenation_rules.txt file hyphenate each word in 
 the uk_bad.txt file and output them in plaintext in the following format: {input word}={input word hyphenated}. 
 Other than inserting hyphens at the hyphenation points, do not change the words in any other way. 
 
+### Poznámky
+- Všiml jsem si že slovo украіну je v seznamu špatných 2x, takže jsem ho smazal
+- Gemma selhalo když prompt obsahoval všech 511 slov, vygenerovalo dělení pouze pro 467, zbytek jsem dodělal v dalším promptu
+- Zkoušel jsem více specifikovat to (i s příkladem), že chci označit všechny možné švy u slov, které se dají dělit více způsoby, protože mi přišlo, že gemma značí podstatně méně než gemini, ale nevedlo to k žádnému podstatnému zlepšení
