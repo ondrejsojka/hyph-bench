@@ -1,5 +1,5 @@
 <instruction>
-Using syllabic hyphenation and the rules provided, mark all possible hyphenation points in each word.
+Using Ukrainian syllabic hyphenation and the provided Ukrainian hyphenation rules, mark all possible hyphenation points in each word by inserting a hyphen (-). If a word can be hyphenated in multiple ways (e.g., due to Rule 6), combine all valid hyphenation points into a single output string (e.g, сестра=се-ст-ра), but do not add any hyphens that would violate Rule 3 (e.g, академія=ака-де-мія). Strictly adhere to the word=result output format.
 </instruction>
 
 <rules>
