@@ -51,4 +51,4 @@ disambiguate: $(WIKT_WLH_FILES) $(OTHER_WLH_FILES)
 
 .PHONY : clean
 clean:
-	rm -rf data/*/*/*.jsonl data/*/wiktionary/*.wlhamb data/*/*/*.wlh data/*/*/*.tr logs/
+	rm -rf data/*/*/*.jsonl data/*/wiktionary/*.wlhamb data/*/*/*.wlh data/*/*/*.tr
