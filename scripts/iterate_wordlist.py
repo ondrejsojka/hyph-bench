@@ -32,18 +32,18 @@ def get_fix_files():
     response = input("Please re-hyphenate the words and input paths to the results or press enter to stop:\n")
     paths = response.strip().split()
 
-    if paths is []:
+    if paths == []:
         return [], -1
 
     print("Following files provided:")
     for i in range(len(paths)):
         print(f"{i + 1}. {paths[i]}")
 
-    path_i_str = input("Which of the files will be used to update the wordlist?")
-    path_i = int(path_i_str)
+    path_i_str = input("Which of the files will be used to update the wordlist?\n")
+    path_i = int(path_i_str) - 1
 
     print(f"Path {paths[path_i]} will be used")
-    return paths, path_i - 1
+    return paths, path_i
 
 def main():
     parser = argparse.ArgumentParser(
@@ -99,7 +99,7 @@ def main():
             break
 
         compare_fixes(files, iteration_output)
-        implement_fixes(wordlist, files[fix_i], iteration_output)
+        implement_fixes(wordlist, files[fix_i])
 
         n += 1
 
