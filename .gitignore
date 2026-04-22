@@ -9,3 +9,6 @@ wikt_dump
 **/test
 !**/uk/wiktionary/
 results/*
+iter_results/*
+venv/
+hyph_bench.egg-info/

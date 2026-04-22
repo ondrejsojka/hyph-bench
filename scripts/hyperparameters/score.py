@@ -15,20 +15,7 @@ class PatgenScorer:
         self.translate_path: str = translate_path
         self.verbose = verbose
 
-        wl_dir = wordlist_path.split("/")
-        if len(wl_dir) > 1:
-            tmp_path = "/".join(wl_dir[:-1])
-        else:
-            tmp_path = "."
-        if "tmp"+tmp_suffix not in os.listdir(tmp_path):
-            os.mkdir(tmp_path+"/tmp"+tmp_suffix)
-
-        self.temp_dir: str = tmp_path+"/tmp"+tmp_suffix
-
-        if "0.pat" not in os.listdir(self.temp_dir):
-            os.system(f"touch {self.temp_dir}/0.pat")
-
-        self.max_id: int = 0
+        self.__create_temp_env(tmp_suffix)
 
         self._cached: dict = dict()
 
@@ -118,6 +105,14 @@ class PatgenScorer:
 
         return {"tp": tp, "fp": fp, "fn": fn, "trie_nodes" : trie_nodes, "level_patterns": level_patterns}
 
+    def dump_bad(self, output_file: str):
+        pattmp_path = os.path.join(self.temp_dir, "4.pattmp")
+        os.system(f"grep '\\.' {pattmp_path} | sed 's/[-.*]//g' > {output_file}")
+
+    def export_patterns(self, output_path: str):
+        patterns_path = os.path.join(self.temp_dir, "4.pat")
+        os.system(f"mv {patterns_path} {output_path}")
+
     def clean(self):
         """
         Delete al temporary files used during computations.
@@ -149,6 +144,11 @@ class PatgenScorer:
         Reset the object to initial state
         :param tmp_suffix: suffix to temporary directory name
         """
+        self.__create_temp_env(tmp_suffix)
+
+        self.clear_cache()
+
+    def __create_temp_env(self, tmp_suffix: str):
         wl_dir = self.wordlist_path.split("/")
         if len(wl_dir) > 1:
             tmp_path = "/".join(wl_dir[:-1])
@@ -163,5 +163,3 @@ class PatgenScorer:
             os.system(f"touch {self.temp_dir}/0.pat")
 
         self.max_id: int = 0
-
-        self.clear_cache()

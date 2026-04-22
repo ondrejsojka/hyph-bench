@@ -10,5 +10,8 @@ dependencies = [
     "matplotlib>=3.10.8",
 ]
 
+[tool.setuptools]
+py-modules = []
+
 [project.scripts]
 optimize = "scripts.optimize:main"

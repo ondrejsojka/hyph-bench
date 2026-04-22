@@ -104,6 +104,39 @@ class F17WithTrieSize(ObjectiveFunction):
     def name(self) -> str:
         return f"F17+Trie(w={self.trie_weight})"
 
+class F1RTrieSizeOverWordlistSize(ObjectiveFunction):
+    """
+    F_{1/R} with penalty for large trie size.
+
+    score = f1r - lambda * (trie_nodes / word_list)
+    """
+
+    def __init__(self, beta: float = 1/7, trie_weight: float = 0.0001,
+                 wordlist_size: float = 50000):
+        self.beta = beta
+        self.trie_weight = trie_weight
+        self.wordlist_size = wordlist_size
+
+    def score(self, good: int, bad: int, missed: int,
+              trie_nodes: int = 0, **kwargs) -> float:
+        # Compute F1/7
+        if good == 0:
+            return 0.0
+        precision = good / (good + bad) if (good + bad) > 0 else 0.0
+        recall = good / (good + missed) if (good + missed) > 0 else 0.0
+        if precision == 0 or recall == 0:
+            return 0.0
+        beta_sq = self.beta ** 2
+        f1r = (1 + beta_sq) * precision * recall / ((beta_sq * precision) + recall)
+
+        # Penalize large tries
+        trie_penalty = self.trie_weight * (trie_nodes / self.wordlist_size)
+
+        return f1r - trie_penalty
+
+    @property
+    def name(self) -> str:
+        return f"F17+Trie(w={self.trie_weight})"
 
 class BoundedBadMinSize(ObjectiveFunction):
     """
