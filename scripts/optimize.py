@@ -230,12 +230,8 @@ def main():
                         help='Resume from saved state')
     parser.add_argument('--verbose', '-v', action='store_true',
                         help='Verbose output')
-    parser.add_argument('--dump-bad', '-b', action='store_true',
-                        help='Dump words computed by final run of patgen as bad to file')
-    parser.add_argument('--dump-bad-dir', default='results',
-                        help='Dump words computed by final run of patgen as bad to file')
-    parser.add_argument('--export-patterns', '-e', action='store_true',
-                        help='Export the patterns created by gaussian optimization')
+    parser.add_argument('--export-iteration-results', action='store_true',
+                        help='Saves final patterns and badly hyphenated words to the results folder')
 
     args = parser.parse_args()
 
@@ -279,8 +275,8 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     state_path = os.path.join(args.output_dir, f'{args.lang}_gp_state.pkl')
     csv_path = os.path.join(args.output_dir, f'{args.lang}_history.csv')
-    bad_path = os.path.join(args.dump_bad_dir, f'bad.txt')
-    patterns_path = os.path.join(args.output_dir, f'{args.lang}.pat')
+    bad_path = os.path.join(args.output_dir, f'{args.lang}_bad.txt')
+    patterns_path = os.path.join(args.output_dir, f'{args.lang}_final.pat')
 
     # Define bounds: 4 bad_weights (1-max) + 1 threshold (1-max)
     bounds = [(1, args.max_bad_weight)] * 4 + [(1, args.max_threshold)]
@@ -428,13 +424,10 @@ def main():
     optimizer.save(state_path)
     print(f"\nState saved to: {state_path}")
 
-    if args.dump_bad:
+    if args.export_iteration_results:
         scorer.dump_bad(bad_path)
-        print(f"Bad dumped to: {bad_path}")
-
-    if args.export_patterns:
         scorer.export_patterns(patterns_path)
-        print(f"Patterns exported to: {patterns_path}")
+        print(f"Final patterns and bad words available in {args.output_dir}")
 
     try:
         df = optimizer.get_history_dataframe()

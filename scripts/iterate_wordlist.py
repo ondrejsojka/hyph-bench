@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+import shutil
 
 THICK_SPACER = "=" * 50
 THIN_SPACER = "-" * 50
@@ -25,12 +26,7 @@ def compare_fixes(paths: list[str], result_dir: str):
 def run_optimizer(params: str):
     print("\nRunning optimizer")
     print(THIN_SPACER)
-    subprocess.call("python -m scripts.optimize -b " + params, shell=True)
-    
-    print(THIN_SPACER)
-    print("Incorrectly hyphenated words found:")
-    subprocess.call(f"wc -l results/bad.txt", shell=True)
-    print(THIN_SPACER)
+    subprocess.call("python -m scripts.optimize " + params, shell=True)
 
 def get_fix_files(last_order: list[str] = []) -> list[str]:
     print("\nOptimizer output a file to its results dir with words which were incorrectly hyphenated")
@@ -77,11 +73,30 @@ def preprocess_params(params: list[str], wordlist: str, translate: str):
         params.append("--translate")
         params.append(translate)
 
+    try:
+        optimizer_output_dir = params[params.index("--output-dir") + 1]
+    except ValueError:
+        optimizer_output_dir = "results"
+
     def modifer(wordlist_path):
         params[wl_param_i] = wordlist_path
 
-    return modifer
+    params.append("--export-iteration-results")
 
+    return modifer, optimizer_output_dir, params[params.index("--lang") + 1]
+
+def safe_optimizer_results(wl_index: int, output_dir: str, result_dir: str, lang: str):
+    bad_path = os.path.join(output_dir, f"{wl_index}bad.txt")
+    optimizer_csv_path = os.path.join(output_dir, f"{wl_index}optimizer_result.csv")
+    patterns_path = os.path.join(output_dir, f"{wl_index}_{lang}.pat")
+
+    result_bad_path = os.path.join(result_dir, f"{lang}_bad.txt")
+    result_optimizer_csv_path = os.path.join(result_dir, f"{lang}_history.csv")
+    result_patterns_path = os.path.join(result_dir, f"{lang}_final.pat")
+    
+    shutil.move(result_bad_path, bad_path)
+    shutil.move(result_optimizer_csv_path, optimizer_csv_path)
+    shutil.move(result_patterns_path, patterns_path)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -102,16 +117,20 @@ def main():
                              "Default params: --objective bounded_bad --lang uk")
 
     args = parser.parse_args()
+    
     output = args.output_dir
     params = args.optimizer_params.split()
     wl_name = os.path.basename(args.input_wordlist)
     wordlist = os.path.join(TMP_PATH, wl_name)
     iter_folders = os.path.join(output, "iter*")
     prev_wordlists = os.path.join(output, "*.wlh")
-    add_wordlist_to_params = preprocess_params(params, wordlist, args.input_translate)
+    add_wordlist_to_params, optimizer_output, lang \
+        = preprocess_params(params, wordlist, args.input_translate)
 
     os.makedirs(args.output_dir, exist_ok=True)
-    subprocess.call(f"cp {args.input_wordlist} {wordlist}", shell=True)
+    os.makedirs(TMP_PATH, exist_ok=True)
+
+    shutil.copy(args.input_wordlist, wordlist)
     subprocess.call(f"rm -rf {iter_folders}", shell=True)
     subprocess.call(f"rm {prev_wordlists}", shell=True)
 
@@ -129,7 +148,7 @@ def main():
     iteration_output = create_iter_folder(n, output)
     run_optimizer(" ".join(params))
 
-    subprocess.call(f"cp results/bad.txt {iteration_output}", shell=True)
+    shutil.copy("results/bad.txt", iteration_output)
 
     copied_wordlists = []
     fix_files = get_fix_files()
@@ -138,7 +157,7 @@ def main():
     for i, fix in enumerate(fix_files):
         copy_path = os.path.join(TMP_PATH, f"{i}.wlh")
         copied_wordlists.append(copy_path)
-        subprocess.call(f"cp {wordlist} {copy_path}", shell=True)
+        shutil.copy(wordlist, copy_path)
         implement_fixes(copy_path, fix)
 
     while True:
@@ -150,8 +169,7 @@ def main():
         for i, wl in enumerate(copied_wordlists):
             add_wordlist_to_params(wl)
             run_optimizer(" ".join(params))
-            bad_file_name = os.path.join(iteration_output, f"{i}bad.txt")
-            subprocess.call(f"cp results/bad.txt {bad_file_name}", shell=True)
+            safe_optimizer_results(i, iteration_output, optimizer_output, lang)
 
         fixes = get_fix_files(fix_files)
         if not fixes:
@@ -167,8 +185,8 @@ def main():
 
     for i, file in enumerate(fix_files):
         name = os.path.basename(file)
-        result_path = os.path.join(output, name + ".wlh")
-        subprocess.call(f"mv {TMP_PATH}/{i}.wlh {result_path}", shell=True)
+        result_path = os.path.join(output, f"{i}{name}.wlh")
+        shutil.move(f"{TMP_PATH}/{i}.wlh", result_path)
 
 
 if __name__ == "__main__":
