@@ -85,7 +85,7 @@ def preprocess_params(params: list[str], wordlist: str, translate: str):
 
     return modifer, optimizer_output_dir, params[params.index("--lang") + 1]
 
-def safe_optimizer_results(wl_index: int, output_dir: str, result_dir: str, lang: str):
+def save_optimizer_results(wl_index: int, output_dir: str, result_dir: str, lang: str):
     bad_path = os.path.join(output_dir, f"{wl_index}bad.txt")
     optimizer_csv_path = os.path.join(output_dir, f"{wl_index}optimizer_result.csv")
     patterns_path = os.path.join(output_dir, f"{wl_index}_{lang}.pat")
@@ -131,8 +131,10 @@ def main():
     os.makedirs(TMP_PATH, exist_ok=True)
 
     shutil.copy(args.input_wordlist, wordlist)
-    subprocess.call(f"rm -rf {iter_folders}", shell=True)
-    subprocess.call(f"rm {prev_wordlists}", shell=True)
+
+    if (os.path.exists(output)):
+        subprocess.call(f"rm -rf {iter_folders}", shell=True)
+        subprocess.call(f"rm {prev_wordlists}", shell=True)
 
     print(THICK_SPACER)
     print(f"Iterating on {args.input_wordlist}")
@@ -169,7 +171,7 @@ def main():
         for i, wl in enumerate(copied_wordlists):
             add_wordlist_to_params(wl)
             run_optimizer(" ".join(params))
-            safe_optimizer_results(i, iteration_output, optimizer_output, lang)
+            save_optimizer_results(i, iteration_output, optimizer_output, lang)
 
         fixes = get_fix_files(fix_files)
         if not fixes:

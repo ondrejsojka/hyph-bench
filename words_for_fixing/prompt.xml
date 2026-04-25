@@ -3,7 +3,7 @@
 Using Ukrainian syllabic hyphenation and the provided Ukrainian hyphenation rules, mark all possible hyphenation points in each word by inserting a hyphen (-).
 If a word contains a cluster of consonants between vowels, Rule 6 allows it to be hyphenated at any point within that cluster. You must combine all valid hyphenation points into a single output string by placing a hyphen at every allowed break point. For example, since "сестра" can be hyphenated as "се-стра", "сес-тра", or "сест-ра", the combined output must be сестра=се-с-т-ра.
 However, you must strictly adhere to Rule 3: do not include any hyphenation points that would leave or move a single letter at the absolute beginning or end of a word, even if it forms a syllable (e.g., академія=ака-де-мія, NOT а-ка-де-мі-я).
-Strictly adhere to the word=result output format.
+Strictly adhere to the word=result output format. Other than inserting the hyphens, do not alter the word in any other way. Do not alter the order of the words.
 </instruction>
 
 <rules>

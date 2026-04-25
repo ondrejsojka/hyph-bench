@@ -25,6 +25,8 @@ def calculate_kappa(wordlist_a: list[str], wordlist_b: list[str]):
         word_a, word_b = wordlist_a[i], wordlist_b[i]
         
         for i in range(len(word_a)):
+            if i == len(word_b):
+                break
             if word_b[i] == "-" and word_a[i] == "-":
                 tt += 1
             elif word_b[i] == " " and word_a[i] == " ":
