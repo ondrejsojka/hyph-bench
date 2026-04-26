@@ -12,7 +12,7 @@ while [ $BAD_COUNT -ne 500 ]
 do
     CENTER=$(perl -e "print (($TRIE_WEIGHT_BOTTOM + $TRIE_WEIGHT_TOP) / 2)")
     
-    python -m scripts.optimize --lang uk --objective f17_trie -b --trie-normalizer $TRIE_NORMALIZER --trie-weight $CENTER
+    python -m scripts.optimize --lang uk --export-iteration-results --objective f17_trie --trie-normalizer $TRIE_NORMALIZER --trie-weight $CENTER
 
     BAD_COUNT=$(wc -l results/uk_bad.txt | sed -e 's/ .*//')
 

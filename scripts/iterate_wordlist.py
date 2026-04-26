@@ -150,7 +150,7 @@ def main():
     iteration_output = create_iter_folder(n, output)
     run_optimizer(" ".join(params))
 
-    shutil.copy("results/bad.txt", iteration_output)
+    shutil.copy(os.path.join(optimizer_output, f"{lang}_bad.txt"), iteration_output)
 
     copied_wordlists = []
     fix_files = get_fix_files()
