@@ -36,6 +36,10 @@ def create_dynamic_profile(params: List[int], pat_ranges: List[Tuple[int, int]],
 def main():
     parser = argparse.ArgumentParser(description='Cross-validation for optimized parameters')
     parser.add_argument('--lang', required=True, help='Language code')
+    parser.add_argument('--wordlist', type=str, required=False,
+                        help='Set wordlist to compare params on, requires translate also')
+    parser.add_argument('--translate', type=str, required=False,
+                        help='Translate wordlist for wordlist')
     parser.add_argument('--params', type=int, nargs='+', required=True,
                         help='Best parameters found (4 bad_weights + 1 threshold)')
     parser.add_argument('--profile', type=str, help='Base profile for pat_ranges')
@@ -46,7 +50,10 @@ def main():
     args = parser.parse_args()
     
     # Find dataset
-    wl_path, tr_path = find_dataset(args.lang)
+    if args.wordlist:
+        wl_path, tr_path = args.wordlist, args.translate
+    else:
+        wl_path, tr_path = find_dataset(args.lang)
     print(f"Dataset: {wl_path}")
     
     # Get pattern ranges
