@@ -447,7 +447,7 @@ def main():
         print(f"History saved to: {csv_path}")
     except ImportError:
         print("(pandas not available, skipping CSV export)")
-    # scorer.clean()
+    scorer.clean()
 
 if __name__ == '__main__':
     main()
