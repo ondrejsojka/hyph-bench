@@ -433,9 +433,13 @@ def main():
     print(f"\nState saved to: {state_path}")
 
     if args.export_iteration_results:
+        if args.batch_size > 1:
+            run_patgen_multilevel(scorer, best['params'], pat_ranges, good_weight=args.good_weight)
+
         scorer.dump_bad(bad_path)
+        print(f"Bad words saved to: {bad_path}")
         scorer.export_patterns(patterns_path)
-        print(f"Final patterns and bad words available in {args.output_dir}")
+        print(f"Final patterns saved to: {patterns_path}")
 
     try:
         df = optimizer.get_history_dataframe()
@@ -443,7 +447,7 @@ def main():
         print(f"History saved to: {csv_path}")
     except ImportError:
         print("(pandas not available, skipping CSV export)")
-    scorer.clean()
+    # scorer.clean()
 
 if __name__ == '__main__':
     main()
