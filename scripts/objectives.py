@@ -253,7 +253,7 @@ class F17WithBadCountTarget(ObjectiveFunction):
 
     @property
     def name(self) -> str:
-        return f"F17Target(target={self.bad_target},tol={self.tol},sigma={self.sigma:.0f})"
+        return f"F17Target(target={self.bad_target},tol={self.tol})"
 
 def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     """
