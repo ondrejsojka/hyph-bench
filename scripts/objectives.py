@@ -5,6 +5,7 @@ Each objective implements a score() method that takes patgen results
 and returns a score where higher is better.
 """
 
+import math
 from abc import ABC, abstractmethod
 
 
@@ -103,40 +104,7 @@ class F17WithTrieSize(ObjectiveFunction):
     @property
     def name(self) -> str:
         return f"F17+Trie(w={self.trie_weight})"
-
-class F1RTrieSizeOverWordlistSize(ObjectiveFunction):
-    """
-    F_{1/R} with penalty for large trie size.
-
-    score = f1r - lambda * (trie_nodes / word_list)
-    """
-
-    def __init__(self, beta: float = 1/7, trie_weight: float = 0.0001,
-                 wordlist_size: float = 50000):
-        self.beta = beta
-        self.trie_weight = trie_weight
-        self.wordlist_size = wordlist_size
-
-    def score(self, good: int, bad: int, missed: int,
-              trie_nodes: int = 0, **kwargs) -> float:
-        # Compute F1/7
-        if good == 0:
-            return 0.0
-        precision = good / (good + bad) if (good + bad) > 0 else 0.0
-        recall = good / (good + missed) if (good + missed) > 0 else 0.0
-        if precision == 0 or recall == 0:
-            return 0.0
-        beta_sq = self.beta ** 2
-        f1r = (1 + beta_sq) * precision * recall / ((beta_sq * precision) + recall)
-
-        # Penalize large tries
-        trie_penalty = self.trie_weight * (trie_nodes / self.wordlist_size)
-
-        return f1r - trie_penalty
-
-    @property
-    def name(self) -> str:
-        return f"F17+Trie(w={self.trie_weight})"
+    
 
 class BoundedBadMinSize(ObjectiveFunction):
     """
@@ -259,6 +227,33 @@ class MinimizeSizeUnderBad(ObjectiveFunction):
     def name(self) -> str:
         return f"MinSizeUnderBad(limit={self.bad_threshold})"
 
+class F17WithBadCountTarget(ObjectiveFunction):
+    """
+    F_{1/beta} inside a tolerance band around `bad_target`, while heavily penalized outside.
+    """
+    def __init__(self, bad_target: int = 500, tol: int = 50, beta: float = 1/7):
+        self.bad_target = bad_target
+        self.tol = tol
+        self.beta_sq = beta ** 2
+
+    def score(self, good: int, bad: int, missed: int, **kwargs) -> float:
+        if good == 0:
+            return 0.0
+
+        precision = good / (good + bad) if (good + bad) > 0 else 0.0
+        recall = good / (good + missed) if (good + missed) > 0 else 0.0
+
+        if precision == 0 or recall == 0:
+            return 0.0
+
+        f17 = (1 + self.beta_sq) * precision * recall / ((self.beta_sq * precision) + recall)
+        target_delta = abs(self.bad_target - bad)
+        
+        return -target_delta if target_delta - self.tol > 0 else f17
+
+    @property
+    def name(self) -> str:
+        return f"F17Target(target={self.bad_target},tol={self.tol},sigma={self.sigma:.0f})"
 
 def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     """
@@ -274,6 +269,7 @@ def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     objectives = {
         'f17': F17Score,
         'f17_trie': F17WithTrieSize,
+        'f17_target': F17WithBadCountTarget,
         'bounded_bad': BoundedBadMinSize,
         'weighted': WeightedScore,
         'pr_curve': PrecisionRecallCurve,

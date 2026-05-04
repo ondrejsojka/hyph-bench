@@ -180,7 +180,7 @@ def main():
 
     # Objective configuration
     parser.add_argument('--objective', default='f17',
-                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size'],
+                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size', 'f17_target'],
                         help='Objective function (default: f17)')
     parser.add_argument('--bad-threshold', type=int, default=500,
                         help='Bad threshold for bounded_bad/min_size objectives')
@@ -190,6 +190,11 @@ def main():
                         help='Weight for trie size penalty in f17_trie (default: 0.0001)')
     parser.add_argument('--trie-normalizer', type=float, default=30000,
                         help='Normalizer for trie size in f17_trie (default: 30000)')
+    parser.add_argument('--bad-target', type=float, default=500,
+                        help='Target of bad hyphenations for f17_target (default: 500)')
+    parser.add_argument('--bad-tolerance', type=float, default=500,
+                        help='Tolerance defining interval around bad target ' \
+                             'where F1/7 gets precedence (default: 50)')
 
     # Optimization parameters
     parser.add_argument('--iterations', type=int, default=50,
@@ -242,6 +247,9 @@ def main():
         objective = get_objective('f17_trie', beta=args.beta,
                                   trie_weight=args.trie_weight,
                                   trie_normalizer=args.trie_normalizer)
+    elif args.objective == 'f17_target':
+        objective = get_objective('f17_target', bad_target=args.bad_target,
+                                  tol=args.bad_tolerance, beta=args.beta)
     elif args.objective == 'bounded_bad':
         objective = get_objective('bounded_bad', bad_threshold=args.bad_threshold)
     elif args.objective == 'min_size':
