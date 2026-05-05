@@ -1,0 +1,46 @@
+[
+  {
+    "name": "weighted_f17_trie",
+    "weight": 9,
+    "annotation": "claude_new_prompt",
+    "suk_objective": "f17_trie",
+    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
+    "fuk_objective": "f17_trie",
+    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648",
+    "iterations": 10,
+    "batch_size": 25
+  },
+  {
+    "name": "basic_f17_trie",
+    "weight": 1,
+    "annotation": "claude_new_prompt",
+    "suk_objective": "f17_trie",
+    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
+    "fuk_objective": "f17_trie",
+    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648",
+    "iterations": 10,
+    "batch_size": 25
+  },
+  {
+    "name": "weighted_f17_target",
+    "weight": 9,
+    "annotation": "claude_new_prompt",
+    "suk_objective": "f17_trie",
+    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
+    "fuk_objective": "f17_target",
+    "fuk_args": "--bad-target 250 --bad-tolerance 50",
+    "iterations": 10,
+    "batch_size": 25
+  },
+  {
+    "name": "basic_f17_target",
+    "weight": 1,
+    "annotation": "claude_new_prompt",
+    "suk_objective": "f17_trie",
+    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
+    "fuk_objective": "f17_target",
+    "fuk_args": "--bad-target 250 --bad-tolerance 50",
+    "iterations": 10,
+    "batch_size": 25
+  }
+]

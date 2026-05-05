@@ -83,7 +83,7 @@ def main():
 
         for line in iter(lambda: input.readline(), ''):
             chunks = hyphenator.hyphenate_word(line.strip())
-            hyphenated = hyphen.join(chunks)
+            hyphenated = hyphen.join(chunks) + "\n"
             output.write(hyphenated)
 
 

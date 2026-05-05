@@ -63,7 +63,8 @@ def main():
         pat_ranges = DEFAULT_PAT_RANGES
         
     # Create temporary dynamic profile
-    profile_path = f"results/{args.lang}_dynamic.in"
+    tmp_dir = os.path.dirname(wl_path)
+    profile_path = os.path.join(tmp_dir, f"{args.lang}_dynamic.in")
     create_dynamic_profile(args.params, pat_ranges, args.good_weight, profile_path)
     print(f"Created dynamic profile: {profile_path}")
     

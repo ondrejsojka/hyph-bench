@@ -3,33 +3,34 @@
 WORDLIST=$1
 TRANSLATE=$2
 TRIE_NORMALIZER=$(wc -l $WORDLIST | sed -e 's/ .*//')
-RESULTS="/var/tmp/results"
-BEST_COUNT=0
-BEST_DIFF=500
-BEST_WEIGHT=0
+RESULTS="/var/tmp/xhulka/results"
+TOP=0.5
+BOTTOM=0.1
+WEIGHT=0
+BAD_COUNT=1
 
+mkdir "/var/tmp/xhulka"
 echo "weight,bad_count" > $RESULTS
 
-for ITER in {1..10}
+while [ $BAD_COUNT -ne 500 ]
 do
-    WEIGHT=$(perl -e "print ($ITER / 100_000)")
-    OUTPUT_DIR="/var/tmp/results_$WEIGHT"
+    WEIGHT=$(perl -e "print (($BOTTOM + $TOP) / 2)")
+    OUTPUT_DIR="$RESULTS$WEIGHT"
 
     mkdir $OUTPUT_DIR
     echo "Starting iteration with weight $WEIGHT"
     nice -n +19 python -m scripts.optimize --lang uk --output-dir $OUTPUT_DIR --iterations 4 --batch-size 25 --wordlist $WORDLIST --translate $TRANSLATE --export-iteration-results --objective f17_trie --trie-normalizer $TRIE_NORMALIZER --trie-weight $WEIGHT
 
     BAD_COUNT=$(wc -l $OUTPUT_DIR/uk_bad.txt | sed -e 's/ .*//')
-    DIFF=$(perl -e "print(abs($BAD_COUNT - 500))")
     
-    if [[ DIFF -le BEST_DIFF ]]
+    if [ $BAD_COUNT -lt 500 ] 
     then
-        BEST_COUNT=$BAD_COUNT
-        BEST_DIFF=$DIFF
-        BEST_WEIGHT=$WEIGHT
+        BOTTOM=$WEIGHT
+    else
+        TOP=$WEIGHT
     fi
 
     echo "$WEIGHT,$BAD_COUNT" >> $RESULTS
 done
 
-echo "weight: $BEST_WEIGHT, count: $BEST_COUNT"
+echo "best weight: $WEIGHT, bad count: $BAD_COUNT"
