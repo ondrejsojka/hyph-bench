@@ -75,13 +75,22 @@ class Validator:
         :param name: dataset name
         :param profile: parameter profile name
         :param tabular: output in LaTeX tabular format
-        :return: statistics in desired format
+        :return: a dict with results and statistics in desired format
         """
+        results = {
+            "f_17": self.f_score(1/7),
+            "bad": self.results["bad"],
+            "good": self.results["good"],
+            "missed": self.results["missed"],
+            "trie_nodes": self.results["trie_nodes"],
+        }
+
         if not tabular:
-            return str(self.precision(), self.recall())
+            return results, f"precision={self.precision():.4f}, recall={self.recall():.4f}"
+        
         f_score = round(self.f_score(1/7), 4)
         trie_nodes = round(self.results["trie_nodes"], 1)
-        return f"{lang} & {name} & {profile} & {f_score:.4f} & {trie_nodes:.1f} \\\\"
+        return results, f"{lang} & {name} & {profile} & {f_score:.4f} & {trie_nodes:.1f} \\\\"
 
     def train_patterns(self, train_file: str, tmp_suffix: str = ""):
         """
@@ -270,5 +279,6 @@ if __name__ == "__main__":
     path = datadir.split("/")
     language = "" if len(path) < 2 else path[-2]
     d_name = "" if len(path) < 1 else path[-1]
-    print(validator.report(lang=language, name=d_name, profile=args.profile, tabular=args.tabular))
+    _, report = validator.report(lang=language, name=d_name, profile=args.profile, tabular=args.tabular)
+    print(report)
 

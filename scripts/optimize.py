@@ -23,87 +23,15 @@ import argparse
 import os
 import sys
 import time
-from typing import Tuple, Optional, List
+from typing import Tuple, List
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 from .gp_optimizer import GPOptimizer
 from .objectives import get_objective
 from .hyperparameters.score import PatgenScorer
 from .hyperparameters.sample import Sample
-
-
-# Default pattern ranges per level (from base.in profile)
-DEFAULT_PAT_RANGES = [
-    (1, 4),   # Level 1
-    (2, 5),   # Level 2
-    (2, 6),   # Level 3
-    (2, 7),   # Level 4
-]
-
-
-def find_dataset(lang: str, data_dir: str = None) -> Tuple[str, str]:
-    """
-    Find wordlist and translate file for a language.
-    """
-    if data_dir is None:
-        data_dir = os.path.join(os.path.dirname(__file__), '..', 'data', lang)
-
-    # Check wiktionary subdirectory first (preferred)
-    wikt_dir = os.path.join(data_dir, 'wiktionary')
-    if os.path.exists(wikt_dir):
-        for f in sorted(os.listdir(wikt_dir)):
-            if f.endswith('.wlh'):
-                wl = os.path.join(wikt_dir, f)
-                tr = wl + '.tra'
-                if os.path.exists(tr):
-                    return os.path.abspath(wl), os.path.abspath(tr)
-
-    # Check data directory directly
-    if os.path.exists(data_dir):
-        for f in sorted(os.listdir(data_dir)):
-            if f.endswith('.wlh'):
-                wl = os.path.join(data_dir, f)
-                tr = wl + '.tra'
-                if os.path.exists(tr):
-                    return os.path.abspath(wl), os.path.abspath(tr)
-
-    # Recursive fallback: Find all valid pairs
-    candidates = []
-    if os.path.exists(data_dir):
-        for root, _, files in os.walk(data_dir):
-            for f in sorted(files):
-                if f.endswith('.wlh'):
-                    wl = os.path.join(root, f)
-                    tr = wl + '.tra'
-                    if os.path.exists(tr):
-                        candidates.append((os.path.abspath(wl), os.path.abspath(tr)))
-
-    if len(candidates) == 1:
-        return candidates[0]
-    elif len(candidates) > 1:
-        msg = f"Multiple datasets found for {lang}. Please specify --wordlist and --translate explicitly.\nFound:\n"
-        for wl, _ in candidates:
-            msg += f"  - {wl}\n"
-        raise ValueError(msg)
-
-    raise FileNotFoundError(f"No dataset found for language: {lang} in {data_dir}")
-
-
-def parse_profile(profile_path: str) -> List[Tuple[int, int]]:
-    """
-    Parse a profile file to get pat_start/pat_finish per level.
-    """
-    pat_ranges = []
-    with open(profile_path) as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
-            parts = line.split()
-            if len(parts) >= 2:
-                pat_ranges.append((int(parts[0]), int(parts[1])))
-    return pat_ranges
-
+from .cross_validate import run_cross_validation
+from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
 
 def run_patgen_multilevel(scorer: PatgenScorer, params: Tuple[int, ...],
                           pat_ranges: List[Tuple[int, int]],
@@ -152,8 +80,13 @@ def run_patgen_multilevel(scorer: PatgenScorer, params: Tuple[int, ...],
         'trie_nodes': final_stats['trie_nodes']
     }
 
+def run_parallel_cross_validation(wl_path: str, tr_path, lang: str, params: Tuple[int], 
+                                  pat_ranges: List[Tuple[int, int]], nfold: int,
+                                  good_weight: int, verbose: bool ) -> Tuple[Tuple[int, int], dict]:
+    results, _ = run_cross_validation(wl_path, tr_path, lang, list(params), pat_ranges, nfold, good_weight, verbose)
+    return params, results
 
-def run_parallel_task(patgen_path: str, wl_path: str, tr_path: str,
+def run_parallel_patgen(patgen_path: str, wl_path: str, tr_path: str,
                       params: Tuple[int, ...], pat_ranges: List[Tuple[int, int]],
                       good_weight: int, verbose: bool, worker_id: int) -> Tuple[Tuple[int, ...], dict]:
     """
@@ -180,7 +113,7 @@ def main():
 
     # Objective configuration
     parser.add_argument('--objective', default='f17',
-                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size', 'f17_target'],
+                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size', 'f17_target', 'f17_cv'],
                         help='Objective function (default: f17)')
     parser.add_argument('--bad-threshold', type=int, default=500,
                         help='Bad threshold for bounded_bad/min_size objectives')
@@ -195,6 +128,8 @@ def main():
     parser.add_argument('--bad-tolerance', type=float, default=500,
                         help='Tolerance defining interval around bad target ' \
                              'where F1/7 gets precedence (default: 50)')
+    parser.add_argument('--n-fold', type=int, default=10,
+                        help="How many folds of crossvalidation are done")
 
     # Optimization parameters
     parser.add_argument('--iterations', type=int, default=50,
@@ -254,6 +189,8 @@ def main():
         objective = get_objective('bounded_bad', bad_threshold=args.bad_threshold)
     elif args.objective == 'min_size':
         objective = get_objective('min_size', bad_threshold=args.bad_threshold)
+    elif args.objective == 'f17_cv':
+        objective = get_objective('f17_cv', n_fold=args.n_fold)
     else:
         objective = get_objective(args.objective)
 
@@ -322,9 +259,14 @@ def main():
         for i, params in enumerate(remaining):
             print(f"  Grid [{i+1}/{len(remaining)}]: params={params}")
             scorer.reset()
-            results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+            
+            if args.objective == "f17_cv":
+                results, _ = run_cross_validation(wl_path, tr_path, args.lang, list(params), pat_ranges, good_weight=args.good_weight, nfold=args.n_fold)
+            else:
+                results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+            
             score = optimizer.update(params, **results)
-            print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+            print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
             if (i + 1) % 10 == 0:
                 optimizer.save(state_path)
                 best = optimizer.best_so_far()
@@ -364,24 +306,36 @@ def main():
 
             if args.batch_size > 1:
                 with ProcessPoolExecutor(max_workers=args.batch_size) as executor:
-                    futures = {
-                        executor.submit(run_parallel_task, args.patgen, wl_path, tr_path,
-                                        params, pat_ranges, args.good_weight, args.verbose, i): params
-                        for i, params in enumerate(suggestions)
-                    }
+                    if args.objective == "f17_cv":
+                        futures = {
+                            executor.submit(run_parallel_cross_validation, wl_path, tr_path, args.lang, params, 
+                                            pat_ranges, args.n_fold, args.good_weight, args.verbose)
+                            for params in suggestions
+                        }
+                    else:
+                        futures = {
+                            executor.submit(run_parallel_patgen, args.patgen, wl_path, tr_path,
+                                            params, pat_ranges, args.good_weight, args.verbose, i): params
+                            for i, params in enumerate(suggestions)
+                        }
 
                     for future in as_completed(futures):
                         params, results = future.result()
                         score = optimizer.update(params, **results)
                         print(f"  Tested: params={params}")
-                        print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+                        print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
             else:
                 for params in suggestions:
                     print(f"  Testing: params={params}")
                     scorer.reset()
-                    results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+
+                    if args.objective == 'f17_cv':
+                        results, _ = run_cross_validation(wl_path, tr_path, args.lang, list(params), pat_ranges, nfold=args.n_fold, good_weight=args.good_weight, verbose=args.verbose)
+                    else:
+                        results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+                    
                     score = optimizer.update(params, **results)
-                    print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+                    print(f"    good={results['good']}, bad={results['bad']}, missed={results['missed']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
 
             best = optimizer.best_so_far()
             if best:
@@ -400,21 +354,33 @@ def main():
 
     if len(best_params_to_test) > 1:
         with ProcessPoolExecutor(max_workers=len(best_params_to_test)) as executor:
-            futures = {
-                executor.submit(run_parallel_task, args.patgen, wl_path, tr_path,
-                                params, pat_ranges, args.good_weight, args.verbose, i): params
-                for i, params in enumerate(best_params_to_test)
-            }
+            if args.objective == "f17_cv":
+                futures = {
+                    executor.submit(run_parallel_cross_validation, wl_path, tr_path, args.lang, params, 
+                                    pat_ranges, args.n_fold, args.good_weight, args.verbose)
+                    for params in best_params_to_test
+                }
+            else:
+                futures = {
+                    executor.submit(run_parallel_patgen, args.patgen, wl_path, tr_path,
+                                    params, pat_ranges, args.good_weight, args.verbose, i): params
+                    for i, params in enumerate(best_params_to_test)
+                }
+
             for future in as_completed(futures):
                 params, results = future.result()
                 score = optimizer.update(params, **results)
-                print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+                print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
     else:
         for params in best_params_to_test:
             scorer.reset()
-            results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+            if args.objective == 'f17_cv':
+                results, _ = run_cross_validation(wl_path, tr_path, args.lang, params, pat_ranges, good_weight=args.good_weight, nfold=args.n_fold)
+            else:
+                results = run_patgen_multilevel(scorer, params, pat_ranges, good_weight=args.good_weight)
+
             score = optimizer.update(params, **results)
-            print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results['n_patterns']}, nodes={results['trie_nodes']}, score={score:.4f}")
+            print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
 
     # Final report
     best = optimizer.best_so_far()

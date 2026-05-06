@@ -6,12 +6,12 @@ Uses NFoldCrossValidator from scripts.train_test.
 
 import argparse
 import os
-import sys
+import uuid
 from typing import List, Tuple
 
 from .train_test import NFoldCrossValidator, extract_files
 from .hyperparameters import combine, score, sample, metaheuristic
-from .optimize import parse_profile, DEFAULT_PAT_RANGES, find_dataset
+from .dataset_utls import parse_profile, DEFAULT_PAT_RANGES, find_dataset
 
 
 def create_dynamic_profile(params: List[int], pat_ranges: List[Tuple[int, int]], 
@@ -32,6 +32,31 @@ def create_dynamic_profile(params: List[int], pat_ranges: List[Tuple[int, int]],
             f.write(f"{ps} {pf} {good_weight} {bw} {threshold}\n")
     return output_path
 
+def run_cross_validation(wl_path: str, tr_path, lang: str, params: List[int], 
+                         pat_ranges: List[Tuple[int, int]], nfold: int = 10,
+                         good_weight: int = 1, verbose: bool = False) -> Tuple[dict, str]:
+    tmp_dir = os.path.dirname(wl_path)
+    run_id = str(uuid.uuid4().hex)
+    profile_path = os.path.join(tmp_dir, f"{lang}_dynamic_{run_id}.in")
+
+    create_dynamic_profile(params, pat_ranges, good_weight, profile_path)
+    print(f"Created dynamic profile: {profile_path}")
+    
+    scorer = score.PatgenScorer("patgen", "", tr_path, verbose=verbose, tmp_suffix=run_id)
+    sampler = sample.FileSampler(profile_path)
+    meta = metaheuristic.NoMetaheuristic(scorer, sampler)
+    combiner = combine.SimpleCombiner(meta, verbose=verbose)
+    
+    validator = NFoldCrossValidator(combiner, tr_path, nfold)
+    print(f"Running {nfold}-fold cross-validation...")
+    validator.validate(wl_path, verbose=verbose)
+
+    os.remove(profile_path) 
+    
+    lang_name = os.path.basename(os.path.dirname(wl_path))
+    ds_name = os.path.basename(wl_path).replace("_dis.wlh", "").replace(".wlh", "")
+    
+    return validator.report(lang=lang_name, name=ds_name, profile="dynamic", tabular=True)
 
 def main():
     parser = argparse.ArgumentParser(description='Cross-validation for optimized parameters')
@@ -62,34 +87,14 @@ def main():
     else:
         pat_ranges = DEFAULT_PAT_RANGES
         
-    # Create temporary dynamic profile
-    tmp_dir = os.path.dirname(wl_path)
-    profile_path = os.path.join(tmp_dir, f"{args.lang}_dynamic.in")
-    create_dynamic_profile(args.params, pat_ranges, args.good_weight, profile_path)
-    print(f"Created dynamic profile: {profile_path}")
-    
-    # Setup validator
-    scorer = score.PatgenScorer("patgen", "", tr_path, verbose=args.verbose)
-    sampler = sample.FileSampler(profile_path)
-    meta = metaheuristic.NoMetaheuristic(scorer, sampler)
-    combiner = combine.SimpleCombiner(meta, verbose=args.verbose)
-    
-    validator = NFoldCrossValidator(combiner, tr_path, args.nfold)
-    print(f"Running {args.nfold}-fold cross-validation...")
-    validator.validate(wl_path, verbose=args.verbose)
-    
-    # Report results
-    lang_name = os.path.basename(os.path.dirname(wl_path))
-    ds_name = os.path.basename(wl_path).replace("_dis.wlh", "").replace(".wlh", "")
-    
+    _, report = run_cross_validation(wl_path, tr_path, args.lang, args.params, pat_ranges,
+                                     args.nfold, args.good_weight, args.verbose)
+
     print("\n" + "="*60)
     print("CROSS-VALIDATION RESULTS")
     print("="*60)
-    print(validator.report(lang=lang_name, name=ds_name, profile="dynamic", tabular=True))
+    print(report)
     print("="*60)
-    
-    # Cleanup (optional, keeping profile for reference)
-    # os.remove(profile_path)
 
 if __name__ == "__main__":
     main()

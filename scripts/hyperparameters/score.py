@@ -107,7 +107,7 @@ class PatgenScorer:
 
     def dump_bad(self, output_file: str):
         pattmp_path = os.path.join(self.temp_dir, "4.pattmp")
-        os.system(f"grep '\\.' {pattmp_path} | sed 's/[-.*]//g' > {output_file}")
+        os.system(f"grep '\\.' {pattmp_path} > {output_file}")
 
     def export_patterns(self, output_path: str):
         patterns_path = os.path.join(self.temp_dir, "4.pat")
