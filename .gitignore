@@ -1,14 +1,15 @@
 .idea
 wikt_dump
-**/tmp
+**/tmp*
 **/__pycache__/
 **/wiktionary/
 **/*.tra
 **/*_expanded.wlh
 **/*_dis.wlh
-**/test
+**/test*
 !**/uk/wiktionary/
 results/*
 iter_results/*
 venv/
 hyph_bench.egg-info/
+.vscode/

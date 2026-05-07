@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import shutil
 
 from .hyperparameters import combine, score, sample, metaheuristic
 from .hyphenator.hyphenator import Hyphenator
@@ -9,7 +10,7 @@ class Validator:
     """
     Class for evaluation of patgen runs and their parameters. Abstract class, instantiate one of its subclasses
     """
-    def __init__(self, model: combine.Combiner, translate_file: str):
+    def __init__(self, model: combine.Combiner, translate_file: str, tmp_suffix: str = ""):
         """
         Create superclass validator. Should not be called by itself.
         :param model: model to evaluate
@@ -19,6 +20,7 @@ class Validator:
         self.hyphenation_mark = "-"
         self.translate_file = translate_file
         self.results = None
+        self.tmp_dir_name = f"test{tmp_suffix}"
 
     def process_results(self, results: list):
         """
@@ -150,14 +152,14 @@ class NFoldCrossValidator(Validator):
     """
     N-fold cross-validation
     """
-    def __init__(self, model: combine.Combiner, translate_file: str, n: int):
+    def __init__(self, model: combine.Combiner, translate_file: str, n: int, tmp_suffix: str = ""):
         """
         Create validator
         :param model: model to evaluate
         :param translate_file: path to translate file
         :param n: number of folds
         """
-        super().__init__(model, translate_file)
+        super().__init__(model, translate_file, tmp_suffix=tmp_suffix)
         self.n = n
 
     def n_fold_split(self, wordlist_file: str, index: int = 0, outfile_train: str = "", outfile_test: str = "", tmp_suffix: str = ""):
@@ -176,15 +178,16 @@ class NFoldCrossValidator(Validator):
         else:
             wl_dir = p[0]
 
-        if "test" not in os.listdir(wl_dir):
-            os.mkdir(wl_dir + "/test")
+        tmp_dir = os.path.abspath(os.path.join(wl_dir, self.tmp_dir_name))
+        if not os.path.exists(tmp_dir):
+            os.mkdir(tmp_dir)
 
         if not outfile_train:
-            outfile_train = wl_dir + "/test/data.train" + tmp_suffix
+            outfile_train = os.path.join(tmp_dir, f"data.train{tmp_suffix}")
         train = open(outfile_train, "w")
 
         if not outfile_test:
-            outfile_test = wl_dir + "/test/data.test" + tmp_suffix
+            outfile_test = os.path.join(tmp_dir, f"data.test{tmp_suffix}")
         test = open(outfile_test, "w")
 
         with open(wordlist_file) as wordlist:
@@ -196,7 +199,7 @@ class NFoldCrossValidator(Validator):
 
         train.close()
         test.close()
-        return outfile_train, outfile_test
+        return outfile_train, outfile_test, tmp_dir
 
     def validate(self, wordlist_file: str, verbose: bool = False):
         """
@@ -211,7 +214,7 @@ class NFoldCrossValidator(Validator):
             if verbose:
                 print(f"Validation step {i+1}/{self.n}")
                 print("Creating train-test split...")
-            train, test = self.n_fold_split(wordlist_file, index=i, tmp_suffix=suffix)
+            train, test, tmp_dir = self.n_fold_split(wordlist_file, index=i, tmp_suffix=suffix)
             if verbose:
                 print("Generating patterns...")
             patterns, trie_nodes = self.train_patterns(train, tmp_suffix=suffix)
@@ -221,6 +224,7 @@ class NFoldCrossValidator(Validator):
             os.remove(train)
             os.remove(test)
             os.remove(patterns)
+            shutil.rmtree(tmp_dir)
         self.process_results(results)
         return results
 

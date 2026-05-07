@@ -47,11 +47,12 @@ def run_cross_validation(wl_path: str, tr_path, lang: str, params: List[int],
     meta = metaheuristic.NoMetaheuristic(scorer, sampler)
     combiner = combine.SimpleCombiner(meta, verbose=verbose)
     
-    validator = NFoldCrossValidator(combiner, tr_path, nfold)
+    validator = NFoldCrossValidator(combiner, tr_path, nfold, tmp_suffix=run_id)
     print(f"Running {nfold}-fold cross-validation...")
     validator.validate(wl_path, verbose=verbose)
 
-    os.remove(profile_path) 
+    os.remove(profile_path)
+    scorer.clean()
     
     lang_name = os.path.basename(os.path.dirname(wl_path))
     ds_name = os.path.basename(wl_path).replace("_dis.wlh", "").replace(".wlh", "")

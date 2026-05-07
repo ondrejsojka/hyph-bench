@@ -399,7 +399,7 @@ def main():
     print(f"\nState saved to: {state_path}")
 
     if args.export_iteration_results:
-        if args.batch_size > 1:
+        if args.batch_size > 1 or args.objective == "f17_cv":
             run_patgen_multilevel(scorer, best['params'], pat_ranges, good_weight=args.good_weight)
 
         scorer.dump_bad(bad_path)
