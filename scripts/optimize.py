@@ -113,7 +113,7 @@ def main():
 
     # Objective configuration
     parser.add_argument('--objective', default='f17',
-                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size', 'f17_target', 'f17_cv'],
+                        choices=['f17', 'f17_trie', 'bounded_bad', 'weighted', 'pr_curve', 'min_size', 'f17_target', 'f17_cv', 'f17_target_w_trie'],
                         help='Objective function (default: f17)')
     parser.add_argument('--bad-threshold', type=int, default=500,
                         help='Bad threshold for bounded_bad/min_size objectives')
@@ -185,6 +185,11 @@ def main():
     elif args.objective == 'f17_target':
         objective = get_objective('f17_target', bad_target=args.bad_target,
                                   tol=args.bad_tolerance, beta=args.beta)
+    elif args.objective == 'f17_target_w_trie':
+        objective = get_objective('f17_target_w_trie', bad_target=args.bad_target,
+                                  tol=args.bad_tolerance, beta=args.beta,
+                                  trie_weight=args.trie_weight,
+                                  trie_normalizer=args.trie_normalizer)
     elif args.objective == 'bounded_bad':
         objective = get_objective('bounded_bad', bad_threshold=args.bad_threshold)
     elif args.objective == 'min_size':

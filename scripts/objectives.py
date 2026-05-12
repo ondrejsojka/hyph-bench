@@ -267,6 +267,39 @@ class F17WithBadCountTarget(ObjectiveFunction):
     def name(self) -> str:
         return f"F17Target(target={self.bad_target},tol={self.tol})"
 
+class F17BadTargetWithTrieSize(ObjectiveFunction):
+    """
+    F_{1/beta} inside a tolerance band around `bad_target`, while heavily penalized outside.
+    """
+    def __init__(self, bad_target: int = 500, tol: int = 50, beta: float = 1/7,
+                 trie_weight: float = 0.0001, trie_normalizer: float = 50000):
+        self.bad_target = bad_target
+        self.tol = tol
+        self.beta = beta
+        self.trie_weight = trie_weight
+        self.trie_normalizer = trie_normalizer
+
+    def score(self, good: int, bad: int, missed: int, trie_nodes: int, **kwargs) -> float:
+        if good == 0:
+            return 0.0
+
+        precision = good / (good + bad) if (good + bad) > 0 else 0.0
+        recall = good / (good + missed) if (good + missed) > 0 else 0.0
+
+        if precision == 0 or recall == 0:
+            return 0.0
+
+        beta_sq = self.beta ** 2
+        f17 = (1 + beta_sq) * precision * recall / ((beta_sq * precision) + recall)
+        trie_penalty = self.trie_weight * (trie_nodes / self.trie_normalizer)
+        target_delta = abs(self.bad_target - bad)
+        
+        return -target_delta if target_delta - self.tol > 0 else f17 - trie_penalty
+
+    @property
+    def name(self) -> str:
+        return f"F1/betaTarget(target={self.bad_target},tol={self.tol},trie_weight:{self.trie_weight},trie_normalizer:{self.trie_normalizer})"
+
 def get_objective(name: str, **kwargs) -> ObjectiveFunction:
     """
     Factory function to get objective by name.
@@ -283,6 +316,7 @@ def get_objective(name: str, **kwargs) -> ObjectiveFunction:
         'f17_cv': F17CrossValidation,
         'f17_trie': F17WithTrieSize,
         'f17_target': F17WithBadCountTarget,
+        'f17_target_w_trie': F17BadTargetWithTrieSize,
         'bounded_bad': BoundedBadMinSize,
         'weighted': WeightedScore,
         'pr_curve': PrecisionRecallCurve,
