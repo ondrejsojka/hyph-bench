@@ -44,7 +44,7 @@
     "batch_size": 25
   },
   {
-    "name": "weight_1_f14_target_w/trie",
+    "name": "weight_1_f14_target_w_trie",
     "weight": 1,
     "annotation": "claude_new_prompt",
     "suk_objective": "f17_trie",

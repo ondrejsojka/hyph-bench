@@ -109,7 +109,7 @@ class PatgenScorer:
         return {"tp": tp, "fp": fp, "fn": fn, "trie_nodes" : trie_nodes, "level_patterns": level_patterns}
 
     def dump_bad(self, output_file: str):
-        pattmp_path = os.path.join(self.temp_dir, "4.pattmp")
+        pattmp_path = os.path.join(self.temp_dir, "pattmp.4")
         os.system(f"grep '\\.' {pattmp_path} > {output_file}")
 
     def export_patterns(self, output_path: str):

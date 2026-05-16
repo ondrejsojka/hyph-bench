@@ -158,7 +158,7 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
     lines.append(r"\begin{table}[h]")
     lines.append(r"\centering")
     lines.append(r"\resizebox{\textwidth}{!}{%")
-    lines.append(r"\begin{tabular}{lllrrrrrrrr}")
+    lines.append(r"\begin{tabularx}{Xllrrrrrrrr}")
     lines.append(r"\hline")
     lines.append(
         r"\textbf{Name} & \textbf{Phase} & \textbf{Objective} & \textbf{Bad weights} & "
@@ -169,7 +169,7 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
 
     for row in rows:
         for prefix, label in [("suk", "SUK"), ("fuk", "FUK")]:
-            obj   = _escape_latex(row[f"{prefix}_objective"])
+            obj   = "\\code{" + f_escape_latex(row[f"{prefix}_objective"]) + "}"
             bw    = _escape_latex(str(row[f"{prefix}_bad_weights"]))
             thr   = row[f"{prefix}_threshold"]
             good  = row[f"{prefix}_good"]
@@ -177,7 +177,7 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
             miss  = row[f"{prefix}_missed"]
             npat  = row[f"{prefix}_n_patterns"]
             score = row[f"{prefix}_score"]
-            name_col = _escape_latex(row["name"]) if prefix == "suk" else ""
+            name_col = "\\textbf{" + _escape_latex(row["name"]) + "}" if prefix == "suk" else ""
             if prefix == "fuk":
                 cv_f17   = row["cv_f17"]
                 cv_nodes = row["cv_trie_nodes"]
@@ -188,7 +188,7 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
             )
         lines.append(r"\hline")
 
-    lines.append(r"\end{tabular}}")
+    lines.append(r"\end{tabularx}}")
     lines.append(r"\caption{Optimization results}")
     lines.append(r"\label{tab:opt_results}")
     lines.append(r"\end{table}")
