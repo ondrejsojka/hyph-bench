@@ -6,6 +6,7 @@ human-human and model-human Cohen's kappa. Also reports per-word divergence
 to find where claude_new_prompt diverges from BOTH human annotators.
 """
 
+import argparse
 import os
 import sys
 import numpy as np
@@ -24,6 +25,10 @@ ANNOTATORS = [
     "human_1",
     "human_2",
 ]
+
+
+def to_hyphenated(word: str, positions: set[int]) -> str:
+    return "".join(("-" + ch if i in positions else ch) for i, ch in enumerate(word))
 
 
 def hyphen_positions(rhs: str) -> set[int]:
@@ -132,7 +137,35 @@ def bootstrap_gap(counts_target, counts_baseline, n_boot: int = 10000, seed: int
     return gaps
 
 
+def print_model_gap_table(model_rows, file=None):
+    p = lambda *a: print(*a, file=file)
+    p("\\begin{tabularx}{\\textwidth}{l|XXX}")
+    p("  Model & Avg.~$\\kappa$ & Gap & 95\\% CI \\\\")
+    p("  \\hline")
+    for name, avg, gap, lo, hi in model_rows:
+        safe = name.replace("_", "\\_")
+        p(f"  {safe} & {avg:.4f} & {gap:+.4f} & [{lo:+.4f}, {hi:+.4f}] \\\\")
+    p("\\end{tabularx}")
+
+
+def print_word_disagreement_table(rows, h1_data, h2_data, cnp_data, file=None):
+    p = lambda *a: print(*a, file=file)
+    p("\\begin{tabularx}{\\textwidth}{l|XXX}")
+    p("  Disagreements & h1 & h2 & claude\\_new\\_prompt \\\\")
+    p("  \\hline")
+    for total, _d_hh, _word, i, _d1, _d2 in rows[:10]:
+        h1_w  = to_hyphenated(h1_data[i][0],  h1_data[i][1])
+        h2_w  = to_hyphenated(h2_data[i][0],  h2_data[i][1])
+        cnp_w = to_hyphenated(cnp_data[i][0], cnp_data[i][1])
+        p(f"  {total} & {h1_w} & {h2_w} & {cnp_w} \\\\")
+    p("\\end{tabularx}")
+
+
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model-table", metavar="FILE", help="write model gap LaTeX table to FILE")
+    parser.add_argument("--word-table",  metavar="FILE", help="write word disagreement LaTeX table to FILE")
+    args = parser.parse_args()
     data = {name: load(name) for name in ANNOTATORS}
 
     h1 = data["human_1"]
@@ -175,6 +208,7 @@ def main():
     print("=" * 70)
     print("SAME GAP TEST FOR ALL OTHER MODELS (avg over h1, h2)")
     print("=" * 70)
+    model_rows = []
     for name in ANNOTATORS:
         if name in ("human_1", "human_2"):
             continue
@@ -204,6 +238,7 @@ def main():
         lo, hi = np.percentile(gaps, [2.5, 97.5])
         print(f"  {name:40s} avg_kappa={avg:.4f}  gap={gap:+.4f}  "
               f"95% CI=[{lo:+.4f}, {hi:+.4f}]")
+        model_rows.append((name, avg, gap, lo, hi))
     print()
 
     # Per-word divergence: words where claude_new_prompt disagrees with BOTH humans
@@ -247,6 +282,24 @@ def main():
     print(f"  cnp == human_1              : {n_perfect_h1:>4}  ({n_perfect_h1/n_valid:.1%})")
     print(f"  cnp == human_2              : {n_perfect_h2:>4}  ({n_perfect_h2/n_valid:.1%})")
     print(f"  cnp == h1 OR cnp == h2      : {n_perfect_either:>4}  ({n_perfect_either/n_valid:.1%})")
+
+    print()
+    print("% --- LaTeX table 1: model gap test ---")
+    if args.model_table:
+        with open(args.model_table, "w", encoding="utf-8") as f:
+            print_model_gap_table(model_rows, file=f)
+        print(f"  (written to {args.model_table})")
+    else:
+        print_model_gap_table(model_rows)
+
+    print()
+    print("% --- LaTeX table 2: top-10 disagreed words ---")
+    if args.word_table:
+        with open(args.word_table, "w", encoding="utf-8") as f:
+            print_word_disagreement_table(rows, h1, h2, cnp, file=f)
+        print(f"  (written to {args.word_table})")
+    else:
+        print_word_disagreement_table(rows, h1, h2, cnp)
 
 
 if __name__ == "__main__":

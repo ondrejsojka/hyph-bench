@@ -3,7 +3,6 @@ wikt_dump
 **/tmp*
 **/__pycache__/
 **/wiktionary/
-**/*.tra
 **/*_expanded.wlh
 **/*_dis.wlh
 **/test*
@@ -13,3 +12,4 @@ iter_results/*
 venv/
 hyph_bench.egg-info/
 .vscode/
+thesis/results

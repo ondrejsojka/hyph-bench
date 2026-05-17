@@ -201,7 +201,7 @@ class NFoldCrossValidator(Validator):
         test.close()
         return outfile_train, outfile_test, tmp_dir
 
-    def validate(self, wordlist_file: str, verbose: bool = False):
+    def validate(self, wordlist_file: str, verbose: bool = False, fixed_test: str = None):
         """
         Perform n-fold cross-validation of a model against given dataset
         :param wordlist_file: path to wordlist
@@ -220,7 +220,7 @@ class NFoldCrossValidator(Validator):
             patterns, trie_nodes = self.train_patterns(train, tmp_suffix=suffix)
             if verbose:
                 print("Validation on test set...")
-            results.append((self.validate_patterns(test, patterns), trie_nodes))
+            results.append((self.validate_patterns(test if fixed_test is None else fixed_test, patterns), trie_nodes))
             os.remove(train)
             os.remove(test)
             os.remove(patterns)

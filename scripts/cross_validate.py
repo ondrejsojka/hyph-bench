@@ -19,12 +19,8 @@ def create_dynamic_profile(params: List[int], pat_ranges: List[Tuple[int, int]],
     """
     Create a profile file from optimized parameters.
     """
-    if len(params) == 5:
-        bad_weights = params[:4]
-        threshold = params[4]
-    else:
-        bad_weights = params
-        threshold = 1
+    bad_weights = params[:-1]
+    threshold = params[-1]
         
     with open(output_path, "w") as f:
         for i, (ps, pf) in enumerate(pat_ranges):
@@ -34,7 +30,8 @@ def create_dynamic_profile(params: List[int], pat_ranges: List[Tuple[int, int]],
 
 def run_cross_validation(wl_path: str, tr_path, lang: str, params: List[int], 
                          pat_ranges: List[Tuple[int, int]], nfold: int = 10,
-                         good_weight: int = 1, verbose: bool = False) -> Tuple[dict, str]:
+                         good_weight: int = 1, verbose: bool = False, 
+                         fixed_test: str = None) -> Tuple[dict, str]:
     tmp_dir = os.path.dirname(wl_path)
     run_id = str(uuid.uuid4().hex)
     profile_path = os.path.join(tmp_dir, f"{lang}_dynamic_{run_id}.in")
@@ -49,7 +46,7 @@ def run_cross_validation(wl_path: str, tr_path, lang: str, params: List[int],
     
     validator = NFoldCrossValidator(combiner, tr_path, nfold, tmp_suffix=run_id)
     print(f"Running {nfold}-fold cross-validation...")
-    validator.validate(wl_path, verbose=verbose)
+    validator.validate(wl_path, verbose=verbose, fixed_test=fixed_test)
 
     os.remove(profile_path)
     scorer.clean()
@@ -71,6 +68,7 @@ def main():
     parser.add_argument('--profile', type=str, help='Base profile for pat_ranges')
     parser.add_argument('--nfold', type=int, default=10, help='Number of folds')
     parser.add_argument('--good-weight', type=int, default=1, help='Good weight')
+    parser.add_argument('--fixed-test', type=str, required=False, help='Fixed test case for each fold')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
     
     args = parser.parse_args()
@@ -89,7 +87,7 @@ def main():
         pat_ranges = DEFAULT_PAT_RANGES
         
     _, report = run_cross_validation(wl_path, tr_path, args.lang, args.params, pat_ranges,
-                                     args.nfold, args.good_weight, args.verbose)
+                                     args.nfold, args.good_weight, args.verbose, args.fixed_test)
 
     print("\n" + "="*60)
     print("CROSS-VALIDATION RESULTS")

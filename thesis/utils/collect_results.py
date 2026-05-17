@@ -18,8 +18,8 @@ from pathlib import Path
 
 _RE_PARAMS     = re.compile(r"Best parameters:\s+(.+)")
 _RE_BAD_W      = re.compile(r"bad_weights=\(([^)]+)\),\s*threshold=(\d+)")
-_RE_RESULTS    = re.compile(r"good=(\d+),\s*bad=(\d+),\s*missed=(\d+)")
-_RE_PATTERNS   = re.compile(r"n_patterns=(\d+),\s*trie_nodes=(\d+)")
+_RE_RESULTS    = re.compile(r"good=([\d.]+),\s*bad=([\d.]+),\s*missed=([\d.]+)")
+_RE_PATTERNS   = re.compile(r"n_patterns=([\d.]+),\s*trie_nodes=([\d.]+)")
 _RE_SCORE      = re.compile(r"score=([\d.]+)")
 # cross_validate.py tabular output: "lang & name & profile & f_score & trie_nodes \\"
 _RE_CV_ROW     = re.compile(r"[\w\\_-]+\s*&[^&]+&[^&]+&\s*([\d.]+)\s*&\s*([\d.]+)\s*\\\\")
@@ -51,14 +51,14 @@ def parse_log(log_path: Path) -> dict | None:
 
     m = _RE_RESULTS.search(block)
     if m:
-        result["good"]   = int(m.group(1))
-        result["bad"]    = int(m.group(2))
-        result["missed"] = int(m.group(3))
+        result["good"]   = float(m.group(1))
+        result["bad"]    = float(m.group(2))
+        result["missed"] = float(m.group(3))
 
     m = _RE_PATTERNS.search(block)
     if m:
-        result["n_patterns"] = int(m.group(1))
-        result["trie_nodes"] = int(m.group(2))
+        result["n_patterns"] = int(float(m.group(1)))
+        result["trie_nodes"] = float(m.group(2))
 
     m = _RE_SCORE.search(block)
     if m:
@@ -169,7 +169,7 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
 
     for row in rows:
         for prefix, label in [("suk", "SUK"), ("fuk", "FUK")]:
-            obj   = "\\code{" + f_escape_latex(row[f"{prefix}_objective"]) + "}"
+            obj   = "\\mcode{" + _escape_latex(row[f"{prefix}_objective"]) + "}"
             bw    = _escape_latex(str(row[f"{prefix}_bad_weights"]))
             thr   = row[f"{prefix}_threshold"]
             good  = row[f"{prefix}_good"]

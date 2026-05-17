@@ -55,3 +55,5 @@ prepare_wikt:
 # expand weighted cssk/cshyphen dataset
 prepare_other:
 	@python ./scripts/expand_weights.py ./data/$(CSSK)/*.wlhw
+
+include thesis/thesis.mk

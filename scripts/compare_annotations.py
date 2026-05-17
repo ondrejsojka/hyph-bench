@@ -65,16 +65,21 @@ def main():
 
         files[name] = words
 
-    print(f"| | {" | ".join(files.keys())} |")
-    print(f"| {" | ".join(["---" for i in range(len(files) + 1)])} | ")
-    
+    col_spec = "l|" + "X" * len(files)
+    names = list(files.keys())
+
+    print(f"\\begin{{tabularx}}{{\\textwidth}}{{{col_spec}}}")
+    print(f"  & {' & '.join(names)} \\\\")
+    print("  \\hline")
+
     for name_a, words_a in files.items():
         results = []
         for name_b, words_b in files.items():
-            kappa = calculate_kappa(words_a, words_b) if name_a != name_b else 1
-            results.append(str(kappa))
+            kappa = calculate_kappa(words_a, words_b) if name_a != name_b else 1.0
+            results.append(f"{kappa:.4f}")
+        print(f"  {name_a} & {' & '.join(results)} \\\\")
 
-        print(f"| {name_a} | {" | ".join(results)} |")            
+    print("\\end{tabularx}")
 
 if __name__ == "__main__":
     main()
