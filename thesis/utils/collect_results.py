@@ -19,6 +19,7 @@ from pathlib import Path
 _RE_PARAMS     = re.compile(r"Best parameters:\s+(.+)")
 _RE_BAD_W      = re.compile(r"bad_weights=\(([^)]+)\),\s*threshold=(\d+)")
 _RE_RESULTS    = re.compile(r"good=([\d.]+),\s*bad=([\d.]+),\s*missed=([\d.]+)")
+_RE_VARIANCE   = re.compile(r"good_variance=([\d.]+),\s*bad_variance=([\d.]+),\s*missed_variance=([\d.]+)")
 _RE_PATTERNS   = re.compile(r"n_patterns=([\d.]+),\s*trie_nodes=([\d.]+)")
 _RE_SCORE      = re.compile(r"score=([\d.]+)")
 # cross_validate.py tabular output: "lang & name & profile & f_score & trie_nodes \\"
@@ -54,6 +55,12 @@ def parse_log(log_path: Path) -> dict | None:
         result["good"]   = float(m.group(1))
         result["bad"]    = float(m.group(2))
         result["missed"] = float(m.group(3))
+
+    m = _RE_VARIANCE.search(block)
+    if m:
+        result["good_variance"]   = float(m.group(1))
+        result["bad_variance"]    = float(m.group(2))
+        result["missed_variance"] = float(m.group(3))
 
     m = _RE_PATTERNS.search(block)
     if m:
@@ -112,11 +119,11 @@ CSV_FIELDS = [
     "weight", "annotation",
     # SUK results
     "suk_bad_weights", "suk_threshold",
-    "suk_good", "suk_bad", "suk_missed",
+    "suk_good", "suk_good_var", "suk_bad", "suk_bad_var", "suk_missed", "suk_missed_var",
     "suk_n_patterns", "suk_trie_nodes", "suk_score",
     # FUK results
     "fuk_bad_weights", "fuk_threshold",
-    "fuk_good", "fuk_bad", "fuk_missed",
+    "fuk_good", "fuk_good_var", "fuk_bad", "fuk_bad_var", "fuk_missed", "fuk_missed_var",
     "fuk_n_patterns", "fuk_trie_nodes", "fuk_score",
     # Cross-validation (FUK wordlist, FUK best params)
     "cv_f17", "cv_trie_nodes",
@@ -136,6 +143,7 @@ def build_row(entry: dict, suk: dict | None, fuk: dict | None, cv: dict | None) 
         "annotation":    entry.get("annotation", ""),
     }
     for prefix, res in [("suk", suk), ("fuk", fuk)]:
+        objective = entry.get(f"{prefix}_objective", "")
         if res:
             row[f"{prefix}_bad_weights"] = str(list(res.get("bad_weights", [])))
             row[f"{prefix}_threshold"]   = res.get("threshold", "")
@@ -145,8 +153,15 @@ def build_row(entry: dict, suk: dict | None, fuk: dict | None, cv: dict | None) 
             row[f"{prefix}_n_patterns"]  = res.get("n_patterns", "")
             row[f"{prefix}_trie_nodes"]  = res.get("trie_nodes", "")
             row[f"{prefix}_score"]       = res.get("score", "")
+            if objective == "f17_cv":
+                row[f"{prefix}_good_var"]   = res.get("good_variance", "N/A")
+                row[f"{prefix}_bad_var"]    = res.get("bad_variance", "N/A")
+                row[f"{prefix}_missed_var"] = res.get("missed_variance", "N/A")
+            else:
+                row[f"{prefix}_good_var"] = row[f"{prefix}_bad_var"] = row[f"{prefix}_missed_var"] = ""
         else:
-            for f in ["bad_weights","threshold","good","bad","missed","n_patterns","trie_nodes","score"]:
+            for f in ["bad_weights","threshold","good","good_var","bad","bad_var",
+                      "missed","missed_var","n_patterns","trie_nodes","score"]:
                 row[f"{prefix}_{f}"] = "N/A"
     row["cv_f17"]        = cv["cv_f17"]        if cv else "N/A"
     row["cv_trie_nodes"] = cv["cv_trie_nodes"] if cv else "N/A"
@@ -158,11 +173,13 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
     lines.append(r"\begin{table}[h]")
     lines.append(r"\centering")
     lines.append(r"\resizebox{\textwidth}{!}{%")
-    lines.append(r"\begin{tabularx}{Xllrrrrrrrr}")
+    lines.append(r"\begin{tabularx}{Xllrrrrrrrrrrr}")
     lines.append(r"\hline")
     lines.append(
         r"\textbf{Name} & \textbf{Phase} & \textbf{Objective} & \textbf{Bad weights} & "
-        r"\textbf{Thr.} & \textbf{Good} & \textbf{Bad} & \textbf{Missed} & "
+        r"\textbf{Thr.} & \textbf{Good} & \textbf{Good $\sigma^2$} & "
+        r"\textbf{Bad} & \textbf{Bad $\sigma^2$} & "
+        r"\textbf{Missed} & \textbf{Missed $\sigma^2$} & "
         r"\textbf{Patterns} & \textbf{Score} & \textbf{CV $F_{1/7}$} & \textbf{CV nodes} \\"
     )
     lines.append(r"\hline")
@@ -177,14 +194,19 @@ def write_latex(rows: list[dict], out_path: Path) -> None:
             miss  = row[f"{prefix}_missed"]
             npat  = row[f"{prefix}_n_patterns"]
             score = row[f"{prefix}_score"]
-            name_col = "\\textbf{" + _escape_latex(row["name"]) + "}" if prefix == "suk" else ""
+            name_col = "\\mcode{" + _escape_latex(row["name"]) + "}" if prefix == "suk" else ""
             if prefix == "fuk":
                 cv_f17   = row["cv_f17"]
                 cv_nodes = row["cv_trie_nodes"]
             else:
                 cv_f17 = cv_nodes = ""
+            good_var = row[f"{prefix}_good_var"]
+            bad_var  = row[f"{prefix}_bad_var"]
+            miss_var = row[f"{prefix}_missed_var"]
             lines.append(
-                f"{name_col} & {label} & {obj} & {bw} & {thr} & {good} & {bad} & {miss} & {npat} & {score} & {cv_f17} & {cv_nodes} \\\\"
+                f"{name_col} & {label} & {obj} & {bw} & {thr} & "
+                f"{good} & {good_var} & {bad} & {bad_var} & {miss} & {miss_var} & "
+                f"{npat} & {score} & {cv_f17} & {cv_nodes} \\\\"
             )
         lines.append(r"\hline")
 

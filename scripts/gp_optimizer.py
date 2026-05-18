@@ -103,7 +103,8 @@ class GPOptimizer:
         return float(mean[0]), float(std[0])
 
     def update(self, params: Tuple[int, ...], good: int, bad: int, missed: int, 
-               n_patterns: int = 0, trie_nodes: int = 0, f_17: float = 0.0) -> float:
+               n_patterns: int = 0, trie_nodes: int = 0, f_17: float = 0.0,
+               good_variance: float = 0.0, bad_variance: float = 0.0, missed_variance: float = 0.0) -> float:
         """
         Update GP with new observation.
 
@@ -134,7 +135,10 @@ class GPOptimizer:
             'missed': missed,
             'n_patterns': n_patterns,
             'trie_nodes': trie_nodes,
-            'score': score
+            'score': score,
+            'good_variance': good_variance,
+            'bad_variance': bad_variance,
+            'missed_variance': missed_variance
         })
 
         # Refit GP after enough observations

@@ -386,17 +386,18 @@ def main():
 
             score = optimizer.update(params, **results)
             print(f"  {params}: good={results['good']}, bad={results['bad']}, patterns={results.get('n_patterns', 'N/A')}, nodes={results['trie_nodes']}, score={score:.4f}")
+        
+    # Final report
+    best = optimizer.best_so_far()
 
     # Run patgen on optimal parameters to populate missing 
     # results if the objective does not support all of them
     if args.batch_size > 1 or args.objective == "f17_cv":
         results = run_patgen_multilevel(scorer, best['params'], pat_ranges, good_weight=args.good_weight)
-
+        
         if args.objective == "f17_cv":
-            optimizer.update(best['params'], **results)
+            best['n_patterns'] = results['n_patterns']
 
-    # Final report
-    best = optimizer.best_so_far()
     print(f"\n{'=' * 60}")
     print("OPTIMIZATION COMPLETE")
     print(f"{ '=' * 60}")
@@ -405,6 +406,8 @@ def main():
         print(f"  bad_weights={best['params'][:len(pat_ranges)]}, threshold={best['params'][-1]}")
     print(f"Results:")
     print(f"  good={best['good']}, bad={best['bad']}, missed={best['missed']}")
+    if args.objective == 'f17_cv':
+        print(f"  good_variance={best['good_variance']:.4f}, bad_variance={best['bad_variance']:.4f}, missed_variance={best['missed_variance']:.4f}")
     print(f"  n_patterns={best['n_patterns']}, trie_nodes={best['trie_nodes']}")
     print(f"  score={best['score']:.4f}")
 
@@ -412,9 +415,9 @@ def main():
     print(f"\nState saved to: {state_path}")
 
     if args.export_iteration_results:
-        scorer.dump_bad(bad_path)
+        scorer.dump_bad(bad_path, len(pat_ranges))
         print(f"Bad words saved to: {bad_path}")
-        scorer.export_patterns(patterns_path)
+        scorer.export_patterns(patterns_path, len(pat_ranges))
         print(f"Final patterns saved to: {patterns_path}")
 
     try:

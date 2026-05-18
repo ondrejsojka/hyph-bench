@@ -30,16 +30,31 @@ class Validator:
         """
         self.results = dict()
         good_total, bad_total, missed_total = 0, 0, 0
+        good_total_sq, bad_total_sq, missed_total_sq = 0, 0, 0
         nodes_total = 0
+        n = len(results)
+
         for (good, bad, missed), trie_nodes in results:
             good_total += good
+            good_total_sq += good ** 2
             bad_total += bad
+            bad_total_sq += bad ** 2
             missed_total += missed
+            missed_total_sq += missed ** 2
             nodes_total += trie_nodes
-        self.results["good"] = good_total / len(results)
-        self.results["bad"] = bad_total / len(results)
-        self.results["missed"] = missed_total / len(results)
-        self.results["trie_nodes"] = nodes_total / len(results)
+
+        good_mean = good_total / n
+        bad_mean = bad_total / n
+        missed_mean = missed_total / n
+
+        self.results["good"] = good_mean
+        self.results["bad"] = bad_mean
+        self.results["missed"] = missed_mean
+        self.results["trie_nodes"] = nodes_total / n
+
+        self.results["good_variance"] = (good_total_sq / n - good_mean ** 2) / n
+        self.results["bad_variance"] = (bad_total_sq / n - bad_mean ** 2) / n
+        self.results["missed_variance"] = (missed_total_sq / n - missed_mean ** 2) / n
 
     def precision(self):
         """
@@ -85,6 +100,9 @@ class Validator:
             "good": self.results["good"],
             "missed": self.results["missed"],
             "trie_nodes": self.results["trie_nodes"],
+            "good_variance": self.results["good_variance"],
+            "bad_variance": self.results["bad_variance"],
+            "missed_variance": self.results["missed_variance"]
         }
 
         if not tabular:

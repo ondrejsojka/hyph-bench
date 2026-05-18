@@ -13,7 +13,7 @@ thesis: suk531 kappa_table indistinct optimization_results evaluate_patterns
 
 # Creates an table comparing the final patterns against Polyakov 
 evaluate_patterns: $(FINAL_PATTERNS)
-	mv $(FINAL_PATTERNS) thesis/pattern_evaluation_dataset/patterns/uk_final.pat
+	cp $(FINAL_PATTERNS) thesis/pattern_evaluation_dataset/patterns/uk_final.pat
 	python thesis/utils/evaluate_patterns.py \
 		thesis/pattern_evaluation_dataset/evaluation.wl \
 		--truth thesis/pattern_evaluation_dataset/human1.wl \

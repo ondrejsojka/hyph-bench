@@ -86,22 +86,26 @@ def load_pattern_tokens(path):
 
 
 def make_hyphenator(path):
-    """Build a Hyphenator from a .tex, .dic, or plain pattern file."""
+    """Build a Hyphenator from a .tex, .dic, or plain pattern file.
+
+    Returns (hyphenator, pattern_count).
+    """
+    tokens = load_pattern_tokens(path)
     h = Hyphenator.__new__(Hyphenator)
     h.tree = {}
-    for token in load_pattern_tokens(path):
+    for token in tokens:
         h._insert_pattern(token)
-    return h
+    return h, len(tokens)
 
 
 def hyphenate_all(words, pattern_file):
-    """Returns list of (bare_word, hyphen_position_set) using a pattern file."""
-    h = make_hyphenator(pattern_file)
+    """Returns (list of (bare_word, hyphen_position_set), pattern_count)."""
+    h, n_patterns = make_hyphenator(pattern_file)
     result = []
     for word in words:
         pieces = h.hyphenate_word(word)
         result.append((word, hyphen_positions("-".join(pieces))))
-    return result
+    return result, n_patterns
 
 
 def cohen_kappa(a, b) -> float:
@@ -131,18 +135,33 @@ def cohen_kappa(a, b) -> float:
     return ((tt + ff) / total - p_e) / (1 - p_e)
 
 
-def print_table(pattern_files, truth_files, kappas, file=None):
+def print_table(pattern_files, truth_files, kappas, pattern_counts, file=None):
+    import math
     p = lambda *a: print(*a, file=file)
     truth_names = [os.path.basename(t).replace("_", "\\_") for t in truth_files]
-    col_spec = "l|" + "X" * len(truth_files)
-    p(f"\\begin{{tabularx}}{{\\textwidth}}{{{col_spec}}}")
-    p(f"  Patterns & {' & '.join(truth_names)} \\\\")
-    p("  \\hline")
-    for pat_file, row in zip(pattern_files, kappas):
+    # columns: name | n_patterns | kappa_1 | eff_1 | kappa_2 | eff_2 | ...
+    n_truth = len(truth_files)
+    col_spec = "l|r|" + "|".join("XX" for _ in truth_files)
+    kappa_headers = " & ".join(
+        f"$\\kappa$ ({name}) & $\\kappa / \\log_{{10}} n$" for name in truth_names
+    )
+    p("\\begin{table}[h]")
+    p("  \\centering")
+    p(f"  \\begin{{tabularx}}{{\\textwidth}}{{{col_spec}}}")
+    p(f"    Patterns & $n$ & {kappa_headers} \\\\")
+    p("    \\hline")
+    for pat_file, row, n in zip(pattern_files, kappas, pattern_counts):
         pat_name = os.path.basename(pat_file).replace("_", "\\_")
-        values = " & ".join(f"{k:.4f}" for k in row)
-        p(f"  {pat_name} & {values} \\\\")
-    p("\\end{tabularx}")
+        log_n = math.log10(n) if n > 0 else float("nan")
+        cells = []
+        for k in row:
+            eff = k / log_n if log_n and not math.isnan(k) else float("nan")
+            cells.append(f"{k:.4f} & {eff:.4f}")
+        p(f"    {pat_name} & {n} & {' & '.join(cells)} \\\\")
+    p("  \\end{tabularx}")
+    p("  \\caption{}")
+    p("  \\label{tab:pattern-evaluation}")
+    p("\\end{table}")
 
 
 def main():
@@ -162,16 +181,18 @@ def main():
     truths = [load_truth(t) for t in args.truth]
 
     kappas = []
+    pattern_counts = []
     for pat_file in args.patterns:
-        hyphenated = hyphenate_all(words, pat_file)
+        hyphenated, n_patterns = hyphenate_all(words, pat_file)
         kappas.append([cohen_kappa(hyphenated, truth) for truth in truths])
+        pattern_counts.append(n_patterns)
 
     if args.output:
         with open(args.output, "w", encoding="utf-8") as f:
-            print_table(args.patterns, args.truth, kappas, file=f)
+            print_table(args.patterns, args.truth, kappas, pattern_counts, file=f)
         print(f"Table written to {args.output}")
     else:
-        print_table(args.patterns, args.truth, kappas)
+        print_table(args.patterns, args.truth, kappas, pattern_counts)
 
 
 if __name__ == "__main__":
