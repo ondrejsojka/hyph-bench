@@ -88,17 +88,6 @@
     "batch_size": 25
   },
   {
-    "name": "f17_cv_weight_2_fifth_level",
-    "weight": 2,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_cv",
-    "fuk_args": "--n-fold 10 --profile profiles/ukr_fifth.in",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
     "name": "f17_cv_weight_2_larger_threshold",
     "weight": 2,
     "annotation": "claude_new_prompt",
@@ -132,17 +121,6 @@
     "batch_size": 25
   },
   {
-    "name": "f17_cv_weight_2_fifth_level",
-    "weight": 2,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_cv",
-    "fuk_args": "--n-fold 10 --max-bad-weight 50",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
     "name": "f17_cv_weight_2_all_together",
     "weight": 2,
     "annotation": "claude_new_prompt",
@@ -150,50 +128,6 @@
     "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
     "fuk_objective": "f17_cv",
     "fuk_args": "--n-fold 10 --max-bad-weight 50 --max-threshold 50 --profile profiles/ukr_f_and_lr.in ",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
-    "name": "f17_trie_larger_threshold",
-    "weight": 1,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_trie",
-    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648 --max-threshold 50",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
-    "name": "f17_trie_fifth_level",
-    "weight": 1,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_trie",
-    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648 --profile profiles/ukr_fifth.in ",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
-    "name": "f17_trie_max_weight",
-    "weight": 1,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_cv",
-    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648 --max-bad-weight 50",
-    "iterations": 10,
-    "batch_size": 25
-  },
-  {
-    "name": "f17_trie_increase_range",
-    "weight": 1,
-    "annotation": "claude_new_prompt",
-    "suk_objective": "f17_trie",
-    "suk_args": "--trie-weight 0.00085 --trie-normalizer 15714",
-    "fuk_objective": "f17_trie",
-    "fuk_args": "--trie-weight 0.05 --trie-normalizer 3526648 --profile profiles/ukr_larger_ranges.in",
     "iterations": 10,
     "batch_size": 25
   }
