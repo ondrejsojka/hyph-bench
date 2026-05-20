@@ -1,4 +1,5 @@
 .idea
+.vscode/*
 wikt_dump
 **/tmp*
 **/__pycache__/
@@ -8,8 +9,6 @@ wikt_dump
 **/test*
 !**/uk/wiktionary/
 results/*
-iter_results/*
 venv/
 hyph_bench.egg-info/
-.vscode/
 thesis/results

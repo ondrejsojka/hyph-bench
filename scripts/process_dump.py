@@ -79,18 +79,32 @@ if __name__ == "__main__":
                         help="File to store the output, if not provided ./data/{lang}/wiktionary}/{lang}_{(en)?wiktionary}_{timestamp}.wlh")
     args = parser.parse_args()
 
+    # dump_files = {
+    #     "cs": "cs_wiktionary_251001.jsonl",
+    #     "de": "de_wiktionary_251001.jsonl",
+    #     "el": "el_wiktionary_251001.jsonl",
+    #     "es": "es_wiktionary_251001.jsonl",
+    #     "it": "it_wiktionary_251001.jsonl",
+    #     "ms": "ms_wiktionary_251002.jsonl",
+    #     "nl": "nl_wiktionary_251002.jsonl",
+    #     "pl": "pl_enwiktionary_251001.jsonl",
+    #     "pt": "pt_enwiktionary_251001.jsonl",
+    #     "ru": "ru_wiktionary_251002.jsonl",
+    #     "tr": "tr_wiktionary_251001.jsonl"
+    # }
+
     dump_files = {
-        "cs": "cs_wiktionary_251001.jsonl",
-        "de": "de_wiktionary_251001.jsonl",
-        "el": "el_wiktionary_251001.jsonl",
-        "es": "es_wiktionary_251001.jsonl",
-        "it": "it_wiktionary_251001.jsonl",
-        "ms": "ms_wiktionary_251002.jsonl",
-        "nl": "nl_wiktionary_251002.jsonl",
-        "pl": "pl_enwiktionary_251001.jsonl",
-        "pt": "pt_enwiktionary_251001.jsonl",
-        "ru": "ru_wiktionary_251002.jsonl",
-        "tr": "tr_wiktionary_251001.jsonl"
+        "cs": "cs_wiktionary.jsonl",
+        "de": "de_wiktionary.jsonl",
+        "el": "el_wiktionary.jsonl",
+        "es": "es_wiktionary.jsonl",
+        "it": "it_wiktionary.jsonl",
+        "ms": "ms_wiktionary.jsonl",
+        "nl": "nl_wiktionary.jsonl",
+        "pl": "pl_enwiktionary.jsonl",
+        "pt": "pt_enwiktionary.jsonl",
+        "ru": "ru_wiktionary.jsonl",
+        "tr": "tr_wiktionary.jsonl"
     }
 
     dump_filepath = "./wikt_dump/" + dump_files[args.lang]
