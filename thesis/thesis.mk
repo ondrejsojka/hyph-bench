@@ -51,6 +51,7 @@ $(RESULTS_DIR):
 
 # Recreate the universal patterns experiment
 # REQUIRES THE WIKTIONARY DATASETS FROM THE wikt_dump.zip FILE
+# AVAILABLE IN THE HYPH-BENCH REPOSITORY https://github.com/tondach01/hyph-bench
 universal_patterns: $(RESULTS_DIR)
 	python thesis/utils/hyphenate.py $(FINAL_PATTERNS) data/uk/dict_uk/uk_full_dictuk.wl $(RESULTS_DIR)/uk_full_dictuk.wlh
 	python thesis/utils/merge_wlh.py \
