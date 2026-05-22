@@ -224,9 +224,9 @@ def extract_files(data_directory: str):
     """
     wl_file, tr_file = "", ""
     for file in os.listdir(data_directory):
-        if file.endswith("_dis.wlh") or file.endswith("_expanded.wlh"):
+        if file.endswith(".wlh"):
             wl_file = data_directory + "/" + file
-        elif file.endswith(".tra"):
+        elif file.endswith(".tr") or file.endswith(".tra"):
             tr_file = data_directory + "/" + file
 
     if not wl_file or not tr_file:
@@ -271,4 +271,3 @@ if __name__ == "__main__":
     language = "" if len(path) < 2 else path[-2]
     d_name = "" if len(path) < 1 else path[-1]
     print(validator.report(lang=language, name=d_name, profile=args.profile, tabular=args.tabular))
-

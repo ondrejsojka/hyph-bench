@@ -8,11 +8,11 @@ Raw data and scripts for creating and evaluating hyphenated word lists in severa
 Directory with initial versions of non-Wiktionary datasets
 
 ### Makefile
-Definition of helpful batch commands (`*` = `wikt` for Wiktionary datasets / `other` for other datasets):
-`process_wikt`: unzip Wiktionary dump files and process them into initial word lists, which are stored in `data/`
-`prepare_*`: perform initial preprocessing
-`disambiguate_*`: eliminate ambiguous hyphenations
-`translate_*`: create translate files necessary for **patgen** program
+Definition of helpful batch commands:
+`prepare`: unzip Wiktionary dump files and process directory structure
+`process`: process Wiktionary dumps into ambiguous hyphenated wordlists
+`disambiguate`: eliminate ambiguous hyphenations
+`translate`: create translate files necessary for **patgen** program
 `stats_all_datasets`: compile statistics of all datasets
 `cross_validate_all`: perform 10-fold cross-validation over all datassets with baseline profiles
 

@@ -1,9 +1,11 @@
 .idea
-wikt_dump
+logs/
 **/tmp
 **/__pycache__/
 **/wiktionary/
 **/*.tra
+**/*.tr
+**/*.wlh
 **/*_expanded.wlh
 **/*_dis.wlh
 **/test

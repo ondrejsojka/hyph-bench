@@ -41,6 +41,14 @@ DEFAULT_PAT_RANGES = [
 ]
 
 
+def translate_for_wordlist(wordlist: str) -> Optional[str]:
+    base = wordlist.rsplit(".", 1)[0]
+    for candidate in (base + ".tr", wordlist + ".tra", base + ".tra"):
+        if os.path.exists(candidate):
+            return candidate
+    return None
+
+
 def find_dataset(lang: str, data_dir: str = None) -> Tuple[str, str]:
     """
     Find wordlist and translate file for a language.
@@ -52,10 +60,10 @@ def find_dataset(lang: str, data_dir: str = None) -> Tuple[str, str]:
     wikt_dir = os.path.join(data_dir, 'wiktionary')
     if os.path.exists(wikt_dir):
         for f in sorted(os.listdir(wikt_dir)):
-            if f.endswith('_dis.wlh'):
+            if f.endswith('.wlh'):
                 wl = os.path.join(wikt_dir, f)
-                tr = wl + '.tra'
-                if os.path.exists(tr):
+                tr = translate_for_wordlist(wl)
+                if tr:
                     return os.path.abspath(wl), os.path.abspath(tr)
 
     # Check data directory directly
@@ -63,8 +71,8 @@ def find_dataset(lang: str, data_dir: str = None) -> Tuple[str, str]:
         for f in sorted(os.listdir(data_dir)):
             if f.endswith('.wlh'):
                 wl = os.path.join(data_dir, f)
-                tr = wl + '.tra'
-                if os.path.exists(tr):
+                tr = translate_for_wordlist(wl)
+                if tr:
                     return os.path.abspath(wl), os.path.abspath(tr)
 
     # Recursive fallback: Find all valid pairs
@@ -74,8 +82,8 @@ def find_dataset(lang: str, data_dir: str = None) -> Tuple[str, str]:
             for f in sorted(files):
                 if f.endswith('.wlh'):
                     wl = os.path.join(root, f)
-                    tr = wl + '.tra'
-                    if os.path.exists(tr):
+                    tr = translate_for_wordlist(wl)
+                    if tr:
                         candidates.append((os.path.abspath(wl), os.path.abspath(tr)))
 
     if len(candidates) == 1:
