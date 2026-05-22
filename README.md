@@ -8,11 +8,11 @@ Raw data and scripts for creating and evaluating hyphenated word lists in severa
 Directory with initial versions of non-Wiktionary datasets
 
 ### Makefile
-Definition of helpful batch commands:
-`prepare`: unzip Wiktionary dump files and process directory structure
-`process`: process Wiktionary dumps into ambiguous hyphenated wordlists
-`disambiguate`: eliminate ambiguous hyphenations
-`translate`: create translate files necessary for **patgen** program
+Definition of helpful batch commands (`*` = `wikt` for Wiktionary datasets / `other` for other datasets):
+`process_wikt`: unzip Wiktionary dump files and process them into initial word lists, which are stored in `data/`
+`prepare_*`: perform initial preprocessing
+`disambiguate_*`: eliminate ambiguous hyphenations
+`translate_*`: create translate files necessary for **patgen** program
 `stats_all_datasets`: compile statistics of all datasets
 `cross_validate_all`: perform 10-fold cross-validation over all datassets with baseline profiles
 
@@ -48,3 +48,4 @@ Please acknowledge the allowed usage of the data:
 | th/orchid             | CC BY-SA 4.0     | licensed in 2025 by Sojka from public domain |
 | tr/wiktionary         | CC BY-SA 4.0     | |
 | uk/wiktionary         | CC BY-SA 4.0     | from Sojka, O.: Transfer Learning of Slavic Syllabification for Hyphenation Patterns (Feb 2025), Bachelor Thesis, Masaryk University, Brno, Faculty of Informatics (advisor: Pavel Šmerk) |
+| uk/dict\_uk            | ? TODO ?         | from the [dict-uk repository](https://github.com/brown-uk/dict_uk) |

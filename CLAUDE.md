@@ -36,10 +36,11 @@ uv run python -m scripts.cross_validate --lang cssk --params 5 1 6 9 1
 # Direct cross-validation with a profile
 uv run python scripts/train_test.py -t -v -n 10 -p profiles/base.in data/cssk/cshyphen
 
-# Generate disambiguated wordlists and translate files
-make disambiguate
-make translate
+# Expand weighted wordlist (cssk uses weights)
+python scripts/expand_weights.py data/cssk/cshyphen/cssk-all-weighted.wlhw
 
+# Generate translate files
+make translate_all
 
 # Run all 18 datasets sequentially (exact paper settings)
 bash run_optimizations.sh
@@ -54,7 +55,7 @@ uv run python scripts/visualize_gp_2d.py --lang cssk --iteration 100
 
 Patgen is the TeX hyphenation pattern generator. It takes:
 - A wordlist with hyphenation points marked by `-`
-- A translate file (`.tr`) defining the character set and hyphen min values
+- A translate file (`.tra`) defining the character set and hyphen min values
 - Parameters per level: `pat_start pat_finish good_weight bad_weight threshold`
 
 Patgen runs in 4 levels (odd levels add patterns, even levels inhibit). Each level can have different pattern length ranges and weights.
@@ -80,12 +81,14 @@ The optimizer uses:
 
 ```
 data/<lang>/<dataset>/
-  *.wlhamb       - Ambiguous hyphenated wordlist source
   *.wlh          - Hyphenated wordlist (one word per line, hyphens mark break points)
-  *.tr           - Translate file for patgen
+  *_dis.wlh      - Disambiguated wordlist (conflicts removed)
+  *.wlhw         - Weighted wordlist (weight prefix: "3word-list" = 3 copies)
+  *_expanded.wlh - Expanded from weighted
+  *.tra          - Translate file for patgen
 ```
 
-**cssk/cshyphen** is special: its tracked source is `data/cssk/cshyphen/cssk_cshyphen.wlhamb`, a Czech+Slovak combined corpus with weights indicating frequency/confidence.
+**cssk/cshyphen** is special: it's a Czech+Slovak combined corpus with weights indicating frequency/confidence.
 
 ### Profile Format
 

@@ -1,54 +1,59 @@
-WIKT_LANGS = cs de el es it ms nl ru tr
-WIKT_EN_LANGS = pl pt
-
-# Transform 'en' into 'data/en/wiktionary/en_wiktionary.jsonl'
-WIKT_JSONL_FILES = $(foreach lang,$(WIKT_LANGS),data/$(lang)/wiktionary/$(lang)_wiktionary.jsonl) $(foreach lang,$(WIKT_EN_LANGS),data/$(lang)/wiktionary/$(lang)_enwiktionary.jsonl)
-WIKT_WLHAMB_FILES = $(foreach lang,$(WIKT_LANGS),data/$(lang)/wiktionary/$(lang)_wiktionary.wlhamb) $(foreach lang,$(WIKT_EN_LANGS),data/$(lang)/wiktionary/$(lang)_enwiktionary.wlhamb)
-WIKT_WLH_FILES = $(foreach lang,$(WIKT_LANGS),data/$(lang)/wiktionary/$(lang)_wiktionary.wlh) $(foreach lang,$(WIKT_EN_LANGS),data/$(lang)/wiktionary/$(lang)_enwiktionary.wlh)
-WIKT_TR_FILES = $(foreach lang,$(WIKT_LANGS),data/$(lang)/wiktionary/$(lang)_wiktionary.tr) $(foreach lang,$(WIKT_EN_LANGS),data/$(lang)/wiktionary/$(lang)_enwiktionary.tr)
+# languages provided in Wiktionary dump
+WIKT_LANGS = cs de el es it ms nl pl pt ru tr
 
 # non-Wiktionary datasets
-OTHER_DATASETS = cs/cshyphen_cstenten/cs_cstenten cs/cshyphen_ujc/cs_ujc cssk/cshyphen/cssk_cshyphen is/hyphenation-is/is_hyphis th/orchid/th_orchid de/wortliste/de_wortliste uk/cshyphen/uk_wiktionary
-OTHER_WLH_FILES = $(foreach path,$(OTHER_DATASETS),data/$(path).wlh)
-OTHER_TR_FILES = $(foreach path,$(OTHER_DATASETS),data/$(path).tr)
+# cssk/cshyphen is special as it is weighted
+CSSK = cssk/cshyphen
+OTHER_DATASETS = cs/cshyphen_cstenten cs/cshyphen_ujc is/hyphenation-is th/orchid de/wortliste uk/wiktionary
 
 # cross-validate all datasets
-cross_validate_all: translate
+cross_validate_all: translate_all
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/base.in $(d);)
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/cshyphen.in $(d);)
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste.in $(d);)
 	@$(foreach d,$(wildcard data/*/*),python ./scripts/train_test.py -t -v -n 10 -p ./profiles/wortliste8.in $(d);)
 
 # get statistics of all datasets
-stats_all_datasets: disambiguate
-	@$(foreach d,$(wildcard data/*/*/*.wlh),python ./scripts/statistics.py -d -t $(d);)
+stats_all_datasets: disambiguate_all
+	@$(foreach d,$(wildcard data/*/*/*_dis.wlh),python ./scripts/statistics.py -d -t $(d);)
 
-prepare: $(WIKT_JSONL_FILES)
-process: $(WIKT_WLHAMB_FILES)
+# parse Wiktionary dumps into wordlists
+process_wikt: prepare_wikt
+	@$(foreach l,$(WIKT_LANGS),rm -f ./data/$(d)/wiktionary/*.wlh;)
+	@$(foreach l,$(WIKT_LANGS),python ./scripts/process_dump.py --lang $(l);)
+
 # create translate files
-translate: $(WIKT_TR_FILES) $(OTHER_TR_FILES)
+translate_all: translate_wikt translate_other
+
+translate_wikt: disambiguate_wikt
+	@$(foreach l,$(wildcard data/*/wiktionary/*.tra),rm -f $(l);)
+	@$(foreach l,$(wildcard data/*/wiktionary/*_dis.wlh),python ./scripts/make_tr.py $(l);)
+
+translate_other: disambiguate_other
+	@$(foreach d,$(OTHER_DATASETS),rm -f ./data/$(d)/*.tra;)
+	@$(foreach d,$(OTHER_DATASETS),python ./scripts/make_tr.py ./data/$(d)/*_dis.wlh;)
+	@rm -f ./data/$(CSSK)/*.tra
+	@python ./scripts/make_tr.py ./data/$(CSSK)/*_expanded.wlh
+
+
 # resolve data ambiguities and long words
-disambiguate: $(WIKT_WLH_FILES) $(OTHER_WLH_FILES)
+disambiguate_all: disambiguate_wikt disambiguate_other
 
-%.jsonl : wikt_dump.zip
-	@if echo $(WIKT_JSONL_FILES) | grep -q $@; then \
-		LANG_CODE=$$(echo $(notdir $<) | cut -c 1-2); \
-		mkdir -p data/$$LANG_CODE/wiktionary; \
-		unzip -n wikt_dump.zip $(notdir $@) -d $(dir $@); \
-	fi
+disambiguate_wikt: process_wikt
+	@$(foreach d,$(wildcard data/*/wiktionary/*_dis.wlh),rm -f $(d);)
+	@$(foreach d,$(WIKT_LANGS),python ./scripts/disambiguate.py ./data/$(d)/wiktionary/*.wlh;)
 
-%.wlhamb : %.jsonl
-	@if echo $(WIKT_JSONL_FILES) | grep -q $<; then \
-		LANG_CODE=$$(echo $(notdir $<) | cut -c 1-2); \
-		python ./scripts/process_dump.py --lang $$LANG_CODE; \
-	fi
+disambiguate_other: prepare_other
+	@$(foreach d,$(OTHER_DATASETS),rm -f ./data/$(d)/*_dis.wlh;)
+	@$(foreach d,$(OTHER_DATASETS),python ./scripts/disambiguate.py ./data/$(d)/*.wlh;)
 
-%.wlh : %.wlhamb
-	python ./scripts/disambiguate.py -v $<
+# extract data from compressed Wiktionary dump and prepare directory structure
+prepare_wikt:
+	@unzip -o -d . ./wikt_dump.zip
+	@$(foreach l,$(WIKT_LANGS),mkdir -p ./data/$(l)/wiktionary;)
 
-%.tr : %.wlh
-	python ./scripts/make_tr.py $<
+# expand weighted cssk/cshyphen dataset
+prepare_other:
+	@python ./scripts/expand_weights.py ./data/$(CSSK)/*.wlhw
 
-.PHONY : clean
-clean:
-	rm -rf data/*/*/*.jsonl data/*/wiktionary/*.wlhamb data/*/*/*.wlh data/*/*/*.tr
+include thesis/thesis.mk

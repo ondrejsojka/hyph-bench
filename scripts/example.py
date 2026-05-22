@@ -18,7 +18,7 @@ if __name__ == "__main__":
     for file in os.listdir(datadir):
         if file.endswith(".wlh"):
             wl_file = datadir + "/" + file
-        elif file.endswith(".tr") or file.endswith(".tra"):
+        elif file.endswith(".tra"):
             tr_file = datadir + "/" + file
 
     if not wl_file or not tr_file:
