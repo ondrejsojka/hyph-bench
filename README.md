@@ -1,4 +1,4 @@
-# Gaussian Process Optimization of Hyphenation
+# Hyph-bench: Benchmark Dataset of Hyphenated Words for Generating Hyphenation Patterns With Optimized Paramaters
 
 Raw data and scripts for creating and evaluating hyphenated word lists in several languages.
 
@@ -17,10 +17,10 @@ Definition of helpful batch commands (`*` = `wikt` for Wiktionary datasets / `ot
 `cross_validate_all`: perform 10-fold cross-validation over all datassets with baseline profiles
 
 ### profiles/
-Baseline parameter profiles.
+Baseline parameter profiles. Profiles with the which end in .optin are used for parameter optimization
 
 ### scripts/
-Python scripts and packages used for data preprocessing, evaluation, and reporting.
+Python scripts and packages used for data preprocessing, evaluation, reporting and parameter optimization.
 
 ### wikt_dump.zip
 Compressed directory with JSON dump files of Wiktionary datasets.
@@ -48,4 +48,4 @@ Please acknowledge the allowed usage of the data:
 | th/orchid             | CC BY-SA 4.0     | licensed in 2025 by Sojka from public domain |
 | tr/wiktionary         | CC BY-SA 4.0     | |
 | uk/wiktionary         | CC BY-SA 4.0     | from Sojka, O.: Transfer Learning of Slavic Syllabification for Hyphenation Patterns (Feb 2025), Bachelor Thesis, Masaryk University, Brno, Faculty of Informatics (advisor: Pavel Šmerk) |
-| uk/dict\_uk            | ? TODO ?         | from the [dict-uk repository](https://github.com/brown-uk/dict_uk) |
+| uk/dict\_uk           | CC BY-SA 4.0     | from the [dict-uk repository](https://github.com/brown-uk/dict_uk) |
