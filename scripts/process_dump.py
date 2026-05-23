@@ -76,42 +76,18 @@ if __name__ == "__main__":
     parser.add_argument("--outfile",
                         default="",
                         required=False,
-                        help="File to store the output, if not provided ./data/{lang}/wiktionary}/{lang}_{(en)?wiktionary}_{timestamp}.wlh")
+                        help="File to store the output, if not provided ./data/{lang}/wiktionary/{en}?wiktionary.wlhamb")
     args = parser.parse_args()
 
-    # dump_files = {
-    #     "cs": "cs_wiktionary_251001.jsonl",
-    #     "de": "de_wiktionary_251001.jsonl",
-    #     "el": "el_wiktionary_251001.jsonl",
-    #     "es": "es_wiktionary_251001.jsonl",
-    #     "it": "it_wiktionary_251001.jsonl",
-    #     "ms": "ms_wiktionary_251002.jsonl",
-    #     "nl": "nl_wiktionary_251002.jsonl",
-    #     "pl": "pl_enwiktionary_251001.jsonl",
-    #     "pt": "pt_enwiktionary_251001.jsonl",
-    #     "ru": "ru_wiktionary_251002.jsonl",
-    #     "tr": "tr_wiktionary_251001.jsonl"
-    # }
-
-    dump_files = {
-        "cs": "cs_wiktionary.jsonl",
-        "de": "de_wiktionary.jsonl",
-        "el": "el_wiktionary.jsonl",
-        "es": "es_wiktionary.jsonl",
-        "it": "it_wiktionary.jsonl",
-        "ms": "ms_wiktionary.jsonl",
-        "nl": "nl_wiktionary.jsonl",
-        "pl": "pl_enwiktionary.jsonl",
-        "pt": "pt_enwiktionary.jsonl",
-        "ru": "ru_wiktionary.jsonl",
-        "tr": "tr_wiktionary.jsonl"
-    }
-
-    dump_filepath = "./wikt_dump/" + dump_files[args.lang]
+    data_dir = "./data/" + args.lang + "/wiktionary/"
+    if args.lang in ["pl", "pt"]:
+        dump_filepath = data_dir + args.lang + "_enwiktionary.jsonl"
+    else:
+        dump_filepath = data_dir + args.lang + "_wiktionary.jsonl"
 
     if not args.outfile:
-        name_long = dump_files[args.lang].split(".")[0]
-        outfilename = "./data/" + args.lang + "/wiktionary/" + name_long + ".wlh"
+        name_long = dump_filepath[12:-6]
+        outfilename = dump_filepath.rsplit(".", 1)[0] + ".wlhamb"
     else:
         outfilename = args.outfile
 
@@ -174,3 +150,4 @@ if __name__ == "__main__":
     outfile.close()
 
     print(f"Parsed {counter} words from {dump_filepath} into {outfilename}.")
+    
