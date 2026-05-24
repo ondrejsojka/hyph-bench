@@ -6,7 +6,7 @@ This script optimizes the bad_weight parameters for a 4-level patgen run
 using Gaussian Process regression with Upper Confidence Bound acquisition.
 
 Usage:
-    python -m scripts.optimize --lang pl --iterations 50
+    python -m scripts.optimize --lang pl --iterations 30
     python -m scripts.optimize --lang uk --objective bounded_bad --bad-threshold 500
     python -m scripts.optimize --lang pl --resume --iterations 20
 
@@ -132,8 +132,8 @@ def main():
                         help="How many folds of crossvalidation are done")
 
     # Optimization parameters
-    parser.add_argument('--iterations', type=int, default=50,
-                        help='Number of optimization iterations (default: 50)')
+    parser.add_argument('--iterations', type=int, default=30,
+                        help='Number of optimization iterations (default: 30)')
     parser.add_argument('--batch-size', type=int, default=1,
                         help='Suggestions per iteration (default: 1)')
     parser.add_argument('--seed', type=int, default=42,
