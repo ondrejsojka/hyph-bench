@@ -83,14 +83,14 @@ class F17WithTrieSize(ObjectiveFunction):
     """
     F_{1/7} with penalty for large trie size.
 
-    score = f17 - lambda * (trie_nodes / normalizer)
+    score = f17 - trie_weight * (trie_nodes / normalizer)
 
     This encourages smaller, more generalizable pattern sets.
     The trie node count correlates with generalization - smaller tries
     often generalize better to unseen words.
     """
 
-    def __init__(self, beta: float = 1/7, trie_weight: float = 0.0001,
+    def __init__(self, beta: float = 1/7, trie_weight: float = 0.0005,
                  trie_normalizer: float = 50000):
         self.beta = beta
         self.trie_weight = trie_weight
@@ -272,7 +272,7 @@ class F17BadTargetWithTrieSize(ObjectiveFunction):
     F_{1/beta} inside a tolerance band around `bad_target`, while heavily penalized outside.
     """
     def __init__(self, bad_target: int = 500, tol: int = 50, beta: float = 1/7,
-                 trie_weight: float = 0.0001, trie_normalizer: float = 50000):
+                 trie_weight: float = 0.0005, trie_normalizer: float = 50000):
         self.bad_target = bad_target
         self.tol = tol
         self.beta = beta

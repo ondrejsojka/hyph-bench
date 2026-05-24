@@ -144,16 +144,16 @@ The optimizer infrastructure is sound and can be improved with the recommendatio
 
 ```bash
 # Basic optimization with F_1/7
-uv run python -m scripts.optimize --lang pl --iterations 50
+uv run python -m scripts.optimize --lang pl --iterations 30
 
 # With coarse grid warmup
-uv run python -m scripts.optimize --lang pl --coarse-grid --iterations 20
+uv run python -m scripts.optimize --lang pl --coarse-grid --iterations 30
 
 # With finer grid
-uv run python -m scripts.optimize --lang pl --coarse-grid --grid-step 2 --iterations 20
+uv run python -m scripts.optimize --lang pl --coarse-grid --grid-step 2 --iterations 30
 
 # Resume interrupted run
-uv run python -m scripts.optimize --lang pl --resume --iterations 20
+uv run python -m scripts.optimize --lang pl --resume --iterations 30
 ```
 
 ## Test Environment
