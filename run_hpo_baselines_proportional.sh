@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
-# Re-run HPO comparison (GP vs Random vs TPE) with dataset-proportional
-# trie normalizer (N = |D|, number of wordlist lines per dataset).
-#
-# This addresses the interaction between Task 1 (HPO baselines) and Task 2
-# (trie penalty ablation): the fixed N=25,000 used in Task 1 miscalibrates
-# the objective for datasets whose size differs substantially from 25k.
+# Re-run HPO comparison (GP vs Random vs TPE). Dataset-proportional trie
+# normalization (N = |D|, number of wordlist lines per dataset) is now the
+# default in scripts.compare_hpo_methods.
 #
 # IMPORTANT: No --reuse-existing-gp here. All three methods run fresh
 # under the corrected objective for a fair comparison.
@@ -43,6 +40,5 @@ exec "${PYTHON_BIN}" -m scripts.compare_hpo_methods \
   --max-threshold 1 \
   --ucb-kappa 2.5 \
   --trie-weight 0.0005 \
-  --proportional-normalizer \
   --nfold 10 \
   --output-dir results/hpo_baselines_proportional

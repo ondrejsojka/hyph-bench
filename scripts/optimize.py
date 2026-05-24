@@ -32,6 +32,11 @@ from .hyperparameters.score import PatgenScorer
 from .hyperparameters.sample import Sample
 from .cross_validate import run_cross_validation
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
+from .trie_normalizer import (
+    add_trie_normalizer_args,
+    resolve_trie_normalizer,
+    warn_fixed_trie_normalizer,
+)
 
 def run_patgen_multilevel(scorer: PatgenScorer, params: Tuple[int, ...],
                           pat_ranges: List[Tuple[int, int]],
@@ -131,8 +136,7 @@ def main():
                         help='Beta for F-score (default: 1/7 for F_1/7)')
     parser.add_argument('--trie-weight', type=float, default=0.0005,
                         help='Weight for trie size penalty in f17_trie (default: 0.0005)')
-    parser.add_argument('--trie-normalizer', type=float, default=30000,
-                        help='Normalizer for trie size in f17_trie (default: 30000)')
+    add_trie_normalizer_args(parser)
     parser.add_argument('--bad-target', type=float, default=500,
                         help='Target of bad hyphenations for f17_target (default: 500)')
     parser.add_argument('--bad-tolerance', type=float, default=500,
@@ -185,13 +189,30 @@ def main():
 
     args = parser.parse_args()
 
+    # Find dataset before building objectives so trie normalizer defaults to |D|.
+    if args.wordlist and args.translate:
+        wl_path, tr_path = args.wordlist, args.translate
+    else:
+        wl_path, tr_path = find_dataset(args.lang)
+
+    uses_trie_objective = args.objective in ('f17_trie', 'f17_target_w_trie')
+    fixed_trie_normalizer = False
+    trie_normalizer = None
+    if uses_trie_objective:
+        trie_normalizer, fixed_trie_normalizer = resolve_trie_normalizer(
+            args,
+            wl_path,
+            "scripts.optimize",
+            dataset=args.lang,
+        )
+
     # Setup objective
     if args.objective == 'f17':
         objective = get_objective('f17', beta=args.beta)
     elif args.objective == 'f17_trie':
         objective = get_objective('f17_trie', beta=args.beta,
                                   trie_weight=args.trie_weight,
-                                  trie_normalizer=args.trie_normalizer)
+                                  trie_normalizer=trie_normalizer)
     elif args.objective == 'f17_target':
         objective = get_objective('f17_target', bad_target=args.bad_target,
                                   tol=args.bad_tolerance, beta=args.beta)
@@ -199,7 +220,7 @@ def main():
         objective = get_objective('f17_target_w_trie', bad_target=args.bad_target,
                                   tol=args.bad_tolerance, beta=args.beta,
                                   trie_weight=args.trie_weight,
-                                  trie_normalizer=args.trie_normalizer)
+                                  trie_normalizer=trie_normalizer)
     elif args.objective == 'bounded_bad':
         objective = get_objective('bounded_bad', bad_threshold=args.bad_threshold)
     elif args.objective == 'min_size':
@@ -210,12 +231,6 @@ def main():
         objective = get_objective(args.objective)
 
     print(f"Objective: {objective.name}")
-
-    # Find dataset
-    if args.wordlist and args.translate:
-        wl_path, tr_path = args.wordlist, args.translate
-    else:
-        wl_path, tr_path = find_dataset(args.lang)
 
     print(f"Wordlist: {wl_path}")
     print(f"Translate: {tr_path}")
@@ -437,6 +452,12 @@ def main():
     except ImportError:
         print("(pandas not available, skipping CSV export)")
     scorer.clean()
+    if fixed_trie_normalizer:
+        warn_fixed_trie_normalizer(
+            "scripts.optimize",
+            trie_normalizer,
+            "END WARNING",
+        )
 
 if __name__ == '__main__':
     main()

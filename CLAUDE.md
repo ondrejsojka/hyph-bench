@@ -28,7 +28,7 @@ hyph-bench is a benchmark dataset and tooling for generating hyphenation pattern
 uv run python -m scripts.optimize --lang cssk/cshyphen \
   --iterations 100 --batch-size 5 --objective f17_trie \
   --good-weight 3 --max-bad-weight 30 --max-threshold 1 \
-  --ucb-kappa 2.5 --trie-weight 0.0005 --trie-normalizer 25000
+  --ucb-kappa 2.5 --trie-weight 0.0005
 
 # Run 10-fold cross-validation with specific parameters
 uv run python -m scripts.cross_validate --lang cssk --params 5 1 6 9 1
@@ -75,7 +75,7 @@ The optimizer uses:
   - `weighted` - Customizable weighted combination
   - `pr_curve` - Distance to ideal precision/recall
 
-**Trie size optimization**: Use `--objective f17_trie` to balance F_{1/7} with trie size. Smaller tries tend to generalize better. Configure with `--trie-weight` (default: 0.0005) and `--trie-normalizer` (default: 25000).
+**Trie size optimization**: Use `--objective f17_trie` to balance F_{1/7} with trie size. Smaller tries tend to generalize better. Configure with `--trie-weight` (default: 0.0005). The trie normalizer defaults to the dataset-proportional wordlist size `|D|`; avoid fixed `--trie-normalizer` values except for explicit ablations.
 
 ### Dataset Structure
 
