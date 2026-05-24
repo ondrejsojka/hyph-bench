@@ -6,6 +6,7 @@ and returns a score where higher is better.
 """
 
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 class ObjectiveFunction(ABC):
@@ -91,7 +92,13 @@ class F17WithTrieSize(ObjectiveFunction):
     """
 
     def __init__(self, beta: float = 1/7, trie_weight: float = 0.0005,
-                 trie_normalizer: float = 50000):
+                 trie_normalizer: Optional[float] = None):
+        if trie_normalizer is None:
+            raise ValueError(
+                "F17WithTrieSize requires an explicit trie_normalizer. "
+                "Use trie_normalizer=|D|, the wordlist line count, unless "
+                "you are intentionally running a fixed-normalizer ablation."
+            )
         self.beta = beta
         self.trie_weight = trie_weight
         self.trie_normalizer = trie_normalizer
@@ -272,7 +279,15 @@ class F17BadTargetWithTrieSize(ObjectiveFunction):
     F_{1/beta} inside a tolerance band around `bad_target`, while heavily penalized outside.
     """
     def __init__(self, bad_target: int = 500, tol: int = 50, beta: float = 1/7,
-                 trie_weight: float = 0.0005, trie_normalizer: float = 50000):
+                 trie_weight: float = 0.0005,
+                 trie_normalizer: Optional[float] = None):
+        if trie_normalizer is None:
+            raise ValueError(
+                "F17BadTargetWithTrieSize requires an explicit "
+                "trie_normalizer. Use trie_normalizer=|D|, the wordlist line "
+                "count, unless you are intentionally running a "
+                "fixed-normalizer ablation."
+            )
         self.bad_target = bad_target
         self.tol = tol
         self.beta = beta

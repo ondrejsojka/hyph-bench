@@ -30,7 +30,6 @@ exec "${PYTHON_BIN}" -m scripts.compare_hpo_methods \
   --max-threshold 1 \
   --ucb-kappa 2.5 \
   --trie-weight 0.0005 \
-  --trie-normalizer 25000 \
   --nfold 10 \
   --reuse-existing-gp \
   --output-dir results/hpo_baselines

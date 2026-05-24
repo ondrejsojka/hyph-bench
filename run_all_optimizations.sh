@@ -36,7 +36,6 @@ for LANG in "${LANGS[@]}"; do
         --max-threshold 1 \
         --ucb-kappa 2.5 \
         --trie-weight 0.0005 \
-        --trie-normalizer 25000 \
         --resume \
         > "optimization_logs/${LOG_NAME}.log" 2>&1
     echo "Finished optimization for $LANG."

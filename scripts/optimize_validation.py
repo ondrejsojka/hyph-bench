@@ -22,6 +22,11 @@ from .hyphenator.hyphenator import Hyphenator
 from .hyperparameters.score import PatgenScorer
 from .hyperparameters.sample import Sample
 from .objectives import get_objective
+from .trie_normalizer import (
+    add_trie_normalizer_args,
+    resolve_trie_normalizer,
+    warn_fixed_trie_normalizer,
+)
 
 
 def f17_score(good: int, bad: int, missed: int, beta: float = 1 / 7) -> float:
@@ -274,7 +279,7 @@ def main() -> None:
     parser.add_argument("--objective", choices=["f17", "f17_trie"], default="f17_trie")
     parser.add_argument("--beta", type=float, default=1 / 7)
     parser.add_argument("--trie-weight", type=float, default=0.0005)
-    parser.add_argument("--trie-normalizer", type=float, default=25000)
+    add_trie_normalizer_args(parser)
     parser.add_argument("--final-exploitation", type=int, default=3)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--verbose", "-v", action="store_true")
@@ -287,12 +292,22 @@ def main() -> None:
     else:
         wordlist_path, translate_path = find_dataset(args.lang)
 
+    fixed_trie_normalizer = False
+    trie_normalizer = None
+    if args.objective == "f17_trie":
+        trie_normalizer, fixed_trie_normalizer = resolve_trie_normalizer(
+            args,
+            wordlist_path,
+            "scripts.optimize_validation",
+            dataset=args.lang,
+        )
+
     pat_ranges = parse_profile(args.profile) if args.profile else DEFAULT_PAT_RANGES
     objective = get_objective(
         args.objective,
         beta=args.beta,
         trie_weight=args.trie_weight,
-        trie_normalizer=args.trie_normalizer,
+        trie_normalizer=trie_normalizer,
     ) if args.objective == "f17_trie" else get_objective(args.objective, beta=args.beta)
 
     lang_dir = os.path.join(args.output_dir, args.lang)
@@ -435,6 +450,12 @@ def main() -> None:
     print(f"History saved to: {history_path}")
     if export_path:
         print(f"Final train-only patterns saved to: {export_path}")
+    if fixed_trie_normalizer:
+        warn_fixed_trie_normalizer(
+            "scripts.optimize_validation",
+            trie_normalizer,
+            "END WARNING",
+        )
 
 
 if __name__ == "__main__":

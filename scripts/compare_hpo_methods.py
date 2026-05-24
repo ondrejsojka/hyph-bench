@@ -24,7 +24,7 @@ Usage:
     python -m scripts.compare_hpo_methods --datasets de/wortliste \
         --methods gp random tpe --objective f17_trie --iterations 30 \
         --good-weight 3 --max-bad-weight 30 --max-threshold 1 --ucb-kappa 2.5 \
-        --trie-weight 0.0005 --trie-normalizer 25000 --nfold 10 \
+        --trie-weight 0.0005 --nfold 10 \
         --baseline-profile wortliste=profiles/wortliste.in \
         --output-dir results/hpo_baselines
 """
@@ -45,19 +45,13 @@ from .hyperparameters import combine, sample, metaheuristic
 from .train_test import NFoldCrossValidator
 from .cross_validate import run_cross_validation
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
+from .trie_normalizer import (
+    add_trie_normalizer_args,
+    resolve_trie_normalizer,
+    warn_fixed_trie_normalizer,
+)
 from .optimize import (run_patgen_multilevel, run_parallel_patgen,
                        run_parallel_cross_validation)
-
-
-# --------------------------------------------------------------------------- #
-# Evaluation
-# --------------------------------------------------------------------------- #
-def count_lines(path: str) -> int:
-    n = 0
-    with open(path, "r", encoding="utf-8", errors="replace") as f:
-        for _ in f:
-            n += 1
-    return n
 
 
 def evaluate_params(params: Tuple[int, ...], ctx: dict) -> dict:
@@ -334,7 +328,7 @@ def make_latex_table(dataset: str, rows: List[dict], nfold: int = 10,
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
-def build_objective(args, trie_normalizer: float) -> ObjectiveFunction:
+def build_objective(args, trie_normalizer: Optional[float]) -> ObjectiveFunction:
     if args.objective == "f17":
         return get_objective("f17", beta=args.beta)
     if args.objective == "f17_trie":
@@ -379,9 +373,7 @@ def main():
     parser.add_argument("--ucb-kappa", type=float, default=2.0)
     parser.add_argument("--beta", type=float, default=1 / 7)
     parser.add_argument("--trie-weight", type=float, default=0.0005)
-    parser.add_argument("--trie-normalizer", type=float, default=25000)
-    parser.add_argument("--proportional-normalizer", action="store_true",
-                        help="Set trie_normalizer = |D| (wordlist line count) per dataset")
+    add_trie_normalizer_args(parser)
     parser.add_argument("--nfold", type=int, default=10,
                         help="Folds for the final k-fold CV of each method's winner and "
                              "the baselines (search itself always uses single full-train)")
@@ -409,6 +401,7 @@ def main():
     baselines = parse_baseline_arg(args.baseline_profile)
 
     all_summaries = {}
+    fixed_trie_normalizers = []
 
     for dataset in args.datasets:
         print("\n" + "=" * 72)
@@ -418,11 +411,17 @@ def main():
         print(f"Wordlist:  {wl}")
         print(f"Translate: {tr}")
 
-        if args.proportional_normalizer:
-            trie_normalizer = float(count_lines(wl))
-            print(f"Proportional trie_normalizer = |D| = {trie_normalizer:.0f}")
-        else:
-            trie_normalizer = args.trie_normalizer
+        fixed_trie_normalizer = False
+        trie_normalizer = None
+        if args.objective == "f17_trie":
+            trie_normalizer, fixed_trie_normalizer = resolve_trie_normalizer(
+                args,
+                wl,
+                "scripts.compare_hpo_methods",
+                dataset=dataset,
+            )
+            if fixed_trie_normalizer:
+                fixed_trie_normalizers.append(trie_normalizer)
 
         objective = build_objective(args, trie_normalizer)
         bounds = [(1, args.max_bad_weight)] * 4 + [(1, args.max_threshold)]
@@ -528,6 +527,12 @@ def main():
     with open(os.path.join(args.output_dir, "summary_all.json"), "w") as f:
         json.dump(all_summaries, f, indent=2)
     print("\nAll results written to:", args.output_dir)
+    for trie_normalizer in fixed_trie_normalizers:
+        warn_fixed_trie_normalizer(
+            "scripts.compare_hpo_methods",
+            trie_normalizer,
+            "END WARNING",
+        )
 
 
 if __name__ == "__main__":
