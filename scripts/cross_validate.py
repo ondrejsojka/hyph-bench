@@ -34,7 +34,8 @@ def run_cross_validation(wl_path: str, tr_path, lang: str, params: List[int],
                          fixed_test: str = None) -> Tuple[dict, str]:
     tmp_dir = os.path.dirname(wl_path)
     run_id = str(uuid.uuid4().hex)
-    profile_path = os.path.join(tmp_dir, f"{lang}_dynamic_{run_id}.in")
+    safe_lang = lang.replace(os.sep, "_").replace("/", "_")
+    profile_path = os.path.join(tmp_dir, f"{safe_lang}_dynamic_{run_id}.in")
 
     create_dynamic_profile(params, pat_ranges, good_weight, profile_path)
     print(f"Created dynamic profile: {profile_path}")

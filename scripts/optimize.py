@@ -8,7 +8,7 @@ using Gaussian Process regression with Upper Confidence Bound acquisition.
 Usage:
     python -m scripts.optimize --lang pl --iterations 30
     python -m scripts.optimize --lang uk --objective bounded_bad --bad-threshold 500
-    python -m scripts.optimize --lang pl --resume --iterations 20
+    python -m scripts.optimize --lang pl --resume --iterations 30
 
 The optimizer searches over a 5-dimensional space:
     bad_1, bad_2, bad_3, bad_4 in [1, 9]
@@ -67,7 +67,17 @@ def run_patgen_multilevel(scorer: PatgenScorer, params: Tuple[int, ...],
             'threshold': threshold
         })
 
-        scorer.score(sample)
+        try:
+            scorer.score(sample)
+        except FileNotFoundError as exc:
+            print(f"Warning: patgen failed for params={params} at level={level}: {exc}")
+            return {
+                'good': 0,
+                'bad': 1,
+                'missed': 1,
+                'n_patterns': total_patterns,
+                'trie_nodes': 0
+            }
         prev_id = sample.run_id
         total_patterns += sample.stats.get('level_patterns', 0)
         final_stats = sample.stats
@@ -119,8 +129,8 @@ def main():
                         help='Bad threshold for bounded_bad/min_size objectives')
     parser.add_argument('--beta', type=float, default=1/7,
                         help='Beta for F-score (default: 1/7 for F_1/7)')
-    parser.add_argument('--trie-weight', type=float, default=0.0001,
-                        help='Weight for trie size penalty in f17_trie (default: 0.0001)')
+    parser.add_argument('--trie-weight', type=float, default=0.0005,
+                        help='Weight for trie size penalty in f17_trie (default: 0.0005)')
     parser.add_argument('--trie-normalizer', type=float, default=30000,
                         help='Normalizer for trie size in f17_trie (default: 30000)')
     parser.add_argument('--bad-target', type=float, default=500,

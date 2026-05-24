@@ -35,31 +35,32 @@ class PatgenScorer:
             s.stats = stats.copy()
 
         cwd = os.getcwd()
-        os.chdir(self.temp_dir)
+        try:
+            os.chdir(self.temp_dir)
 
-        with open(f"{run_id}.in", "w") as par:
-            par.write("\n".join([f"{s.level} {s.level}",
-                                 f"{s.pat_start} {s.pat_finish}",
-                                 f"{s.good_weight} {s.bad_weight} {s.threshold}",
-                                 "y",
-                                 ""]
-                                )
-                      )
+            with open(f"{run_id}.in", "w") as par:
+                par.write("\n".join([f"{s.level} {s.level}",
+                                     f"{s.pat_start} {s.pat_finish}",
+                                     f"{s.good_weight} {s.bad_weight} {s.threshold}",
+                                     "y",
+                                     ""]
+                                    )
+                          )
 
-        command = " ".join([f"cat {run_id}.in | (",
-                            self.patgen_path,
-                            self.wordlist_path,
-                            f"{s.prev}.pat",
-                            f"{run_id}.pat",
-                            self.translate_path, ") >",
-                            f"{run_id}.log"])
-        os.system(command)
+            command = " ".join([f"cat {run_id}.in | (",
+                                self.patgen_path,
+                                self.wordlist_path,
+                                f"{s.prev}.pat",
+                                f"{run_id}.pat",
+                                self.translate_path, ") >",
+                                f"{run_id}.log"])
+            os.system(command)
 
-        stats = self.get_statistics(run_id)
-        stats["n_patterns"] = self.count_patterns(run_id)
-        self._cached[s_hash] = stats
-        
-        os.chdir(cwd)
+            stats = self.get_statistics(run_id)
+            stats["n_patterns"] = self.count_patterns(run_id)
+            self._cached[s_hash] = stats
+        finally:
+            os.chdir(cwd)
 
         s.stats = stats
         s.timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
