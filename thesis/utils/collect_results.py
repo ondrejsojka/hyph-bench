@@ -137,7 +137,7 @@ def build_row(entry: dict, suk: dict | None, fuk: dict | None, cv: dict | None) 
         "suk_args":      entry.get("suk_args", ""),
         "fuk_objective": entry["fuk_objective"],
         "fuk_args":      entry.get("fuk_args", ""),
-        "iterations":    entry.get("iterations", 50),
+        "iterations":    entry.get("iterations", 30),
         "batch_size":    entry.get("batch_size", 1),
         "weight":        entry.get("weight", ""),
         "annotation":    entry.get("annotation", ""),

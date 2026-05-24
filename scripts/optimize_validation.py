@@ -264,7 +264,7 @@ def main() -> None:
     parser.add_argument("--patgen", default="patgen", help="Path to patgen binary")
     parser.add_argument("--profile", help="Profile file for pat_start/pat_finish")
     parser.add_argument("--output-dir", default="results/gpoptval4", help="Output directory")
-    parser.add_argument("--iterations", type=int, default=100)
+    parser.add_argument("--iterations", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--ucb-kappa", type=float, default=2.5)

@@ -8,7 +8,7 @@ Creates plots similar to scikit-learn's GPR example, showing:
 - Observed points
 
 For each parameter dimension (bad_1, bad_2, bad_3, bad_4, threshold)
-at iterations 20, 40, 60, 80, 100.
+at iteration 30 by default.
 """
 
 import numpy as np
@@ -277,7 +277,7 @@ def main():
         "--iterations",
         type=int,
         nargs="+",
-        default=[20, 40, 60, 80, 100],
+        default=[30],
         help="Iterations to visualize",
     )
     parser.add_argument("--output-dir", default="figures", help="Output directory")

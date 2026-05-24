@@ -23,14 +23,14 @@ Usage: run_batches.sh <config.json> [--collect-results]
 Example config.json:
 [
   {
-    "name": "run_f17_50",
+    "name": "run_f17_30",
     "weight": 3,
     "annotation": "claude_new_prompt",
     "suk_objective": "f17_trie",
     "suk_args": "--trie-weight 1.0",
     "fuk_objective": "f17_target",
     "fuk_args": "--bad-target 500 --bad-tolerance 50",
-    "iterations": 50,
+    "iterations": 30,
     "batch_size": 4
   }
 ]
@@ -76,7 +76,7 @@ for i in $(seq 0 $((N - 1))); do
     suk_args=$(echo "$entry"   | jq -r '.suk_args')
     fuk_obj=$(echo "$entry"    | jq -r '.fuk_objective')
     fuk_args=$(echo "$entry"   | jq -r '.fuk_args')
-    iters=$(echo "$entry"      | jq -r '.iterations // 50')
+    iters=$(echo "$entry"      | jq -r '.iterations // 30')
     batch=$(echo "$entry"      | jq -r '.batch_size // 1')
 
     launcher_log="$LOG_DIR/${name}.log"

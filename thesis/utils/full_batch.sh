@@ -21,7 +21,7 @@ FUK optimize objective (both args required together):
   --fuk-args "ARGS"         Extra args for FUK objective (quoted string)
 
 Optimize tuning (applied to only to FUK optimization):
-  --iterations N            Number of optimize iterations (default: 50)
+  --iterations N            Number of optimize iterations (default: 30)
   --batch-size N            Optimize batch size (default: 1)
 
 Cross-validation:
@@ -33,7 +33,7 @@ EOF
 }
 
 # Defaults
-ITERATIONS=50
+ITERATIONS=30
 BATCH_SIZE=1
 NFOLD=10
 SUK_OBJECTIVE=""

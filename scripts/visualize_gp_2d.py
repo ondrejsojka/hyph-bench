@@ -598,7 +598,7 @@ def main():
     parser.add_argument("--lang", default="cssk", help="Language code")
     parser.add_argument("--history", type=str, help="Path to history CSV")
     parser.add_argument(
-        "--iteration", type=int, default=100, help="Iteration to visualize"
+        "--iteration", type=int, default=30, help="Iteration to visualize"
     )
     parser.add_argument("--output-dir", default="figures", help="Output directory")
     parser.add_argument(
