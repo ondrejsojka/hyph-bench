@@ -43,8 +43,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("wordlist", help="Path to wordlist, for which the translate file will be created.")
     parser.add_argument("--hyphmark", default="-", required=False, help="Hyphenation mark used in wordlist.")
-    parser.add_argument("--left_hyphen_min", required=False, type=int, help="Fixed value for patgen left_hyphen_min hyperparameter")
-    parser.add_argument("--right_hyphen_min", required=False, type=int, help="Fixed value for patgen right_hyphen_min hyperparameter")
+    parser.add_argument("--left_hyphen_min", required=False, type=int, default=2, help="Fixed value for patgen left_hyphen_min hyperparameter")
+    parser.add_argument("--right_hyphen_min", required=False, type=int, default=2, help="Fixed value for patgen right_hyphen_min hyperparameter")
     args = parser.parse_args()
 
     main(args)
