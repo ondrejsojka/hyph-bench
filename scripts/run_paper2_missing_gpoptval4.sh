@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_DIR="${ROOT_DIR}/results/gpoptval4_missing_logs"
 OUTPUT_DIR="${ROOT_DIR}/results/gpoptval4"
+PATGEN_BIN="${PATGEN_BIN:-${HOME}/patgen-10x}"
 
 mkdir -p "${LOG_DIR}" "${OUTPUT_DIR}"
 
@@ -34,6 +35,7 @@ run_dataset() {
       --max-threshold 1 \
       --ucb-kappa 2.5 \
       --trie-weight 0.0005 \
+      --patgen "${PATGEN_BIN}" \
       --export-final-patterns
   ) > "${LOG_DIR}/${LOG_NAME}.log" 2>&1
   echo "Finished GPoptval4 paper2 run for ${LANG} at $(date '+%Y-%m-%d %H:%M:%S')"

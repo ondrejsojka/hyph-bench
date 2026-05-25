@@ -48,6 +48,27 @@ def recall(good: int, missed: int) -> float:
     return good / (good + missed) if good + missed > 0 else 0.0
 
 
+def count_hyphen_points(wordlist_path: str) -> int:
+    total = 0
+    with open(wordlist_path, encoding="utf-8") as wordlist:
+        for line in wordlist:
+            total += line.count("-")
+    return total
+
+
+def failed_evaluation_result(eval_path: str) -> Dict[str, int]:
+    return {
+        "good": 0,
+        "bad": 0,
+        "missed": count_hyphen_points(eval_path),
+        "train_good": 0,
+        "train_bad": 0,
+        "train_missed": 0,
+        "n_patterns": 0,
+        "trie_nodes": 0,
+    }
+
+
 def safe_name(name: str) -> str:
     return name.replace(os.sep, "_").replace("/", "_")
 
@@ -369,7 +390,12 @@ def main() -> None:
                 for i, params in enumerate(suggestions)
             }
             for future in as_completed(futures):
-                params, results = future.result()
+                params = futures[future]
+                try:
+                    params, results = future.result()
+                except Exception as exc:
+                    results = failed_evaluation_result(split["validation"])
+                    print(f"  Failed: params={params}: {exc!r}")
                 score = optimizer.update(
                     params,
                     results["good"],
@@ -410,7 +436,12 @@ def main() -> None:
                 for i, params in enumerate(best_params_to_test)
             }
             for future in as_completed(futures):
-                params, results = future.result()
+                params = futures[future]
+                try:
+                    params, results = future.result()
+                except Exception as exc:
+                    results = failed_evaluation_result(split["validation"])
+                    print(f"  Failed: params={params}: {exc!r}")
                 score = optimizer.update(
                     params,
                     results["good"],
