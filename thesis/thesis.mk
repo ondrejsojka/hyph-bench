@@ -6,21 +6,27 @@ FINAL_PATTERNS=thesis/pattern_evaluation_dataset/patterns/optimized.pat
 
 ANNOTATIONS=$(wildcard thesis/annotation_results/*)
 PATTENRS=$(wildcard thesis/pattern_evaluation_dataset/patterns/*)
+TRUTH=$(wildcard thesis/pattern_evaluation_dataset/human*)
 
 # Reproduce all results
 thesis: suk531 kappa_table indistinct optimization_results evaluate_patterns
 
-clean_thesis: 
+clean_thesis:
 	rm -rf $(RESULTS_DIR)
 
-# Creates an table comparing the final patterns against Polyakov 
-evaluate_patterns:
+# Creates an table comparing the final patterns against Polyakov
+evaluate_patterns_thesis :
 	cp $(FINAL_PATTERNS) thesis/pattern_evaluation_dataset/patterns/uk_final.pat
 	python thesis/utils/evaluate_patterns.py \
 		thesis/pattern_evaluation_dataset/evaluation.wl \
-		--truth thesis/pattern_evaluation_dataset/human1.wl \
+		--truth thesis/pattern_evaluation_dataset/human1_syllables.wlh \
 		--patterns $(PATTENRS) \
 		--output $(RESULTS_DIR)/pattern_evaluation.tex
+
+data/uk/dict_uk/eval_removed.wl:
+	grep -vxF thesis/pattern_evaluation_dataset/evaluation.wl data/uk/dict_uk/uk_full_dictuk.wl \
+	    > data/uk/dict_uk/eval_removed.wl
+
 
 # Outputs the results with all experiments conducted on FUK
 optimization_results: $(RESULTS_DIR)
@@ -46,7 +52,7 @@ suk531: $(RESULTS_DIR)
 		--export-iteration-results
 	mv results/uk_bad.txt $(RESULTS_DIR)/suk531.wl
 
-$(RESULTS_DIR): 
+$(RESULTS_DIR):
 	mkdir -p $(RESULTS_DIR)
 
 # Recreate the universal patterns experiment
@@ -63,12 +69,11 @@ universal_patterns: $(RESULTS_DIR)
 			-c $(RESULTS_DIR)/collisions
 	python -m scripts.optimize --lang uk \
 		--wordlist $(RESULTS_DIR)/merged.wlh \
-		--translate thesis/pattern_evaluation_dataset/patterns/merged.tra \
+		--translate thesis/pattern_evaluation_dataset/merged.tra \
 		--objective f17_cv \
 		--iterations 10 \
 		--batch-size 15 \
 		--export-iteration-results
-	python thesis/utils/evaluate_patterns.py thesis/pattern_evaluation_dataset/evaluation.wlh \
+	python thesis/utils/evaluate_patterns.py thesis/pattern_evaluation_dataset/evaluation.wl \
 		--truth thesis/pattern_evaluation_dataset/human1.wl \
 		--patterns $(FINAL_PATTERNS) results/uk_final.pat
-
