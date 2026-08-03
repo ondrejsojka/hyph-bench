@@ -17,6 +17,15 @@ import argparse
 from itertools import combinations
 
 
+def score_values(history_df: pd.DataFrame) -> np.ndarray:
+    """Return optimizer scores from old or validation-run history files."""
+    if "score" in history_df.columns:
+        return history_df["score"].values
+    if "objective_score" in history_df.columns:
+        return history_df["objective_score"].values
+    raise KeyError("History CSV must contain either 'score' or 'objective_score'")
+
+
 def fit_gp_snapshot(
     X: np.ndarray, y: np.ndarray, seed: int = 42
 ) -> GaussianProcessRegressor:
@@ -87,7 +96,7 @@ def create_pairwise_heatmaps(
     if param_cols is None:
         param_cols = [f"param_{i}" for i in range(1, 6)]
     X = df_snapshot[param_cols].values
-    y = df_snapshot["score"].values
+    y = score_values(df_snapshot)
 
     # Fit GP
     print(f"  Fitting GP on {len(X)} points...")
@@ -213,7 +222,7 @@ def create_key_pairs_figure(
     df_snapshot = history_df.iloc[:iteration].copy()
     param_cols = [f"param_{i}" for i in range(1, 6)]
     X = df_snapshot[param_cols].values
-    y = df_snapshot["score"].values
+    y = score_values(df_snapshot)
 
     print(f"  Fitting GP on {len(X)} points...")
     gp = fit_gp_snapshot(X, y)
@@ -331,7 +340,7 @@ def create_acquisition_landscape(
     df_snapshot = history_df.iloc[:iteration].copy()
     param_cols = [f"param_{i}" for i in range(1, 6)]
     X = df_snapshot[param_cols].values
-    y = df_snapshot["score"].values
+    y = score_values(df_snapshot)
 
     print(f"  Fitting GP for acquisition landscape...")
     gp = fit_gp_snapshot(X, y)
@@ -512,7 +521,7 @@ def create_evolution_animation_frames(
     for iteration in iterations:
         df_snapshot = history_df.iloc[:iteration].copy()
         X = df_snapshot[param_cols].values
-        y = df_snapshot["score"].values
+        y = score_values(df_snapshot)
         all_means.extend(y)
 
     vmin, vmax = min(all_means), max(all_means)
@@ -524,7 +533,7 @@ def create_evolution_animation_frames(
     for iteration in iterations:
         df_snapshot = history_df.iloc[:iteration].copy()
         X = df_snapshot[param_cols].values
-        y = df_snapshot["score"].values
+        y = score_values(df_snapshot)
 
         gp = fit_gp_snapshot(X, y)
 

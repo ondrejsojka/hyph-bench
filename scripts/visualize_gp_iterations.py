@@ -20,6 +20,15 @@ import os
 import argparse
 
 
+def score_values(history_df: pd.DataFrame) -> np.ndarray:
+    """Return optimizer scores from old or validation-run history files."""
+    if "score" in history_df.columns:
+        return history_df["score"].values
+    if "objective_score" in history_df.columns:
+        return history_df["objective_score"].values
+    raise KeyError("History CSV must contain either 'score' or 'objective_score'")
+
+
 def fit_gp_snapshot(
     X: np.ndarray, y: np.ndarray, seed: int = 42
 ) -> GaussianProcessRegressor:
@@ -76,7 +85,7 @@ def create_iteration_figure(
     # Extract X and y
     param_cols = [f"param_{i}" for i in range(1, 6)]
     X = df_snapshot[param_cols].values
-    y = df_snapshot["score"].values
+    y = score_values(df_snapshot)
 
     # Fit GP
     gp = fit_gp_snapshot(X, y)
@@ -200,7 +209,7 @@ def create_combined_figure(
         df_snapshot = history_df.iloc[:iteration].copy()
         param_cols = [f"param_{i}" for i in range(1, 6)]
         X = df_snapshot[param_cols].values
-        y = df_snapshot["score"].values
+        y = score_values(df_snapshot)
 
         # Fit GP
         gp = fit_gp_snapshot(X, y)
