@@ -35,7 +35,7 @@ def process_accents(hyph, base_word):
             deaccented += base_word[i_word]
             i_word += 1
         elif hyph[i_hyph] == "-":
-            if word[i_word] == " ":
+            if base_word[i_word] == " ":
                 i_word += 1
                 continue
             deaccented += "-"
@@ -51,7 +51,7 @@ def build_regex(base_word: str, has_accents: bool = False):
             letters.append(f"[{letter}{ACCENTED.get(letter, '')}]")
         else:
             letters.append(f"[{letter}]")
-    return (f"[-]?".join([letter for letter in letters]))+"\s"
+    return f"[-]?".join(letters) + r"\s"
 
 def process_hyph(data: list, base_word: str, has_accents: bool = False):
     translated = set()

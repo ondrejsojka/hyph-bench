@@ -1,55 +1,50 @@
+"""Apply a generated PATGEN pattern file to a plain word list."""
+
 import argparse
-import os
-import pyphen
+from pathlib import Path
 
-"""
-Simple script for hyphenating word list using patgen
+from .hyphenator.hyphenator import Hyphenator
 
-Can be used for bootstrapping patterns created from smaller datasets onto new
-ones from larger one
 
-Each word that should be hyphenated should be on separate line
-
-Usage:
-    python -m scripts.hyphenate_wordlist --dict uk.dict --pat uk.pat --trans uk.trans --lr-hypen-min 2 2
-"""
-
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Hyphenate new wordlist with already existing patterns",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__
+        description="Hyphenate one word per line with a PATGEN pattern file."
     )
-
-    parser.add_argument("--dict", required=True, type=str,
-                        help="Wordlist file you want to hyphenate")
-    
-    parser.add_argument("--separator", type=str, default="-",
-                        help="Provide alternative separator character")
-    
-    parser.add_argument('--output-dir', type=str, default='results',
-                        help='Output directory for results (default: results)')
-    
+    parser.add_argument("--wordlist", required=True, type=Path)
+    parser.add_argument("--patterns", required=True, type=Path)
+    parser.add_argument("--translate", required=True, type=Path)
+    parser.add_argument("--output", type=Path)
+    parser.add_argument(
+        "--separator",
+        default="-",
+        help="Hyphenation mark to write (default: -).",
+    )
     args = parser.parse_args()
 
-    dict_file = args.dict
+    output_path = args.output or args.wordlist.with_suffix(
+        args.wordlist.suffix + ".hyph"
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    hyphenator = Hyphenator(
+        str(args.patterns),
+        hyphenation_mark=args.separator,
+        translate_file=str(args.translate),
+    )
 
-    os.makedirs(args.output_dir, exist_ok=True)
-    dict_file_name = os.path.basename(dict_file)
-    output_path = os.path.join(args.output_dir, f"{dict_file_name}.hyph")
+    count = 0
+    with (
+        args.wordlist.open(encoding="utf-8") as wordlist,
+        output_path.open("w", encoding="utf-8") as output,
+    ):
+        for line in wordlist:
+            word = line.strip()
+            if not word:
+                continue
+            output.write(hyphenator.hyphenate(word) + "\n")
+            count += 1
 
-    hyphenator = pyphen.Pyphen(lang="uk")
-
-    dictionary = open(dict_file, "r")
-    output = open(output_path, "w+")
-
-    for line in iter(lambda: dictionary.readline(), ''):
-        hypenated = hyphenator.inserted(line.strip(), args.separator)
-        output.write(f"{hypenated}\n")
-
-    dictionary.close()
-    output.close()
+    print(f"Hyphenated {count} words into {output_path}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

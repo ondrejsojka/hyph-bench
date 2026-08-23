@@ -253,13 +253,17 @@ def extract_files(data_directory: str):
     :param data_directory: directory to be searched
     :return: (wordlist name, translate file name, input parameters file name), if they are found '' otherwise
     """
+    files = sorted(os.listdir(data_directory))
+    preferred_suffixes = ("_dis.wlh", "_expanded.wlh", ".wlh")
     wl_file, tr_file = "", ""
-    for file in os.listdir(data_directory):
-        if file.endswith("_dis.wlh") or file.endswith("_expanded.wlh"):
-            wl_file = data_directory + "/" + file
-        elif file.endswith(".tra"):
-            tr_file = data_directory + "/" + file
-
+    for suffix in preferred_suffixes:
+        candidates = [file for file in files if file.endswith(suffix)]
+        if candidates:
+            wl_file = os.path.join(data_directory, candidates[0])
+            break
+    translate_files = [file for file in files if file.endswith(".tra")]
+    if translate_files:
+        tr_file = os.path.join(data_directory, translate_files[0])
     if not wl_file or not tr_file:
         print(f"Wordlist or translate file not present in {data_directory} directory", file=sys.stderr)
 

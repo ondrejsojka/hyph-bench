@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LOG_DIR="${ROOT_DIR}/results/gpoptval4_missing_logs"
 OUTPUT_DIR="${ROOT_DIR}/results/gpoptval4"
-PATGEN_BIN="${PATGEN_BIN:-${HOME}/patgen-10x}"
+PATGEN_BIN="${PATGEN_BIN:-patgen}"
 
 mkdir -p "${LOG_DIR}" "${OUTPUT_DIR}"
 
@@ -16,12 +16,12 @@ run_dataset() {
   local HISTORY="${LANG_DIR}/gpoptval4_history.csv"
   local FINAL_PATTERNS="${LANG_DIR}/gpoptval4_final.pat"
   if [[ -s "${FINAL_PATTERNS}" && -f "${HISTORY}" ]] && [[ "$(wc -l < "${HISTORY}")" -ge 154 ]]; then
-    echo "Skipping complete GPoptval4 paper2 run for ${LANG}"
+    echo "Skipping complete fixed-parameter run for ${LANG}"
     return
   fi
 
   rm -rf "${LANG_DIR}"
-  echo "Starting GPoptval4 paper2 run for ${LANG} at $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "Starting fixed-parameter run for ${LANG} at $(date '+%Y-%m-%d %H:%M:%S')"
   (
     cd "${ROOT_DIR}"
     uv run python -m scripts.optimize_validation \
@@ -38,7 +38,7 @@ run_dataset() {
       --patgen "${PATGEN_BIN}" \
       --export-final-patterns
   ) > "${LOG_DIR}/${LOG_NAME}.log" 2>&1
-  echo "Finished GPoptval4 paper2 run for ${LANG} at $(date '+%Y-%m-%d %H:%M:%S')"
+  echo "Finished fixed-parameter run for ${LANG} at $(date '+%Y-%m-%d %H:%M:%S')"
 }
 
 run_queue() {
@@ -60,4 +60,4 @@ run_queue \
 
 wait
 
-echo "All missing GPoptval4 paper2 runs finished at $(date '+%Y-%m-%d %H:%M:%S')"
+echo "All missing fixed-parameter runs finished at $(date '+%Y-%m-%d %H:%M:%S')"

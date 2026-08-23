@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Revision analyses for paper2.
+"""Analyze held-out optimization results.
 
-This script uses the held-out 8/1/1 runs already produced for paper2 and
-generates:
+This script uses deterministic 8/1/1 held-out runs to generate:
 
-* a paired bootstrap table for optimized vs. best hand-tuned held-out scores,
-* selector-ablation summaries over the stored validation histories,
-* a frontier figure showing held-out F-score gain against trie-size ratio.
+* a paired bootstrap table for optimized versus hand-tuned held-out scores,
+* selector-ablation summaries over stored validation histories,
+* a frontier figure of held-out F-score gain against trie-size ratio.
 """
 
 import argparse
@@ -358,14 +357,14 @@ def run_bootstrap(args, selected: List[dict], output_dir: Path) -> List[dict]:
                 item["params"],
                 splits["train"],
                 translate_path,
-                f"_paper2_ci_opt_{run_tag}",
+                f"_heldout_ci_opt_{run_tag}",
             )
             base_name = item["best_baseline_name"]
             base_pattern, base_stats, base_scorer = train_hand_profile(
                 PROFILE_PATHS[base_name],
                 splits["train"],
                 translate_path,
-                f"_paper2_ci_base_{run_tag}",
+                f"_heldout_ci_base_{run_tag}",
             )
             opt_counts = per_line_counts(splits["test"], opt_pattern, translate_path)
             base_counts = per_line_counts(splits["test"], base_pattern, translate_path)
@@ -430,7 +429,7 @@ def run_selector_ablation(
                 PROFILE_PATHS[baseline_name],
                 splits["train"],
                 translate_path,
-                f"_paper2_selector_base_{run_tag}",
+                f"_heldout_selector_base_{run_tag}",
             )
             base_eval = evaluate_profile_counts(base_pattern, splits["test"], translate_path)
             for rule in rules:
@@ -441,7 +440,7 @@ def run_selector_ablation(
                         params_from_history(row),
                         splits["train"],
                         translate_path,
-                        f"_paper2_selector_{rule}_{run_tag}",
+                        f"_heldout_selector_{rule}_{run_tag}",
                     )
                     opt_eval = evaluate_profile_counts(opt_pattern, splits["test"], translate_path)
                     accum[rule].append(
@@ -483,11 +482,11 @@ def run_selector_ablation(
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--selected", default="results/paper2_posthoc_validation_constrained_tau005_tables.json")
-    parser.add_argument("--baseline-validation", default="results/paper2_baseline_validation_metrics.json")
-    parser.add_argument("--output-dir", default="results/paper2_revision_analysis")
-    parser.add_argument("--frontier-pdf", default="../brain/overleaf/latex/pics/paper2_frontier.pdf")
-    parser.add_argument("--frontier-png", default="../brain/overleaf/latex/pics/paper2_frontier.png")
+    parser.add_argument("--selected", default="results/fixed_search_vc005_results.json")
+    parser.add_argument("--baseline-validation", default="results/baseline_validation_metrics.json")
+    parser.add_argument("--output-dir", default="results/heldout_analysis")
+    parser.add_argument("--frontier-pdf", default="../brain/overleaf/latex/pics/heldout_frontier.pdf")
+    parser.add_argument("--frontier-png", default="../brain/overleaf/latex/pics/heldout_frontier.png")
     parser.add_argument("--bootstrap-reps", type=int, default=500)
     parser.add_argument("--seed", type=int, default=20260525)
     parser.add_argument("--skip-bootstrap", action="store_true")
