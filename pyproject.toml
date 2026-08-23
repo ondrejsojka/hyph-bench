@@ -2,6 +2,8 @@
 name = "hyph-bench"
 version = "1.0.0"
 description = "Benchmark Dataset of Hyphenated Words for Generating Hyphenation Patterns"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.24.0",

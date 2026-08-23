@@ -28,6 +28,8 @@ Compressed directory with JSON dump files of Wiktionary datasets.
 ## Licences
 Please acknowledge the allowed usage of the data:
 
+The original software in this repository is available under the [MIT License](LICENSE). Dataset files retain their separate licenses and attribution requirements.
+
 | Dataset               | Licence          | Note |
 |-----------------------|------------------|------|
 | cs/cshyphen\_cstenten |  CC BY-NC-SA 3.0 | |
