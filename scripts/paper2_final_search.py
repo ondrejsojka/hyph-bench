@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Final per-level GP search for PATGEN weights and thresholds.
 
-Each level searches the ordered weight ratios 1/3, 1/2, and 1..30. Ratios
-are converted to integer PATGEN parameters: 1/n becomes good_wt=n,
+Each level searches the ordered weight ratios 1/5, 1/4, 1/3, 1/2, and 1..30.
+Ratios are converted to integer PATGEN parameters: 1/n becomes good_wt=n,
 bad_wt=1; integer n becomes good_wt=1, bad_wt=n. Each level independently
 searches threshold 1..5 by default.
 """
@@ -32,18 +32,19 @@ from .trie_normalizer import (
     warn_fixed_trie_normalizer,
 )
 
-# Ordered GP categories: two fractional ratios followed by integers 1..30.
-WEIGHT_LABELS = ("1/3", "1/2") + tuple(str(value) for value in range(1, 31))
+# Ordered GP categories: four fractional ratios followed by integers 1..30.
+FRACTIONAL_DENOMINATORS = (5, 4, 3, 2)
+WEIGHT_LABELS = tuple(f"1/{value}" for value in FRACTIONAL_DENOMINATORS) + tuple(
+    str(value) for value in range(1, 31)
+)
 
 
 def decode_weight(code: int) -> Tuple[int, int]:
     """Return (good_wt, bad_wt) for an ordinal GP weight code."""
-    if code == 0:
-        return 3, 1
-    if code == 1:
-        return 2, 1
-    if 2 <= code < len(WEIGHT_LABELS):
-        return 1, code - 1
+    if 0 <= code < len(FRACTIONAL_DENOMINATORS):
+        return FRACTIONAL_DENOMINATORS[code], 1
+    if code < len(WEIGHT_LABELS):
+        return 1, code - len(FRACTIONAL_DENOMINATORS) + 1
     raise ValueError(f"weight code out of range: {code}")
 
 
