@@ -246,12 +246,13 @@ def main():
     # Setup scorer
     scorer = PatgenScorer(args.patgen, wl_path, tr_path, verbose=args.verbose)
 
-    # Setup output directory
+    # Keep nested dataset identifiers inside one output directory.
+    dataset_name = args.lang.replace("/", "_")
     os.makedirs(args.output_dir, exist_ok=True)
-    state_path = os.path.join(args.output_dir, f'{args.lang}_gp_state.pkl')
-    csv_path = os.path.join(args.output_dir, f'{args.lang}_history.csv')
-    bad_path = os.path.join(args.output_dir, f'{args.lang}_bad.txt')
-    patterns_path = os.path.join(args.output_dir, f'{args.lang}_final.pat')
+    state_path = os.path.join(args.output_dir, f"{dataset_name}_gp_state.pkl")
+    csv_path = os.path.join(args.output_dir, f"{dataset_name}_history.csv")
+    bad_path = os.path.join(args.output_dir, f"{dataset_name}_bad.txt")
+    patterns_path = os.path.join(args.output_dir, f"{dataset_name}_final.pat")
 
     # Define bounds: 4 bad_weights (1-max) + 1 threshold (1-max)
     bounds = [(1, args.max_bad_weight)] * 4 + [(1, args.max_threshold)]
