@@ -2,12 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PYTHON_BIN="${ROOT_DIR}/.venv/bin/python"
-
-if [[ ! -x "${PYTHON_BIN}" ]]; then
-  echo "Expected virtualenv python at ${PYTHON_BIN}" >&2
-  exit 1
-fi
+cd "${ROOT_DIR}"
 
 if [[ $# -eq 0 ]]; then
   DATASETS=(
@@ -19,7 +14,7 @@ else
   DATASETS=("$@")
 fi
 
-exec "${PYTHON_BIN}" -m scripts.compare_hpo_methods \
+exec uv run python -m scripts.compare_hpo_methods \
   --datasets "${DATASETS[@]}" \
   --methods gp random tpe \
   --objective f17_trie \
