@@ -107,14 +107,28 @@ def train_patgen_multilevel(
     scorer: PatgenScorer,
     params: Tuple[int, ...],
     pat_ranges: List[Tuple[int, int]],
-    good_weight: int,
+    good_weight: int | Tuple[int, ...],
 ) -> Tuple[str, Dict[str, int]]:
-    if len(params) == 5:
-        bad_weights = params[:4]
-        threshold = params[4]
+    n_levels = len(pat_ranges)
+    if isinstance(good_weight, int):
+        good_weights = (good_weight,) * n_levels
+    else:
+        if len(good_weight) != n_levels:
+            raise ValueError(
+                f"expected {n_levels} good weights, got {len(good_weight)}"
+            )
+        good_weights = good_weight
+    if len(params) == 2 * n_levels:
+        # bad_1..N + per-level thresholds thr_1..N
+        bad_weights = params[:n_levels]
+        thresholds = params[n_levels : 2 * n_levels]
+    elif len(params) == n_levels + 1:
+        # bad_1..N + one threshold shared by all levels
+        bad_weights = params[:n_levels]
+        thresholds = (params[n_levels],) * n_levels
     else:
         bad_weights = params
-        threshold = 1
+        thresholds = (1,) * n_levels
 
     prev_id = 0
     total_patterns = 0
@@ -129,9 +143,9 @@ def train_patgen_multilevel(
                 "prev": prev_id,
                 "pat_start": pat_start,
                 "pat_finish": pat_finish,
-                "good_weight": good_weight,
+                "good_weight": good_weights[level - 1],
                 "bad_weight": bad_weights[level - 1],
-                "threshold": threshold,
+                "threshold": thresholds[level - 1],
             }
         )
         scorer.score(sample)
@@ -186,7 +200,7 @@ def evaluate_parameter_set(
     translate_path: str,
     params: Tuple[int, ...],
     pat_ranges: List[Tuple[int, int]],
-    good_weight: int,
+    good_weight: int | Tuple[int, ...],
     verbose: bool,
     worker_id: str,
     export_patterns_path: str = "",
