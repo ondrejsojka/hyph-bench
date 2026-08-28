@@ -1,8 +1,8 @@
 import os
 import sys
-from hyperparameters.score import PatgenScorer
-from hyperparameters.sample import Sample
-from hyphenator.hyphenator import Hyphenator
+from .hyperparameters.score import PatgenScorer
+from .hyperparameters.sample import Sample
+from .hyphenator.hyphenator import Hyphenator
 
 def find_errors(lang, bad_weights, threshold):
     # Find dataset
