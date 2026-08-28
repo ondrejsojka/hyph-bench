@@ -32,8 +32,19 @@ from .trie_normalizer import (
     warn_fixed_trie_normalizer,
 )
 
-# Ordered GP categories: four fractional ratios followed by integers 1..30.
-FRACTIONAL_DENOMINATORS = (5, 4, 3, 2)
+# The dated runner uses the extended space; the historical GPTopt8 launcher pins
+# its original space through PAPER2_WEIGHT_SPACE=legacy for reproducibility.
+_WEIGHT_SPACES = {
+    "extended": (5, 4, 3, 2),
+    "legacy": (3, 2),
+}
+_weight_space = os.environ.get("PAPER2_WEIGHT_SPACE", "extended")
+if _weight_space not in _WEIGHT_SPACES:
+    raise ValueError(
+        f"unknown PAPER2_WEIGHT_SPACE={_weight_space!r}; "
+        f"expected one of {tuple(_WEIGHT_SPACES)}"
+    )
+FRACTIONAL_DENOMINATORS = _WEIGHT_SPACES[_weight_space]
 WEIGHT_LABELS = tuple(f"1/{value}" for value in FRACTIONAL_DENOMINATORS) + tuple(
     str(value) for value in range(1, 31)
 )
