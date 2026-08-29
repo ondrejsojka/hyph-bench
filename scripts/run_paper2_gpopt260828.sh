@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the final 17-dataset GPTopt8 matrix, two datasets at a time.
+# Run the 17-dataset gpopt260828 matrix, two datasets at a time.
 # Each dataset uses five PATGEN workers; two concurrent runs occupy all 12 CPUs
 # with ten PATGEN workers and two GP coordinator processes.
 
@@ -9,7 +9,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}" || exit 1
 
 PATGEN_BIN="${PATGEN_BIN:-/home/dev/patgen-10x}"
-OUTPUT_DIR="${OUTPUT_DIR:-results/gptopt8}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/gpopt260828}"
 MAX_PARALLEL="${MAX_PARALLEL:-2}"
 LOG_DIR="${OUTPUT_DIR}/_logs"
 STATUS_FILE="${LOG_DIR}/run-status.tsv"
@@ -58,7 +58,7 @@ run_dataset() {
 
   started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "[${started}] START ${dataset}"
-  PAPER2_WEIGHT_SPACE=legacy uv run python -u -m scripts.paper2_final_search \
+  uv run python -u -m scripts.paper2_final_search \
     --lang "${dataset}" \
     --patgen "${PATGEN_BIN}" \
     --output-dir "${OUTPUT_DIR}" \
@@ -67,7 +67,7 @@ run_dataset() {
     --seed 42 \
     --ucb-kappa 2.5 \
     --min-threshold 1 \
-    --max-threshold 5 \
+    --max-threshold 42 \
     --objective f17_trie \
     --trie-weight 0.0005 \
     --export-final-patterns \
@@ -80,15 +80,25 @@ run_dataset() {
 }
 
 running=0
+failed=0
 for dataset in "${DATASETS[@]}"; do
   run_dataset "${dataset}" &
   running=$((running + 1))
   if [[ "${running}" -ge "${MAX_PARALLEL}" ]]; then
-    wait -n
+    if ! wait -n; then
+      failed=1
+    fi
     running=$((running - 1))
   fi
 done
-wait
+
+while [[ "${running}" -gt 0 ]]; do
+  if ! wait -n; then
+    failed=1
+  fi
+  running=$((running - 1))
+done
 
 finished="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-echo "[${finished}] GPTopt8 QUEUE COMPLETE"
+echo "[${finished}] gpopt260828 QUEUE COMPLETE exit=${failed}"
+exit "${failed}"
