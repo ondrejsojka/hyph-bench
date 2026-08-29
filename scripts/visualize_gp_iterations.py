@@ -19,6 +19,10 @@ import pandas as pd
 import os
 import argparse
 
+# ACL/IEEE reject Type 3 fonts; embed TrueType instead.
+plt.rcParams["pdf.fonttype"] = 42
+plt.rcParams["ps.fonttype"] = 42
+
 
 def score_values(history_df: pd.DataFrame) -> np.ndarray:
     """Return optimizer scores from old or validation-run history files."""
