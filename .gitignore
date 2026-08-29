@@ -8,6 +8,16 @@ wikt_dump
 **/*_dis.wlh
 **/test*
 !**/uk/wiktionary/
+
+# Redistribute the exact Wiktionary-derived run inputs used by the paper runs
+# (CC BY-SA 4.0, see README "Dataset licenses"). Raw dumps and pre-disambiguation
+# lists stay out of the repository.
+!**/wiktionary/
+**/wiktionary/*
+!**/wiktionary/*_dis.wlh
+!**/wiktionary/*_dis.wlh.tra
+!**/uk/wiktionary/*
+
 results/*
 !results/fixed_search_vc005_results.json
 !results/shared_parameter_search/
