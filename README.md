@@ -7,8 +7,8 @@ The repository contains:
 - curated and Wiktionary-derived hyphenated word lists;
 - PATGEN preprocessing and evaluation tools;
 - GP, TPE, and Random Search optimizers;
-- the fixed-space GPopt4 and wider-space GPopt6 paper protocols;
-- generated histories, selected profiles, and camera-ready analysis artifacts.
+- the per-level Gaussian-process paper protocol and dated `gpopt260828` batch runner;
+- generated histories, selected profiles, and analysis artifacts.
 
 ## Requirements
 
@@ -170,57 +170,62 @@ The command uses the repository's Liang-pattern implementation. It does not subs
 
 ## Reproduce the paper experiments
 
-The camera-ready analysis uses the following protocol for every manuscript dataset:
+The final per-level search uses the following protocol for every manuscript dataset:
 
-- deterministic 8/1/1 split;
-- 30 GP iterations with batches of 5;
+- deterministic 8/1/1 train, validation, and held-out test split;
+- four independently selected weight ratios, one per PATGEN level;
+- four independently selected thresholds, one per PATGEN level;
+- weight ratios in `{1/5, 1/4, 1/3, 1/2, 1, ..., 30}`;
+- thresholds in `[1,42]`;
+- pattern ranges `[(1,4), (2,5), (2,6), (2,7)]`;
+- 30 GP iterations with batches of 5, followed by three exploitation evaluations;
 - seed 42 and UCB $\kappa=2.5$;
-- proportional trie normalization by $|D|$;
-- `trie_weight=0.0005`;
-- VC-0.005 validation-only profile selection;
+- proportional trie normalization by $|D|$ and `trie_weight=0.0005`;
+- selection by the best observed validation objective;
 - one held-out test evaluation after selection.
 
-Important scripts:
+The dated repository identifier for the final 17-dataset run is `gpopt260828`.
+The paper describes it generically as the per-level GP search and does not use
+the dated identifier as a method name.
 
-| Purpose | Command or script |
-|---|---|
-| Fixed-good-weight, fixed-threshold search | `python -m scripts.optimize_validation` |
-| Shared-good-weight, shared-threshold search | `python -m scripts.optimize_shared_parameters` |
-| Full 17-dataset shared-parameter queue | `scripts/run_shared_parameter_search.sh` |
-| GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
-| Validation-constrained selection and bootstrap analysis | `python -m scripts.analyze_shared_parameters` |
-
-Camera-ready shared-parameter artifacts:
-
-| Artifact | Path |
-|---|---|
-| Per-dataset histories and selected patterns | `results/shared_parameter_search/<language>/<dataset>/` |
-| Fixed-parameter VC-0.005 reference and baseline metrics | `results/fixed_search_vc005_results.json` |
-| Full held-out result matrix | `results/shared_parameter_analysis/vc005_results.json` |
-| Human-readable result table | `results/shared_parameter_analysis/vc005_results.md` |
-| Aggregate statistics | `results/shared_parameter_analysis/summary.json` |
-| Paired-bootstrap table | `results/shared_parameter_analysis/bootstrap_ci_table.tex` |
-| Accuracy–compactness frontier | `results/shared_parameter_analysis/frontier.pdf` |
-| Runtime measurements | `results/shared_parameter_analysis/runtime_measurements.json` |
-
-Run the full shared-parameter matrix or fill missing datasets:
+Run the full matrix or fill missing datasets:
 
 ```bash
 PATGEN_BIN=/path/to/high-capacity/patgen \
-  bash scripts/run_shared_parameter_search.sh
+  bash scripts/run_paper2_gpopt260828.sh
 ```
 
-The batch runner skips datasets with a complete 153-row history and an exported final pattern.
+By default, the runner writes to `results/gpopt260828/`. Each complete dataset
+contains:
 
-Regenerate the shared-parameter aggregate artifacts after all 17 histories are present:
+- `run_config.json`, recording the exact command and search space;
+- `final_history.csv`, with 153 evaluated profiles;
+- `selected_profile.json`, with validation selection and held-out metrics;
+- `final_patterns.pat`, the selected deployable pattern set;
+- deterministic split files and optimizer state.
 
-```bash
-uv run python -m scripts.analyze_shared_parameters \
-  --patgen /path/to/high-capacity/patgen \
-  --bootstrap-reps 500
-```
+The result directory is gitignored by default. For a paper release, add only
+the reviewed lightweight configurations, histories, selected profiles,
+patterns, and aggregate evidence; do not publish machine-specific optimizer
+pickle state.
 
-The analysis applies the same VC-0.005 selector used by the fixed-parameter results. It selects profiles from validation histories before it evaluates the held-out test split.
+Historical GPTopt8 artifacts remain under `results/gptopt8/`. Its launcher
+pins `PAPER2_WEIGHT_SPACE=legacy`, preserving the original fractional choices
+`{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the
+extended default space. Do not combine histories from the two spaces.
+
+Related scripts:
+
+| Purpose | Command or script |
+|---|---|
+| Final per-level GP search | `python -m scripts.paper2_final_search` |
+| Final 17-dataset queue | `scripts/run_paper2_gpopt260828.sh` |
+| Historical GPTopt8 queue | `scripts/run_paper2_gptopt8.sh` |
+| GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
+
+The budget-matched GP/TPE/Random experiment uses a separate restricted
+four-parameter space. Its results must not be presented as repeated runs or
+uncertainty estimates for the final per-level search.
 
 ## Preprocess the bundled datasets
 
