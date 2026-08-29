@@ -4,9 +4,12 @@
 For every dataset with a stored ``selected_profile.json`` under the final run
 directory this script:
 
-* validates the stored deterministic mod-10 train/validation/test split
-  against the source word list (membership, coverage, disjointness, counts,
-  SHA-256 hashes),
+* materializes the deterministic mod-10 train/validation/test split from the
+  source word list when a published artifact set ships without the split files
+  (``--write-splits``),
+* validates that split against the source word list (membership, coverage,
+  disjointness, counts, SHA-256 hashes) and, when a previous
+  ``bootstrap_ci.json`` is present, against its recorded split hashes,
 * regenerates the selected optimized profile and the manuscript's hand-tuned
   baseline profiles on the stored train split with the recorded PATGEN binary,
 * asserts that the regenerated optimized held-out Good/Bad/Missed aggregates
@@ -42,7 +45,7 @@ from .analyze_heldout_results import (
 from .dataset_utls import find_dataset
 from .hyperparameters.sample import Sample
 from .hyperparameters.score import PatgenScorer
-from .optimize_validation import train_patgen_multilevel
+from .optimize_validation import create_mod10_split, train_patgen_multilevel
 from .paper2_final_search import WEIGHT_LABELS
 
 RESULTS_DIR = Path("results/gpopt260828")
@@ -77,6 +80,21 @@ def sha256_file(path: str) -> str:
 def read_lines(path: str) -> List[str]:
     with open(path, encoding="utf-8") as handle:
         return [line.rstrip("\n") for line in handle]
+
+
+def materialize_splits(wordlist_path: str, split_dir: Path) -> bool:
+    """Write the deterministic mod-10 split when it is absent; report whether it was written.
+
+    Published artifact sets ship histories, patterns, configurations and selected
+    profiles but not the split files, which are a pure function of the source word
+    list and an order of magnitude larger. Regenerating them here lets a clean
+    clone run the full audit; ``validate_splits`` then proves the regenerated
+    files are the partition the reported run used.
+    """
+    if all((split_dir / f"data.{name}.wlh").is_file() for name in SPLIT_NAMES):
+        return False
+    create_mod10_split(wordlist_path, str(split_dir))
+    return True
 
 
 def validate_splits(wordlist_path: str, split_dir: Path, config_counts: Dict[str, str]) -> Dict[str, object]:
@@ -286,6 +304,8 @@ def analyze_dataset(
     seed: int,
     row_index: int,
     results_dir: str,
+    write_splits: bool,
+    recorded_split_hashes: Dict[str, str],
 ) -> Dict[str, object]:
     profile_path = Path(profile_path_str)
     run_dir = profile_path.parent
@@ -304,10 +324,19 @@ def analyze_dataset(
     ), "stored weight labels disagree with decoded PATGEN weights"
 
     wordlist_path, translate_path = find_dataset(dataset)
+    split_dir = run_dir / "splits"
+    if write_splits and materialize_splits(wordlist_path, split_dir):
+        print(f"[splits] regenerated deterministic mod-10 split for {dataset}", flush=True)
     split_evidence = validate_splits(
-        wordlist_path, run_dir / "splits", config.get("split_counts", {})
+        wordlist_path, split_dir, config.get("split_counts", {})
     )
-    splits = {name: str(run_dir / "splits" / f"data.{name}.wlh") for name in SPLIT_NAMES}
+    for name, evidence in split_evidence["splits"].items():
+        recorded = recorded_split_hashes.get(name)
+        assert recorded is None or recorded == evidence["sha256"], (
+            f"{dataset} {name} split SHA-256 {evidence['sha256']} does not match the "
+            f"recorded {recorded}; the source word list is not the one used by the run"
+        )
+    splits = {name: str(split_dir / f"data.{name}.wlh") for name in SPLIT_NAMES}
     patgen = patgen_binary(config)
     run_tag = uuid.uuid4().hex[:8]
 
@@ -459,6 +488,24 @@ def load_manuscript_baselines(path: Path) -> Dict[str, str]:
     return {row["dataset"]: row["best_baseline_name"] for row in rows}
 
 
+def load_recorded_split_hashes(path: Path) -> Dict[str, Dict[str, str]]:
+    """Per-dataset split SHA-256 values from a previously published bootstrap_ci.json."""
+    if not path.is_file():
+        return {}
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    recorded: Dict[str, Dict[str, str]] = {}
+    for row in rows:
+        splits = row.get("split_evidence", {}).get("splits", {})
+        hashes = {
+            name: evidence["sha256"]
+            for name, evidence in splits.items()
+            if isinstance(evidence, dict) and "sha256" in evidence
+        }
+        if hashes:
+            recorded[row["dataset"]] = hashes
+    return recorded
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results-dir", default=str(RESULTS_DIR))
@@ -466,6 +513,14 @@ def main() -> None:
     parser.add_argument("--reps", type=int, default=BOOTSTRAP_REPS)
     parser.add_argument("--seed", type=int, default=BOOTSTRAP_SEED)
     parser.add_argument("--jobs", type=int, default=min(4, os.cpu_count() or 1))
+    parser.add_argument(
+        "--write-splits",
+        action="store_true",
+        help=(
+            "regenerate the deterministic mod-10 split from the source word list when a "
+            "run directory ships without split files (published artifact sets omit them)"
+        ),
+    )
     args = parser.parse_args()
 
     results_dir = Path(args.results_dir)
@@ -475,6 +530,9 @@ def main() -> None:
     )
 
     manuscript_baselines = load_manuscript_baselines(MANUSCRIPT_TABLES)
+    recorded_split_hashes = load_recorded_split_hashes(
+        Path(args.output_dir) / "bootstrap_ci.json"
+    )
     rows: List[dict] = []
     with ProcessPoolExecutor(max_workers=args.jobs) as pool:
         futures = {
@@ -486,6 +544,10 @@ def main() -> None:
                 args.seed,
                 index,
                 str(results_dir),
+                args.write_splits,
+                recorded_split_hashes.get(
+                    Path(profile_path).parent.relative_to(results_dir).as_posix(), {}
+                ),
             ): profile_path
             for index, profile_path in enumerate(profiles, start=1)
         }

@@ -207,7 +207,33 @@ contains:
 The result directory is gitignored by default. For a paper release, add only
 the reviewed lightweight configurations, histories, selected profiles,
 patterns, and aggregate evidence; do not publish machine-specific optimizer
-pickle state.
+pickle state or the split files.
+
+### Audit a published artifact set
+
+The split files are a pure function of the source word list, so they are not
+published. Regenerate them and re-derive every reported held-out number from a
+clean clone with:
+
+```bash
+uv run python -m scripts.analyze_gpopt260828 \
+  --results-dir results/gpopt260828 \
+  --output-dir results/gpopt260828_analysis \
+  --write-splits
+```
+
+Without `--write-splits` the analysis refuses to run against a run directory
+that has no split files. With it, `scripts.optimize_validation.create_mod10_split`
+rewrites the deterministic 8/1/1 partition, and the run is then checked for
+mod-10 membership, coverage, index disjointness, recorded split counts, and
+SHA-256 equality with the split hashes stored in an existing
+`bootstrap_ci.json`. A word list that differs from the one used by the reported
+run fails on the hash comparison before any PATGEN work starts.
+
+The analysis regenerates the selected profile and both hand-tuned baselines
+with PATGEN, asserts that the regenerated held-out Good/Bad/Missed counts and
+$F_{1/7}$ reproduce `selected_profile.json` exactly, and writes
+`bootstrap_ci.json`, `bootstrap_ci_table.tex`, and `summary.json`.
 
 Historical GPTopt8 artifacts remain under `results/gptopt8/`. Its launcher
 pins `PAPER2_WEIGHT_SPACE=legacy`, preserving the original fractional choices
@@ -222,6 +248,7 @@ Related scripts:
 | Final 17-dataset queue | `scripts/run_paper2_gpopt260828.sh` |
 | Historical GPTopt8 queue | `scripts/run_paper2_gptopt8.sh` |
 | GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
+| Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
 
 The budget-matched GP/TPE/Random experiment uses a separate restricted
 four-parameter space. Its results must not be presented as repeated runs or
