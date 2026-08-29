@@ -1,0 +1,38 @@
+{
+  "weight_ratios": [
+    "1/3",
+    "1/4",
+    "17",
+    "1/4"
+  ],
+  "good_weights": [
+    3,
+    4,
+    1,
+    4
+  ],
+  "bad_weights": [
+    1,
+    1,
+    17,
+    1
+  ],
+  "thresholds": [
+    39,
+    11,
+    7,
+    6
+  ],
+  "validation_objective": 0.942949528307118,
+  "held_out_test": {
+    "good": 7194,
+    "bad": 423,
+    "missed": 904,
+    "train_good": 56429,
+    "train_bad": 176,
+    "train_missed": 1851,
+    "n_patterns": 443,
+    "trie_nodes": 872
+  },
+  "held_out_test_f17": 0.9432750025568338
+}

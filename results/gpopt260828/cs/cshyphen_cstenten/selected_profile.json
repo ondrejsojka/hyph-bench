@@ -1,0 +1,38 @@
+{
+  "weight_ratios": [
+    "30",
+    "30",
+    "25",
+    "2"
+  ],
+  "good_weights": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "bad_weights": [
+    30,
+    30,
+    25,
+    2
+  ],
+  "thresholds": [
+    40,
+    39,
+    21,
+    1
+  ],
+  "validation_objective": 0.9709166048014479,
+  "held_out_test": {
+    "good": 164977,
+    "bad": 4778,
+    "missed": 3279,
+    "train_good": 1319773,
+    "train_bad": 124,
+    "train_missed": 25899,
+    "n_patterns": 3841,
+    "trie_nodes": 5369
+  },
+  "held_out_test_f17": 0.9720252205597031
+}

@@ -1,0 +1,1368 @@
+Proportional trie_normalizer for ru/wiktionary: |D| = 152608
+Objective: F17+Trie(w=0.0005)
+Dataset: /home/dev/hyph-bench/data/ru/wiktionary/ru_wiktionary.wlh_dis.wlh
+Split counts: train=122088, validation=15260, test=15260
+Pattern ranges: [(1, 4), (2, 5), (2, 6), (2, 7)]
+Search space (8-D): per-level weight in ('1/5', '1/4', '1/3', '1/2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'); per-level threshold in [1,42]
+Budget: 30 iterations x batch 5 = 150 evaluations
+
+============================================================
+Iteration 1/30
+  Tested: weights=('1/4', '17', '29', '8'), thresholds=(22, 25, 27, 42)
+  validation: F_1/7=0.721904, good=41306, bad=16226, missed=534, trie_nodes=1256, objective=0.721900
+  Tested: weights=('25', '11', '4', '17'), thresholds=(39, 19, 23, 11)
+  validation: F_1/7=0.902791, good=37203, bad=3993, missed=4637, trie_nodes=2351, objective=0.902783
+  Tested: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9)
+  validation: F_1/7=0.950056, good=27736, bad=1200, missed=14104, trie_nodes=3889, objective=0.950043
+  Tested: weights=('7', '20', '20', '1/3'), thresholds=(22, 2, 24, 30)
+  validation: F_1/7=0.931753, good=34082, bad=2389, missed=7758, trie_nodes=5068, objective=0.931736
+  Tested: weights=('14', '1/2', '21', '10'), thresholds=(9, 26, 2, 20)
+  validation: F_1/7=0.926662, good=35515, bad=2739, missed=6325, trie_nodes=32336, objective=0.926556
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=23.4s
+
+============================================================
+Iteration 2/30
+  Tested: weights=('1', '1/5', '11', '22'), thresholds=(3, 40, 41, 42)
+  validation: F_1/7=0.920976, good=31074, bad=2501, missed=10766, trie_nodes=1732, objective=0.920970
+  Tested: weights=('27', '20', '1/2', '22'), thresholds=(42, 10, 41, 42)
+  validation: F_1/7=0.754186, good=40822, bad=13556, missed=1018, trie_nodes=2003, objective=0.754179
+  Tested: weights=('11', '1/4', '27', '5'), thresholds=(10, 25, 5, 14)
+  validation: F_1/7=0.937721, good=34077, bad=2151, missed=7763, trie_nodes=10426, objective=0.937687
+  Tested: weights=('1/2', '25', '1/5', '26'), thresholds=(1, 3, 22, 8)
+  validation: F_1/7=0.783344, good=41119, bad=11590, missed=721, trie_nodes=10922, objective=0.783308
+  Tested: weights=('7', '30', '15', '2'), thresholds=(38, 42, 28, 1)
+  validation: F_1/7=0.938999, good=32779, bad=1988, missed=9061, trie_nodes=25103, objective=0.938916
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=52.6s
+
+============================================================
+Iteration 3/30
+  Tested: weights=('29', '27', '30', '18'), thresholds=(42, 30, 5, 41)
+  validation: F_1/7=0.942075, good=28393, bad=1507, missed=13447, trie_nodes=22438, objective=0.942001
+  Tested: weights=('3', '29', '1/5', '15'), thresholds=(3, 39, 12, 30)
+  validation: F_1/7=0.788265, good=41341, bad=11321, missed=499, trie_nodes=3176, objective=0.788255
+  Tested: weights=('1/4', '1/5', '5', '18'), thresholds=(40, 27, 9, 7)
+  validation: F_1/7=0.910285, good=37651, bad=3701, missed=4189, trie_nodes=2878, objective=0.910276
+  Tested: weights=('29', '2', '1/3', '29'), thresholds=(7, 41, 35, 3)
+  validation: F_1/7=0.802542, good=40737, bad=10205, missed=1103, trie_nodes=17987, objective=0.802483
+  Tested: weights=('2', '17', '18', '1'), thresholds=(22, 7, 26, 25)
+  validation: F_1/7=0.830048, good=39557, bad=8218, missed=2283, trie_nodes=2584, objective=0.830039
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=84.3s
+
+============================================================
+Iteration 4/30
+  Tested: weights=('30', '3', '1/5', '28'), thresholds=(22, 40, 3, 4)
+  validation: F_1/7=0.775593, good=41153, bad=12136, missed=687, trie_nodes=12873, objective=0.775551
+  Tested: weights=('6', '30', '29', '24'), thresholds=(7, 40, 2, 35)
+  validation: F_1/7=0.899010, good=38263, bad=4313, missed=3577, trie_nodes=15122, objective=0.898960
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('21', '11', '9', '1/4'), thresholds=(38, 9, 23, 13)
+  validation: F_1/7=0.949411, good=29391, bad=1344, missed=12449, trie_nodes=3402, objective=0.949399
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1', '1/5', '22', '6'), thresholds=(15, 32, 42, 24)
+  validation: F_1/7=0.920512, good=23266, bad=1671, missed=18574, trie_nodes=1852, objective=0.920506
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/4', '28', '1/3', '19'), thresholds=(1, 5, 37, 1)
+  validation: F_1/7=0.802568, good=39509, bad=9870, missed=2331, trie_nodes=62880, objective=0.802362
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=119.8s
+
+============================================================
+Iteration 5/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('7', '1/2', '29', '12'), thresholds=(39, 41, 40, 33)
+  validation: F_1/7=0.926135, good=33017, bad=2507, missed=8823, trie_nodes=1064, objective=0.926131
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 0 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('15', '7', '1/4', '2'), thresholds=(41, 21, 1, 42)
+  validation: F_1/7=0.785582, good=39639, bad=10995, missed=2201, trie_nodes=4826, objective=0.785566
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('10', '6', '1/5', '27'), thresholds=(8, 2, 35, 31)
+  validation: F_1/7=0.776780, good=41251, bad=12084, missed=589, trie_nodes=6238, objective=0.776760
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '29', '21', '19'), thresholds=(6, 30, 3, 19)
+  validation: F_1/7=0.929797, good=35411, bad=2597, missed=6429, trie_nodes=18551, objective=0.929737
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 0 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '19', '2', '1/5'), thresholds=(40, 1, 42, 3)
+  validation: F_1/7=0.946217, good=27636, bad=1313, missed=14204, trie_nodes=18237, objective=0.946158
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=150.7s
+
+============================================================
+Iteration 6/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('7', '1', '22', '29'), thresholds=(34, 2, 34, 11)
+  validation: F_1/7=0.934968, good=33090, bad=2170, missed=8750, trie_nodes=4058, objective=0.934954
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('4', '15', '1/5', '12'), thresholds=(9, 39, 39, 22)
+  validation: F_1/7=0.798027, good=41189, bad=10624, missed=651, trie_nodes=2075, objective=0.798020
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('29', '25', '23', '1/5'), thresholds=(7, 30, 5, 37)
+  validation: F_1/7=0.943967, good=29031, bad=1497, missed=12809, trie_nodes=21098, objective=0.943898
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/5', '30', '30', '6'), thresholds=(41, 40, 2, 3)
+  validation: F_1/7=0.804767, good=40719, bad=10057, missed=1121, trie_nodes=9434, objective=0.804736
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('4', '1/5', '1', '1/4'), thresholds=(35, 7, 7, 40)
+  validation: F_1/7=0.918032, good=33052, bad=2832, missed=8788, trie_nodes=5087, objective=0.918015
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=175.7s
+
+============================================================
+Iteration 7/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '2', '24', '3'), thresholds=(33, 21, 42, 39)
+  validation: F_1/7=0.942198, good=15780, bad=456, missed=26060, trie_nodes=2320, objective=0.942190
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '6', '20', '28'), thresholds=(10, 42, 7, 32)
+  validation: F_1/7=0.947796, good=27605, bad=1261, missed=14235, trie_nodes=14894, objective=0.947747
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('21', '20', '30', '12'), thresholds=(31, 7, 20, 4)
+  validation: F_1/7=0.949067, good=21829, bad=787, missed=20011, trie_nodes=4080, objective=0.949054
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified lower bound 0.001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('22', '1', '15', '29'), thresholds=(8, 17, 42, 7)
+  validation: F_1/7=0.948345, good=25397, bad=1076, missed=16443, trie_nodes=7464, objective=0.948320
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('16', '29', '6', '2'), thresholds=(2, 23, 32, 21)
+  validation: F_1/7=0.929763, good=32832, bad=2347, missed=9008, trie_nodes=16497, objective=0.929709
+  Best so far: weights=('24', '12', '11', '1/3'), thresholds=(37, 7, 21, 9), score=0.950043, elapsed=211.9s
+
+============================================================
+Iteration 8/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('26', '30', '22', '26'), thresholds=(39, 19, 39, 30)
+  validation: F_1/7=0.943004, good=16226, bad=478, missed=25614, trie_nodes=2075, objective=0.942997
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('18', '1/4', '26', '24'), thresholds=(2, 36, 32, 41)
+  validation: F_1/7=0.932449, good=30222, bad=1997, missed=11618, trie_nodes=18239, objective=0.932389
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38)
+  validation: F_1/7=0.950956, good=28451, bad=1224, missed=13389, trie_nodes=14130, objective=0.950910
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '16', '28', '6'), thresholds=(28, 24, 5, 4)
+  validation: F_1/7=0.944379, good=28493, bad=1440, missed=13347, trie_nodes=22130, objective=0.944307
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '29', '6', '29'), thresholds=(4, 1, 20, 10)
+  validation: F_1/7=0.941104, good=33238, bad=1947, missed=8602, trie_nodes=16701, objective=0.941049
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=243.2s
+
+============================================================
+Iteration 9/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '18', '18', '6'), thresholds=(40, 36, 36, 38)
+  validation: F_1/7=0.946378, good=18164, bad=567, missed=23676, trie_nodes=2253, objective=0.946370
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '1/4', '24', '30'), thresholds=(40, 20, 40, 1)
+  validation: F_1/7=0.942142, good=15142, bad=404, missed=26698, trie_nodes=5635, objective=0.942124
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/4', '1/4', '1/5', '1/4'), thresholds=(10, 17, 30, 42)
+  validation: F_1/7=0.866918, good=15266, bad=1849, missed=26574, trie_nodes=1483, objective=0.866914
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '1/4', '29', '1/4'), thresholds=(23, 24, 3, 16)
+  validation: F_1/7=0.939036, good=31699, bad=1893, missed=10141, trie_nodes=33186, objective=0.938927
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '15', '23', '25'), thresholds=(4, 5, 16, 1)
+  validation: F_1/7=0.942688, good=32796, bad=1850, missed=9044, trie_nodes=24748, objective=0.942607
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=277.5s
+
+============================================================
+Iteration 10/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('14', '17', '12', '18'), thresholds=(37, 20, 41, 39)
+  validation: F_1/7=0.939971, good=25275, bad=1309, missed=16565, trie_nodes=1616, objective=0.939966
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k1__length_scale is close to the specified lower bound 0.001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified lower bound 0.001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '29', '18', '6'), thresholds=(41, 40, 29, 3)
+  validation: F_1/7=0.949430, good=19742, bad=622, missed=22098, trie_nodes=2918, objective=0.949421
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('20', '1/5', '30', '1/2'), thresholds=(1, 5, 33, 39)
+  validation: F_1/7=0.923748, good=29720, bad=2256, missed=12120, trie_nodes=32060, objective=0.923643
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('18', '1/4', '26', '1/3'), thresholds=(9, 38, 3, 2)
+  validation: F_1/7=0.943045, good=32277, bad=1794, missed=9563, trie_nodes=33644, objective=0.942934
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('10', '28', '4', '29'), thresholds=(10, 1, 4, 16)
+  validation: F_1/7=0.927502, good=37226, bad=2875, missed=4614, trie_nodes=18520, objective=0.927441
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=309.9s
+
+============================================================
+Iteration 11/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '7', '11', '14'), thresholds=(6, 41, 2, 34)
+  validation: F_1/7=0.926314, good=34868, bad=2688, missed=6972, trie_nodes=38001, objective=0.926189
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '1/2', '4', '30'), thresholds=(27, 14, 10, 42)
+  validation: F_1/7=0.922908, good=37038, bad=3059, missed=4802, trie_nodes=3022, objective=0.922898
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '26', '25', '1/5'), thresholds=(19, 1, 32, 35)
+  validation: F_1/7=0.947933, good=18872, bad=589, missed=22968, trie_nodes=5753, objective=0.947914
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('10', '28', '9', '27'), thresholds=(41, 4, 41, 8)
+  validation: F_1/7=0.934901, good=30088, bad=1898, missed=11752, trie_nodes=1695, objective=0.934896
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '1/4', '24', '2'), thresholds=(29, 35, 23, 5)
+  validation: F_1/7=0.935806, good=32054, bad=2044, missed=9786, trie_nodes=1890, objective=0.935799
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=345.0s
+
+============================================================
+Iteration 12/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '30', '25', '29'), thresholds=(32, 42, 29, 37)
+  validation: F_1/7=0.923042, good=32506, bad=2575, missed=9334, trie_nodes=1303, objective=0.923037
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/5', '8', '4', '1/3'), thresholds=(6, 33, 42, 39)
+  validation: F_1/7=0.848644, good=34224, bad=6073, missed=7616, trie_nodes=1579, objective=0.848639
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('29', '30', '17', '1/4'), thresholds=(1, 24, 21, 17)
+  validation: F_1/7=0.914608, good=28682, bad=2464, missed=13158, trie_nodes=33693, objective=0.914498
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('14', '23', '14', '24'), thresholds=(27, 4, 12, 2)
+  validation: F_1/7=0.947410, good=29888, bad=1449, missed=11952, trie_nodes=6933, objective=0.947387
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('27', '1/4', '14', '7'), thresholds=(25, 41, 2, 33)
+  validation: F_1/7=0.927145, good=34793, bad=2646, missed=7047, trie_nodes=37478, objective=0.927023
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=383.7s
+
+============================================================
+Iteration 13/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('19', '29', '26', '20'), thresholds=(2, 2, 12, 34)
+  validation: F_1/7=0.935416, good=30804, bad=1945, missed=11036, trie_nodes=20068, objective=0.935350
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '23', '6', '30'), thresholds=(14, 42, 30, 39)
+  validation: F_1/7=0.937929, good=31885, bad=1950, missed=9955, trie_nodes=3351, objective=0.937918
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('21', '10', '24', '6'), thresholds=(40, 8, 8, 8)
+  validation: F_1/7=0.948952, good=27661, bad=1229, missed=14179, trie_nodes=11864, objective=0.948913
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '30', '30', '1/2'), thresholds=(1, 33, 37, 11)
+  validation: F_1/7=0.914775, good=28005, bad=2380, missed=13835, trie_nodes=31750, objective=0.914671
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('11', '1/5', '10', '25'), thresholds=(7, 13, 41, 4)
+  validation: F_1/7=0.945116, good=31380, bad=1646, missed=10460, trie_nodes=5510, objective=0.945098
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=411.5s
+
+============================================================
+Iteration 14/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 4 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('29', '29', '9', '14'), thresholds=(38, 32, 42, 28)
+  validation: F_1/7=0.940487, good=27888, bad=1516, missed=13952, trie_nodes=2128, objective=0.940480
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '26', '12', '6'), thresholds=(6, 37, 6, 39)
+  validation: F_1/7=0.919988, good=36168, bad=3094, missed=5672, trie_nodes=5747, objective=0.919969
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '1', '30', '28'), thresholds=(42, 26, 15, 25)
+  validation: F_1/7=0.941901, good=28961, bad=1560, missed=12879, trie_nodes=3657, objective=0.941889
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('27', '23', '7', '3'), thresholds=(2, 3, 34, 3)
+  validation: F_1/7=0.929954, good=30893, bad=2151, missed=10947, trie_nodes=21732, objective=0.929883
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('3', '1/3', '11', '15'), thresholds=(23, 40, 37, 1)
+  validation: F_1/7=0.919977, good=34991, bad=2966, missed=6849, trie_nodes=28216, objective=0.919884
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=441.3s
+
+============================================================
+Iteration 15/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '17', '20', '19'), thresholds=(41, 4, 5, 4)
+  validation: F_1/7=0.946758, good=29963, bad=1477, missed=11877, trie_nodes=19547, objective=0.946694
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('20', '29', '30', '1/2'), thresholds=(39, 40, 13, 33)
+  validation: F_1/7=0.949316, good=24515, bad=982, missed=17325, trie_nodes=6650, objective=0.949294
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('9', '11', '9', '5'), thresholds=(4, 27, 42, 42)
+  validation: F_1/7=0.922720, good=35212, bad=2874, missed=6628, trie_nodes=5802, objective=0.922701
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('18', '1', '16', '29'), thresholds=(32, 40, 36, 9)
+  validation: F_1/7=0.946216, good=21807, bad=856, missed=20033, trie_nodes=2180, objective=0.946209
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('16', '30', '30', '9'), thresholds=(4, 10, 28, 6)
+  validation: F_1/7=0.940994, good=30593, bad=1728, missed=11247, trie_nodes=10276, objective=0.940960
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=476.0s
+
+============================================================
+Iteration 16/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified lower bound 0.001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('11', '6', '26', '11'), thresholds=(38, 5, 37, 38)
+  validation: F_1/7=0.935149, good=28648, bad=1758, missed=13192, trie_nodes=1481, objective=0.935144
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '1/4', '21', '1/3'), thresholds=(32, 42, 27, 1)
+  validation: F_1/7=0.950736, good=18202, bad=480, missed=23638, trie_nodes=7143, objective=0.950713
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '28', '4', '1/2'), thresholds=(38, 41, 5, 35)
+  validation: F_1/7=0.895635, good=38000, bad=4440, missed=3840, trie_nodes=4922, objective=0.895619
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('20', '13', '11', '25'), thresholds=(2, 19, 29, 6)
+  validation: F_1/7=0.933351, good=30436, bad=1985, missed=11404, trie_nodes=19141, objective=0.933288
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '27', '29', '25'), thresholds=(42, 3, 2, 9)
+  validation: F_1/7=0.923447, good=33199, bad=2632, missed=8641, trie_nodes=47323, objective=0.923292
+  Best so far: weights=('17', '1', '24', '1/5'), thresholds=(38, 1, 8, 38), score=0.950910, elapsed=506.7s
+
+============================================================
+Iteration 17/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('26', '1/4', '10', '3'), thresholds=(19, 39, 41, 31)
+  validation: F_1/7=0.947719, good=24888, bad=1055, missed=16952, trie_nodes=3796, objective=0.947707
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('19', '21', '20', '1/3'), thresholds=(42, 40, 7, 4)
+  validation: F_1/7=0.951226, good=29065, bad=1260, missed=12775, trie_nodes=13451, objective=0.951182
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/5', '23', '1/5', '21'), thresholds=(36, 17, 39, 6)
+  validation: F_1/7=0.770393, good=41244, bad=12531, missed=596, trie_nodes=5362, objective=0.770376
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '6', '14', '19'), thresholds=(2, 4, 28, 42)
+  validation: F_1/7=0.929082, good=34018, bad=2490, missed=7822, trie_nodes=13119, objective=0.929039
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '30', '30', '29'), thresholds=(19, 8, 7, 11)
+  validation: F_1/7=0.940390, good=32000, bad=1869, missed=9840, trie_nodes=8790, objective=0.940362
+  Best so far: weights=('19', '21', '20', '1/3'), thresholds=(42, 40, 7, 4), score=0.951182, elapsed=541.2s
+
+============================================================
+Iteration 18/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '22', '30', '19'), thresholds=(38, 16, 37, 40)
+  validation: F_1/7=0.938497, good=25629, bad=1383, missed=16211, trie_nodes=1526, objective=0.938492
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '1/4', '7', '30'), thresholds=(33, 9, 22, 4)
+  validation: F_1/7=0.943016, good=31728, bad=1750, missed=10112, trie_nodes=3371, objective=0.943005
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('26', '15', '24', '1/3'), thresholds=(13, 40, 6, 38)
+  validation: F_1/7=0.948315, good=28227, bad=1292, missed=13613, trie_nodes=17223, objective=0.948259
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '1/5', '8', '26'), thresholds=(3, 42, 38, 20)
+  validation: F_1/7=0.939297, good=29714, bad=1712, missed=12126, trie_nodes=16140, objective=0.939245
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2)
+  validation: F_1/7=0.952407, good=23290, bad=809, missed=18550, trie_nodes=11593, objective=0.952369
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=575.3s
+
+============================================================
+Iteration 19/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '1/2', '25', '16'), thresholds=(39, 6, 5, 42)
+  validation: F_1/7=0.945886, good=29217, bad=1448, missed=12623, trie_nodes=20827, objective=0.945818
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '25', '16', '30'), thresholds=(33, 39, 30, 42)
+  validation: F_1/7=0.946321, good=23092, bad=954, missed=18748, trie_nodes=2328, objective=0.946313
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('19', '1/4', '11', '1/5'), thresholds=(7, 31, 18, 39)
+  validation: F_1/7=0.949322, good=29071, bad=1323, missed=12769, trie_nodes=8235, objective=0.949295
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '20', '19', '11'), thresholds=(5, 28, 42, 2)
+  validation: F_1/7=0.945068, good=26040, bad=1222, missed=15800, trie_nodes=11331, objective=0.945031
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('6', '9', '3', '1/4'), thresholds=(35, 41, 1, 11)
+  validation: F_1/7=0.914900, good=35404, bad=3229, missed=6436, trie_nodes=23301, objective=0.914823
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=608.2s
+
+============================================================
+Iteration 20/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '5', '21', '1/5'), thresholds=(10, 39, 41, 40)
+  validation: F_1/7=0.946710, good=21939, bad=854, missed=19901, trie_nodes=6727, objective=0.946688
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '5', '27', '26'), thresholds=(40, 13, 41, 3)
+  validation: F_1/7=0.940043, good=14772, bad=409, missed=27068, trie_nodes=2012, objective=0.940036
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('20', '20', '19', '1/3'), thresholds=(38, 6, 2, 41)
+  validation: F_1/7=0.926833, good=34259, bad=2605, missed=7581, trie_nodes=41095, objective=0.926698
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 2 of parameter k1__length_scale is close to the specified lower bound 0.001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 7 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/5', '17', '11', '1/4'), thresholds=(20, 1, 33, 9)
+  validation: F_1/7=0.828933, good=34659, bad=7152, missed=7181, trie_nodes=35812, objective=0.828816
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('5', '1', '6', '22'), thresholds=(2, 38, 21, 1)
+  validation: F_1/7=0.903815, good=37239, bad=3950, missed=4601, trie_nodes=35157, objective=0.903700
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=644.7s
+
+============================================================
+Iteration 21/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '24', '17', '2'), thresholds=(41, 4, 40, 42)
+  validation: F_1/7=0.941686, good=25466, bad=1275, missed=16374, trie_nodes=1701, objective=0.941681
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '22', '12', '28'), thresholds=(33, 30, 38, 2)
+  validation: F_1/7=0.948194, good=23239, bad=916, missed=18601, trie_nodes=3509, objective=0.948182
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '3', '27', '1/5'), thresholds=(9, 11, 3, 38)
+  validation: F_1/7=0.938880, good=31610, bad=1891, missed=10230, trie_nodes=32555, objective=0.938773
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('16', '1/5', '6', '1'), thresholds=(2, 20, 34, 3)
+  validation: F_1/7=0.934194, good=32354, bad=2132, missed=9486, trie_nodes=16785, objective=0.934139
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/2', '3', '23', '13'), thresholds=(38, 1, 7, 2)
+  validation: F_1/7=0.822836, good=38948, bad=8498, missed=2892, trie_nodes=26419, objective=0.822749
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=678.7s
+
+============================================================
+Iteration 22/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('1/3', '19', '18', '30'), thresholds=(40, 40, 23, 24)
+  validation: F_1/7=0.715408, good=41315, bad=16760, missed=525, trie_nodes=1228, objective=0.715404
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '27', '3', '1'), thresholds=(21, 5, 12, 42)
+  validation: F_1/7=0.894853, good=37773, bad=4446, missed=4067, trie_nodes=3107, objective=0.894842
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('5', '1/3', '21', '1/4'), thresholds=(9, 34, 42, 42)
+  validation: F_1/7=0.923091, good=35626, bad=2902, missed=6214, trie_nodes=2073, objective=0.923084
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('27', '1/5', '11', '4'), thresholds=(4, 6, 38, 1)
+  validation: F_1/7=0.945633, good=27163, bad=1294, missed=14677, trie_nodes=19080, objective=0.945571
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('20', '1/5', '30', '25'), thresholds=(10, 19, 1, 31)
+  validation: F_1/7=0.906740, good=35537, bad=3601, missed=6303, trie_nodes=75764, objective=0.906492
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=725.3s
+
+============================================================
+Iteration 23/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('18', '6', '23', '1/3'), thresholds=(9, 8, 37, 42)
+  validation: F_1/7=0.946881, good=26733, bad=1222, missed=15107, trie_nodes=6079, objective=0.946861
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('29', '3', '30', '27'), thresholds=(26, 32, 11, 42)
+  validation: F_1/7=0.950154, good=23301, bad=869, missed=18539, trie_nodes=9742, objective=0.950122
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('7', '1', '15', '3'), thresholds=(34, 1, 11, 13)
+  validation: F_1/7=0.939040, good=33951, bad=2088, missed=7889, trie_nodes=15029, objective=0.938990
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('24', '27', '12', '24'), thresholds=(42, 21, 24, 8)
+  validation: F_1/7=0.948288, good=26309, bad=1147, missed=15531, trie_nodes=3046, objective=0.948278
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('14', '30', '13', '15'), thresholds=(6, 40, 1, 35)
+  validation: F_1/7=0.906473, good=36955, bad=3791, missed=4885, trie_nodes=57850, objective=0.906284
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=751.4s
+
+============================================================
+Iteration 24/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '28', '28', '29'), thresholds=(37, 4, 11, 41)
+  validation: F_1/7=0.949455, good=24687, bad=991, missed=17153, trie_nodes=8871, objective=0.949426
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('5', '3', '23', '1'), thresholds=(3, 34, 39, 5)
+  validation: F_1/7=0.903765, good=37678, bad=4009, missed=4162, trie_nodes=4635, objective=0.903749
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('22', '1', '14', '23'), thresholds=(10, 42, 8, 38)
+  validation: F_1/7=0.950064, good=29198, bad=1308, missed=12642, trie_nodes=11051, objective=0.950027
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '29', '4', '23'), thresholds=(40, 41, 35, 17)
+  validation: F_1/7=0.917976, good=35425, bad=3099, missed=6415, trie_nodes=1618, objective=0.917971
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '4', '5', '1/4'), thresholds=(41, 11, 4, 2)
+  validation: F_1/7=0.947004, good=32587, bad=1672, missed=9253, trie_nodes=22645, objective=0.946930
+  Best so far: weights=('24', '28', '16', '1/3'), thresholds=(10, 2, 42, 2), score=0.952369, elapsed=778.0s
+
+============================================================
+Iteration 25/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '30', '25', '17'), thresholds=(4, 36, 30, 27)
+  validation: F_1/7=0.939637, good=24603, bad=1261, missed=17237, trie_nodes=14353, objective=0.939590
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('17', '5', '19', '28'), thresholds=(39, 42, 5, 42)
+  validation: F_1/7=0.943998, good=31366, bad=1685, missed=10474, trie_nodes=16811, objective=0.943943
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('9', '1/5', '12', '9'), thresholds=(42, 7, 35, 29)
+  validation: F_1/7=0.948088, good=27922, bad=1276, missed=13918, trie_nodes=4068, objective=0.948075
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1)
+  validation: F_1/7=0.955470, good=28969, bad=1115, missed=12871, trie_nodes=16558, objective=0.955415
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 1 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '1/4', '26', '5'), thresholds=(23, 18, 6, 1)
+  validation: F_1/7=0.949315, good=27786, bad=1227, missed=14054, trie_nodes=21286, objective=0.949245
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=805.3s
+
+============================================================
+Iteration 26/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('22', '2', '29', '23'), thresholds=(23, 4, 40, 41)
+  validation: F_1/7=0.946936, good=19550, bad=663, missed=22290, trie_nodes=3028, objective=0.946926
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('22', '25', '1/2', '8'), thresholds=(39, 37, 38, 35)
+  validation: F_1/7=0.780970, good=40663, bad=11613, missed=1177, trie_nodes=2150, objective=0.780963
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 3 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('10', '1', '16', '26'), thresholds=(2, 14, 4, 8)
+  validation: F_1/7=0.923593, good=36307, bad=2952, missed=5533, trie_nodes=14992, objective=0.923544
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '15', '4', '1/3'), thresholds=(9, 4, 32, 15)
+  validation: F_1/7=0.938518, good=33521, bad=2071, missed=8319, trie_nodes=7758, objective=0.938492
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('3', '29', '30', '1/4'), thresholds=(34, 2, 12, 6)
+  validation: F_1/7=0.918113, good=33907, bad=2924, missed=7933, trie_nodes=12292, objective=0.918073
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=835.6s
+
+============================================================
+Iteration 27/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:440: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 0.0001. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '24', '26', '8'), thresholds=(39, 42, 16, 42)
+  validation: F_1/7=0.950385, good=21660, bad=742, missed=20180, trie_nodes=5933, objective=0.950366
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '1/5', '16', '21'), thresholds=(2, 27, 7, 32)
+  validation: F_1/7=0.933498, good=31244, bad=2055, missed=10596, trie_nodes=24232, objective=0.933418
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '1/5', '6', '30'), thresholds=(41, 40, 33, 2)
+  validation: F_1/7=0.940425, good=32215, bad=1886, missed=9625, trie_nodes=4695, objective=0.940410
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('11', '29', '27', '1/3'), thresholds=(31, 8, 38, 8)
+  validation: F_1/7=0.945126, good=28384, bad=1407, missed=13456, trie_nodes=2819, objective=0.945117
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '19', '4', '1/4'), thresholds=(6, 35, 9, 2)
+  validation: F_1/7=0.947675, good=31660, bad=1576, missed=10180, trie_nodes=19945, objective=0.947610
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=871.1s
+
+============================================================
+Iteration 28/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('21', '14', '30', '6'), thresholds=(29, 34, 40, 42)
+  validation: F_1/7=0.945475, good=19417, bad=685, missed=22423, trie_nodes=2327, objective=0.945468
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('29', '16', '15', '27'), thresholds=(39, 42, 15, 17)
+  validation: F_1/7=0.951197, good=26482, bad=1073, missed=15358, trie_nodes=5503, objective=0.951179
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('11', '1/2', '6', '22'), thresholds=(35, 4, 17, 39)
+  validation: F_1/7=0.939099, good=33620, bad=2057, missed=8220, trie_nodes=4224, objective=0.939085
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('7', '1/3', '8', '1/5'), thresholds=(14, 38, 9, 6)
+  validation: F_1/7=0.946735, good=32073, bad=1642, missed=9767, trie_nodes=7742, objective=0.946709
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('21', '30', '18', '24'), thresholds=(2, 5, 14, 1)
+  validation: F_1/7=0.936812, good=30200, bad=1841, missed=11640, trie_nodes=27194, objective=0.936723
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=906.7s
+
+============================================================
+Iteration 29/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '10', '24', '28'), thresholds=(21, 42, 33, 42)
+  validation: F_1/7=0.939031, good=28108, bad=1582, missed=13732, trie_nodes=2287, objective=0.939023
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('30', '1', '19', '23'), thresholds=(3, 2, 41, 12)
+  validation: F_1/7=0.937497, good=25587, bad=1409, missed=16253, trie_nodes=17342, objective=0.937440
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('15', '15', '30', '1/4'), thresholds=(40, 29, 22, 3)
+  validation: F_1/7=0.954338, good=23817, bad=795, missed=18023, trie_nodes=11737, objective=0.954300
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '25', '11', '2'), thresholds=(4, 29, 1, 39)
+  validation: F_1/7=0.909550, good=36280, bad=3568, missed=5560, trie_nodes=68704, objective=0.909325
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('23', '6', '29', '30'), thresholds=(40, 6, 1, 29)
+  validation: F_1/7=0.900812, good=35046, bad=3799, missed=6794, trie_nodes=83143, objective=0.900540
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=938.4s
+
+============================================================
+Iteration 30/30
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 6 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('28', '3', '23', '15'), thresholds=(1, 8, 39, 38)
+  validation: F_1/7=0.913603, good=27457, bad=2356, missed=14383, trie_nodes=32821, objective=0.913495
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('25', '30', '18', '27'), thresholds=(13, 31, 26, 5)
+  validation: F_1/7=0.950669, good=22818, bad=820, missed=19022, trie_nodes=5611, objective=0.950651
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('18', '24', '23', '29'), thresholds=(42, 13, 1, 38)
+  validation: F_1/7=0.905587, good=35727, bad=3676, missed=6113, trie_nodes=75267, objective=0.905341
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '16', '8', '1/4'), thresholds=(35, 42, 9, 9)
+  validation: F_1/7=0.947247, good=32885, bad=1686, missed=8955, trie_nodes=6409, objective=0.947226
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('8', '1/5', '26', '18'), thresholds=(38, 19, 42, 4)
+  validation: F_1/7=0.942822, good=29698, bad=1590, missed=12142, trie_nodes=1979, objective=0.942816
+  Best so far: weights=('14', '21', '5', '1/4'), thresholds=(10, 2, 41, 1), score=0.955415, elapsed=970.9s
+
+============================================================
+Final exploitation: 3 evaluations
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('13', '22', '18', '1'), thresholds=(39, 23, 42, 4)
+  validation: F_1/7=0.943774, good=25602, bad=1225, missed=16238, trie_nodes=1769, objective=0.943768
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('14', '19', '18', '1/2'), thresholds=(32, 14, 29, 1)
+  validation: F_1/7=0.953057, good=24776, bad=897, missed=17064, trie_nodes=13360, objective=0.953013
+/home/dev/hyph-bench/.venv/lib/python3.13/site-packages/sklearn/gaussian_process/kernels.py:450: ConvergenceWarning: The optimal value found for dimension 5 of parameter k1__length_scale is close to the specified upper bound 1000.0. Increasing the bound and calling fit again may find a better value.
+  warnings.warn(
+  Tested: weights=('12', '20', '18', '1/4'), thresholds=(19, 11, 25, 3)
+  validation: F_1/7=0.952403, good=27490, bad=1109, missed=14350, trie_nodes=14331, objective=0.952356
+
+============================================================
+Final per-level search complete
+Selected weights: ('14', '21', '5', '1/4')
+PATGEN good_wt: (1, 1, 1, 4); bad_wt: (14, 21, 5, 1); thresholds: (10, 2, 41, 1)
+Held-out test: {'good': 29085, 'bad': 1093, 'missed': 12871, 'train_good': 238694, 'train_bad': 463, 'train_missed': 94936, 'n_patterns': 10093, 'trie_nodes': 16558}
+History: results/gpopt260828/ru/wiktionary/final_history.csv
+Selected profile: results/gpopt260828/ru/wiktionary/selected_profile.json

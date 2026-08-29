@@ -39,6 +39,30 @@ results/shared_parameter_analysis/*
 !results/shared_parameter_analysis/frontier.pdf
 !results/shared_parameter_analysis/frontier.png
 !results/shared_parameter_analysis/runtime_measurements.json
+
+# Publish the reported per-level GP run: configurations, histories, selected
+# profiles, patterns, logs and aggregate evidence. Optimizer pickle state and the
+# split files stay out; splits regenerate via analyze_gpopt260828 --write-splits.
+!results/gpopt260828/
+results/gpopt260828/*
+!results/gpopt260828/*/
+results/gpopt260828/*/*
+!results/gpopt260828/*/*/
+results/gpopt260828/*/*/*
+!results/gpopt260828/*/*/final_history.csv
+!results/gpopt260828/*/*/final_patterns.pat
+!results/gpopt260828/*/*/run_config.json
+!results/gpopt260828/*/*/selected_profile.json
+!results/gpopt260828/_logs/
+results/gpopt260828/_logs/*
+!results/gpopt260828/_logs/*.log
+!results/gpopt260828/_logs/run-status.tsv
+!results/gpopt260828_analysis/
+results/gpopt260828_analysis/*
+!results/gpopt260828_analysis/bootstrap_ci.json
+!results/gpopt260828_analysis/bootstrap_ci_table.tex
+!results/gpopt260828_analysis/summary.json
+
 venv/
 hyph_bench.egg-info/
 thesis/results
