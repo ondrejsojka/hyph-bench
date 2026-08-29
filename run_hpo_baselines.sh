@@ -6,7 +6,6 @@ cd "${ROOT_DIR}"
 
 if [[ $# -eq 0 ]]; then
   DATASETS=(
-    "ms/wiktionary"
     "el/wiktionary"
     "th/orchid"
   )

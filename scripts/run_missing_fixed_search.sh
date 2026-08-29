@@ -50,7 +50,6 @@ run_queue() {
 run_queue \
   "de/wiktionary" \
   "it/wiktionary" \
-  "ms/wiktionary" \
   "pl/wiktionary" \
   "pt/wiktionary" &
 

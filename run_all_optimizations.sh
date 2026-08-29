@@ -13,7 +13,6 @@ LANGS=(
     "es/wiktionary"
     "is/hyphenation-is"
     "it/wiktionary"
-    "ms/wiktionary"
     "nl/wiktionary"
     "pl/wiktionary"
     "pt/wiktionary"

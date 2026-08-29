@@ -70,7 +70,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--lang",
                         default="en",
-                        choices=["cs", "de", "el", "es", "it", "ms", "nl", "pl", "pt", "ru", "tr", "TBD"],
+                        choices=["cs", "de", "el", "es", "it", "nl", "pl", "pt", "ru", "tr", "TBD"],
                         required=True,
                         help="Language to which the dump file belongs")
     parser.add_argument("--outfile",

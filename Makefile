@@ -1,5 +1,5 @@
 # languages provided in Wiktionary dump
-WIKT_LANGS = cs de el es it ms nl pl pt ru tr
+WIKT_LANGS = cs de el es it nl pl pt ru tr
 
 # non-Wiktionary datasets
 # cssk/cshyphen is special as it is weighted

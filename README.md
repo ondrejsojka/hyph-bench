@@ -289,7 +289,7 @@ The repository combines datasets with different licenses. Preserve the attributi
 | `de/wortliste` | MIT | German curated data |
 | `is/hyphenation-is` | CC BY 4.0 | Icelandic curated data |
 | `th/orchid` | CC BY-SA 4.0 | Licensed in 2025 from the public-domain ORCHID source |
-| Wiktionary-derived datasets | CC BY-SA 4.0 | `cs`, `de`, `el`, `es`, `it`, `ms`, `nl`, `pl`, `pt`, `ru`, and `tr` |
+| Wiktionary-derived datasets | CC BY-SA 4.0 | `cs`, `de`, `el`, `es`, `it`, `nl`, `pl`, `pt`, `ru`, and `tr` |
 | `uk/wiktionary` | CC BY-SA 4.0 | Prepared for the cited Ukrainian hyphenation thesis |
 | `uk/dict_uk` | GPL-3.0 | Derived from [brown-uk/dict_uk](https://github.com/brown-uk/dict_uk) |
 
@@ -300,3 +300,8 @@ The original software in this repository is available under the [MIT License](LI
 - `scripts.optimize_validation` and `scripts.optimize_shared_parameters` define the canonical held-out optimization workflows.
 - `scripts.optimize` performs in-sample optimization and serves older experiments. Do not use it to reproduce held-out camera-ready results.
 - `thesis/` contains older workflows and may require thesis-specific inputs that are not part of the paper artifact.
+- Malay (`ms/wiktionary`) was dropped from the benchmark and is not part of the
+  reported 17-dataset collection. The preprocessing and optimization queues no
+  longer list it. Older ablation artifacts under `results/threshold_ablation/`
+  and `results/hpo_representative_150/` still contain recorded Malay rows; those
+  are historical evidence and are left untouched.
