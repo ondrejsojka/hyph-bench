@@ -520,7 +520,7 @@ def _gain_axes(
     ax,
     cases: List[Case],
     *,
-    x_label: str = "trie size, optimized / hand-tuned\u2003←\u2002smaller is better",
+    x_label: str = "trie size, optimized / hand-tuned\n←\u2002smaller is better",
 ) -> Tuple[float, float]:
     tr = np.array([c.trie_ratio for c in cases])
     eg = np.array([c.err_gain for c in cases])
@@ -550,32 +550,32 @@ def _gain_axes(
     log_ratio_axis(ax, "x", [1 / 6, 1 / 5, 1 / 4, 1 / 3, 1 / 2, 1.0])
     log_ratio_axis(ax, "y", [1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0])
     ax.set_xlabel(x_label)
-    ax.set_ylabel("errors left, hand-tuned / optimized\n↑\u2002fewer is better")
+    ax.set_ylabel("errors left, hand-tuned / optimized\n→\u2002fewer is better")
     return med_t, med_e
 
 
 def fig_gain(cases: List[Case], out_dir: Path, stats: dict) -> None:
-    fig, ax = plt.subplots(figsize=(6.4, 4.0))
+    fig, ax = plt.subplots(figsize=(4.0, 3.0))
     med_t, med_e = _gain_axes(ax, cases)
     ax.annotate(
         "every hand-tuned baseline\nis this one point",
         xy=(1.0, 1.0),
-        xytext=(0.55, 1.02),
+        xytext=(0.68, 1.03),
         fontsize=7.6,
         color=BLUE,
         ha="center",
         va="bottom",
-        arrowprops=dict(arrowstyle="-", color=BLUE, lw=0.7, shrinkA=1, shrinkB=4),
     )
     ax.text(
-        1 / 5.6,
-        1.30,
-        f"median dataset:\n{1 / med_t:.1f}× smaller trie,\n{med_e:.1f}× fewer errors left",
-        fontsize=8.2,
+        1 / 5.8,
+        1.22,
+        f"median: {1 / med_t:.1f}× smaller,\n{med_e:.1f}× fewer errors",
+        fontsize=7.6,
         color=GREEN,
         ha="left",
         va="bottom",
     )
+    ax.set_title("All 17 datasets", loc="left", fontsize=8.6)
     fig.tight_layout()
     place_labels(ax, [c.trie_ratio for c in cases], [c.err_gain for c in cases],
                  [c.label for c in cases])
@@ -762,6 +762,7 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
     fewer = be / same_size[:, 1].min()
 
     y_lo, y_hi = f17_axis(ax, hist[:, 1].tolist() + [be])
+    ax.set_ylim(1 - 0.88, y_hi)
     x_lo, x_hi = min(hist[:, 0].min(), bt) / 1.8, bt * 2.0
     ax.set_xlim(x_lo, x_hi)
     trie_axis(ax, [x_lo, x_hi])
@@ -798,12 +799,12 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
     ax.annotate(
         "hand-tuned",
         xy=(bt, be),
-        xytext=(0, 11),
+        xytext=(7, -8),
         textcoords="offset points",
         fontsize=7.4,
         color=BLUE,
-        ha="center",
-        va="bottom",
+        ha="left",
+        va="top",
     )
     ax.annotate(
         "reported",
@@ -816,7 +817,7 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
         va="top",
     )
     ax.set_xlabel("pattern trie size (nodes)\u2003←\u2002smaller")
-    ax.set_ylabel("$F_{1/7}$ on validation\u2002↑\u2002more accurate")
+    ax.set_ylabel("$F_{1/7}$ on validation\u2002→\u2002more accurate")
     del y_lo, y_hi
     return {"smaller": smaller, "fewer": fewer}
 
@@ -871,6 +872,26 @@ def fig_twopanel(cases: List[Case], out_dir: Path, stats: dict) -> None:
         FLAGSHIP: _twopanel(cases, FLAGSHIP, out_dir, "hero_e_twopanel"),
         ALTERNATE: _twopanel(cases, ALTERNATE, out_dir, "hero_e2_twopanel_alt"),
     }
+
+def fig_mechanism(cases: List[Case], out_dir: Path, stats: dict) -> None:
+    case = next(c for c in cases if c.dataset == FLAGSHIP)
+    fig, ax = plt.subplots(figsize=(4.0, 3.35))
+    stats["mechanism"] = _mechanism_panel(ax, case)
+    ax.set_title(
+        f"One dataset ({case.label}): the trade-off is a curve", loc="left", fontsize=8.6
+    )
+    ax.legend(
+        handles=[
+            Line2D([], [], marker="o", ls="", color=MUTED, ms=3.6, label="153 evaluated profiles"),
+            Line2D([], [], color=GREEN, lw=1.6, label="attainable frontier"),
+        ],
+        loc="best",
+        fontsize=7.2,
+    )
+    fig.tight_layout()
+    save(fig, out_dir, "hero_e_mechanism")
+
+
 
 
 # ---------------------------------------------------------------------------
@@ -1492,6 +1513,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "slope": lambda: fig_slope(cases, out_dir, stats),
         "frontiers": lambda: fig_frontiers(cases, out_dir, stats),
         "twopanel": lambda: fig_twopanel(cases, out_dir, stats),
+        "mechanism": lambda: fig_mechanism(cases, out_dir, stats),
         "readout": lambda: fig_readout(cases, out_dir, stats),
         "multiples": lambda: fig_multiples(cases, out_dir, stats),
         "lollipop": lambda: fig_lollipop(cases, out_dir, stats),
