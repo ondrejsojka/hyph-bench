@@ -6,6 +6,7 @@ wikt_dump
 **/wiktionary/
 **/*_expanded.wlh
 **/*_dis.wlh
+**/*_dis.wlh.tra
 **/test*
 !**/uk/wiktionary/
 
@@ -65,6 +66,30 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/selector_ablation.json
 !results/gpopt260828_analysis/selector_ablation_table.tex
 
+# Publish the budget-matched GP/TPE/Random comparison (paper appendix table
+# source) and the threshold ablation: summaries, histories, and logs. Optimizer
+# pickle state and split files stay out, matching the gpopt260828 policy.
+!results/hpo_representative_150/
+results/hpo_representative_150/*
+!results/hpo_representative_150/*.csv
+!results/hpo_representative_150/*.json
+!results/hpo_representative_150/*.md
+!results/threshold_ablation/
+results/threshold_ablation/*
+!results/threshold_ablation/SUMMARY.md
+!results/threshold_ablation/ablation_summary.json
+!results/threshold_ablation/baselines_fixed1.json
+!results/threshold_ablation/*/
+results/threshold_ablation/*/*
+!results/threshold_ablation/*/*/
+results/threshold_ablation/*/*/*
+!results/threshold_ablation/*/*/*/
+results/threshold_ablation/*/*/*/*
+!results/threshold_ablation/*/*/*/history.csv
+!results/threshold_ablation/*/*/*/summary.json
+!results/threshold_ablation/logs/
+results/threshold_ablation/logs/*
+!results/threshold_ablation/logs/*.log
+
 venv/
 hyph_bench.egg-info/
-thesis/results

@@ -151,7 +151,7 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--ucb-kappa", type=float, default=2.5)
     parser.add_argument("--min-threshold", type=int, default=1)
-    parser.add_argument("--max-threshold", type=int, default=5)
+    parser.add_argument("--max-threshold", type=int, default=42)
     parser.add_argument("--objective", choices=["f17", "f17_trie"], default="f17_trie")
     parser.add_argument("--beta", type=float, default=1 / 7)
     parser.add_argument("--trie-weight", type=float, default=0.0005)

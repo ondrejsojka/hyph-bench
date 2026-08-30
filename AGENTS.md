@@ -1,8 +1,8 @@
-# hyph-bench
+# pat-gen-opt
 
-Benchmark code and datasets for hyphenation pattern generation and optimization.
+Optimization of PATGEN pattern-generation hyperparameters, plus benchmark datasets. The repository is still named `hyph-bench`; the rename to `pat-gen-opt` is pending.
 
-Read `README.md` for setup, dataset layout, optimizer workflows, the paper reproduction protocol, and dataset licenses.
+Read `README.md` for setup, dataset layout, optimizer workflows, and dataset licenses. The paper reproduction and audit protocol lives in `docs/REPRODUCING.md`.
 
 Use `uv run ...` for Python commands. The project requires Python >=3.10.
 Patgen must be available. Pass a non-default binary with `--patgen`, or `PATGEN_BIN` where a batch script supports it.
@@ -10,8 +10,8 @@ Large datasets need the high-capacity build (`/home/dev/patgen-10x` here); the p
 
 Key commands:
 
-- Use `uv run python -m scripts.optimize_validation ...` for held-out optimizer runs (train/validation/test).
-- Use `uv run python -m scripts.optimize_shared_parameters ...` for the shared-parameter search.
+- Use `uv run python -m scripts.paper2_final_search ...` for the canonical per-level held-out search (per-level weights and thresholds; defaults match the paper protocol).
+- Use `uv run python -m scripts.optimize_validation ...` and `uv run python -m scripts.optimize_shared_parameters ...` for the reduced held-out searches.
 - Use `uv run python -m scripts.cross_validate ...` for cross-validation.
 - `scripts.optimize` is in-sample and legacy; do not use it for camera-ready results.
 - Use `make translate_all` to regenerate translate files.
