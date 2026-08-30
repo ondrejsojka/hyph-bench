@@ -41,6 +41,7 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch
 from matplotlib.path import Path as MplPath
+from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
 # --------------------------------------------------------------------------------------
 # Display names
@@ -134,8 +135,12 @@ KNOWN_RUNS: Tuple[RunSpec, ...] = (
         note="published camera-ready selection",
     ),
     RunSpec(
+        # The reported run. Its figure is the one that can reach the manuscript, so
+        # the in-plot label must be the manuscript's method name, never the dated
+        # internal identifier: the submission bundler rejects a figure that renders
+        # `gpopt\d{6,8}`, and the identifier is repository-internal by policy.
         key="gpopt260828",
-        display="GPopt260828",
+        display="Per-level GP search",
         analysis="results/gpopt260828_analysis/bootstrap_ci.json",
     ),
     RunSpec(
@@ -745,6 +750,8 @@ ARROW_MUTATION = 9.5
 MARKER_SIZE = 4.2
 STANDOFF_POINTS = 5.0
 FIGURE_SIZE = (7.6, 4.7)
+# Floor for the residual 1 - F_1/7 so a perfect score stays plottable on a log axis.
+_MIN_ERROR = 1e-5
 
 
 def setup_typography() -> None:
@@ -766,10 +773,34 @@ def _row_color(row: Row) -> str:
     return COLOR_WIN if row.smaller_trie else COLOR_BIGGER
 
 
-def _axis_limits(rows: Sequence[Row]) -> Box:
-    """Data-driven limits with headroom for labels, the legend, and the note."""
+# Nice F_1/7 gridlines for the log-residual-error axis, filtered to the data range.
+F_GRID = (0.5, 0.8, 0.9, 0.95, 0.98, 0.99, 0.995, 0.998, 0.999, 0.9995, 0.9998)
+
+
+def _axis_limits(rows: Sequence[Row], y_scale: str) -> Box:
+    """Data-driven limits with headroom for labels, the legend, and the note.
+
+    On the "error" scale the y value plotted is the residual 1 - F_1/7 on a log axis.
+    As the optimizer improves, endpoints bunch against F = 1 and a linear axis squeezes
+    them into a sliver; the log residual expands exactly that region, so a better result
+    spreads the cloud out instead of collapsing it.
+    """
     tries = [v for row in rows for v in (row.base_trie, row.opt_trie)]
     scores = [v for row in rows for v in (row.base_f17, row.opt_f17)]
+
+    if y_scale == "error":
+        errors = [math.log10(max(_MIN_ERROR, 1.0 - s)) for s in scores]
+        span = (max(errors) - min(errors)) or 0.1
+        # Inverted: larger error (worse) at the bottom. The bottom pad only has to clear
+        # the legend and the note; on a log axis 0.38 of the span would be a wasteful
+        # half-decade of white space.
+        return (
+            min(tries) / 1.9,
+            10.0 ** (max(errors) + 0.28 * span),
+            max(tries) * 1.9,
+            10.0 ** (min(errors) - 0.10 * span),
+        )
+
     span = max(scores) - min(scores)
     if span <= 0.0:
         span = max(1e-3, abs(max(scores)) * 0.01)
@@ -787,22 +818,32 @@ def render_frontier(
     output_png: Path,
     output_pdf: Optional[Path] = None,
     subtitle: Optional[str] = None,
+    y_scale: str = "error",
 ) -> Tuple[List[str], int]:
     """Render one figure. Returns (layout violations, number of leader lines drawn)."""
     setup_typography()
 
+    to_y = (lambda f: max(_MIN_ERROR, 1.0 - f)) if y_scale == "error" else (lambda f: f)
+
     fig, ax = plt.subplots(figsize=FIGURE_SIZE)
     ax.set_xscale("log")
-    x_lo, y_lo, x_hi, y_hi = _axis_limits(rows)
+    x_lo, y_lo, x_hi, y_hi = _axis_limits(rows, y_scale)
     ax.set_xlim(x_lo, x_hi)
+    if y_scale == "error":
+        ax.set_yscale("log")
+        # Ticks stay in F_1/7 so the axis reads the same as the linear version.
+        shown = [f for f in F_GRID if y_hi <= 1.0 - f <= y_lo]
+        ax.yaxis.set_major_locator(FixedLocator([1.0 - f for f in shown]))
+        ax.yaxis.set_major_formatter(FuncFormatter(lambda e, _: f"{1.0 - e:g}"))
+        ax.yaxis.set_minor_locator(NullLocator())
     ax.set_ylim(y_lo, y_hi)
 
     arrow_patches: List[FancyArrowPatch] = []
     for row in rows:
         color = _row_color(row)
         patch = FancyArrowPatch(
-            (row.base_trie, row.base_f17),
-            (row.opt_trie, row.opt_f17),
+            (row.base_trie, to_y(row.base_f17)),
+            (row.opt_trie, to_y(row.opt_f17)),
             arrowstyle="-|>",
             mutation_scale=ARROW_MUTATION,
             lw=ARROW_LINEWIDTH,
@@ -816,7 +857,7 @@ def render_frontier(
         arrow_patches.append(patch)
         ax.plot(
             [row.base_trie],
-            [row.base_f17],
+            [to_y(row.base_f17)],
             "o",
             mfc="white",
             mec=color,
@@ -833,7 +874,12 @@ def render_frontier(
     ax.tick_params(colors="#444", labelsize=8.5)
     ax.grid(axis="y", color="#e6e6e6", lw=0.6, zorder=0)
     ax.set_xlabel("pattern trie size (nodes, log scale)  —  left = more compact", fontsize=10.2)
-    ax.set_ylabel(r"$F_{1/7}$  (held-out)  —  up = more accurate", fontsize=11)
+    ax.set_ylabel(
+        r"$F_{1/7}$  (held-out, log residual)  —  up = more accurate"
+        if y_scale == "error"
+        else r"$F_{1/7}$  (held-out)  —  up = more accurate",
+        fontsize=11,
+    )
 
     total = len(rows)
     n_win = sum(1 for r in rows if r.more_accurate and r.smaller_trie)
@@ -893,8 +939,8 @@ def render_frontier(
     arrows: List[ArrowGeom] = [
         measure_arrow(
             patch,
-            tuple(ax.transData.transform((row.base_trie, row.base_f17))),
-            tuple(ax.transData.transform((row.opt_trie, row.opt_f17))),
+            tuple(ax.transData.transform((row.base_trie, to_y(row.base_f17)))),
+            tuple(ax.transData.transform((row.opt_trie, to_y(row.opt_f17)))),
             px_per_point,
         )
         for row, patch in zip(rows, arrow_patches)
@@ -903,7 +949,7 @@ def render_frontier(
     annotations = [
         ax.annotate(
             row.name,
-            (row.opt_trie, row.opt_f17),
+            (row.opt_trie, to_y(row.opt_f17)),
             xytext=(0.0, 0.0),
             textcoords="offset points",
             ha="center",
@@ -923,7 +969,7 @@ def render_frontier(
     obstacles = Obstacles(
         axes=tuple(ax.get_window_extent(renderer).extents),
         markers=[
-            (tuple(ax.transData.transform((row.base_trie, row.base_f17))),
+            (tuple(ax.transData.transform((row.base_trie, to_y(row.base_f17)))),
              0.5 * MARKER_SIZE * px_per_point + 0.5 * ARROW_LINEWIDTH * px_per_point)
             for row in rows
         ],
@@ -997,6 +1043,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         help="render only this run (repeatable); default renders every available run",
     )
     parser.add_argument(
+        "--y-scale",
+        choices=("error", "linear"),
+        default="error",
+        help="error: log residual 1-F_1/7 (default, separates strong results); "
+             "linear: raw F_1/7 as in the published figure",
+    )
+    parser.add_argument(
         "--check",
         action="store_true",
         help="exit nonzero if any figure has a label collision",
@@ -1023,13 +1076,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 print(f"skipping {spec.key}: {exc}")
             continue
 
-        stem = f"published_baseline_to_{spec.key}_frontier"
+        suffix = "" if args.y_scale == "error" else f"_{args.y_scale}"
+        stem = f"published_baseline_to_{spec.key}_frontier{suffix}"
         problems, leaders = render_frontier(
             rows,
             spec.display,
             out_dir / f"{stem}.png",
             out_dir / f"{stem}.pdf",
             subtitle=spec.note,
+            y_scale=args.y_scale,
         )
         rendered += 1
         status = "clean" if not problems else f"{len(problems)} COLLISIONS"

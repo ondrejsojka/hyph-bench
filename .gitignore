@@ -62,6 +62,8 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/bootstrap_ci.json
 !results/gpopt260828_analysis/bootstrap_ci_table.tex
 !results/gpopt260828_analysis/summary.json
+!results/gpopt260828_analysis/selector_ablation.json
+!results/gpopt260828_analysis/selector_ablation_table.tex
 
 venv/
 hyph_bench.egg-info/

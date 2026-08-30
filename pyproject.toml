@@ -14,3 +14,5 @@ dependencies = [
     "regex>=2023.0.0",
 ]
 
+[tool.basedpyright]
+typeCheckingMode = "basic"
