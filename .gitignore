@@ -6,6 +6,7 @@ wikt_dump
 **/wiktionary/
 **/*_expanded.wlh
 **/*_dis.wlh
+*.egg-info/
 **/*_dis.wlh.tra
 **/test*
 !**/uk/wiktionary/

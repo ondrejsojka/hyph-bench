@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run the final 17-dataset GPTopt8 matrix, two datasets at a time.
+# Run the final 17-dataset GPopt8 matrix, two datasets at a time.
 # Each dataset uses five PATGEN workers; two concurrent runs occupy all 12 CPUs
 # with ten PATGEN workers and two GP coordinator processes.
 
@@ -9,7 +9,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}" || exit 1
 
 PATGEN_BIN="${PATGEN_BIN:-/home/dev/patgen-10x}"
-OUTPUT_DIR="${OUTPUT_DIR:-results/gptopt8}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/gpopt8}"
 MAX_PARALLEL="${MAX_PARALLEL:-2}"
 LOG_DIR="${OUTPUT_DIR}/_logs"
 STATUS_FILE="${LOG_DIR}/run-status.tsv"
@@ -91,4 +91,4 @@ done
 wait
 
 finished="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-echo "[${finished}] GPTopt8 QUEUE COMPLETE"
+echo "[${finished}] GPopt8 QUEUE COMPLETE"

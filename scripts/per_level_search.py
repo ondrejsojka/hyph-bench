@@ -32,7 +32,7 @@ from .trie_normalizer import (
     warn_fixed_trie_normalizer,
 )
 
-# The dated runner uses the extended space; the historical GPTopt8 launcher pins
+# The dated runner uses the extended space; the historical GPopt8 launcher pins
 # its original space through PATGEN_OPT_WEIGHT_SPACE=legacy for reproducibility.
 _WEIGHT_SPACES = {
     "extended": (5, 4, 3, 2),

@@ -1,7 +1,7 @@
 [project]
-name = "hyph-bench"
+name = "pat-gen-opt"
 version = "1.0.0"
-description = "Benchmark Dataset of Hyphenated Words for Generating Hyphenation Patterns"
+description = "Gaussian-process optimization of patgen hyperparameters for hyphenation patterns"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"

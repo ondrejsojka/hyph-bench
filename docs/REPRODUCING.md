@@ -84,7 +84,7 @@ The analysis regenerates the selected profile and both hand-tuned baselines with
 
 ## Historical and auxiliary experiments
 
-Historical GPTopt8 artifacts remain under `results/gptopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the extended default space. Do not combine histories from the two spaces.
+Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the extended default space. Do not combine histories from the two spaces.
 
 Frozen run records (`run_config.json` command strings and `_logs/`) reference the module by its historical name `scripts.paper2_final_search`; it was renamed to `scripts.per_level_search` after the reported runs, with identical behavior.
 
@@ -94,7 +94,7 @@ Related scripts:
 |---|---|
 | Final per-level GP search | `python -m scripts.per_level_search` |
 | Final 17-dataset queue | `scripts/run_full_search.sh` |
-| Historical GPTopt8 queue | `scripts/run_gptopt8.sh` |
+| Historical GPopt8 queue | `scripts/run_gpopt8.sh` |
 | GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
 | Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
 

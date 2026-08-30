@@ -127,7 +127,7 @@ The repository combines datasets with different licenses. Preserve the attributi
 | `is/hyphenation-is` | CC BY 4.0 | Icelandic curated data |
 | `th/orchid` | CC BY-SA 4.0 | Licensed in 2025 from the public-domain ORCHID source |
 | Wiktionary-derived datasets | CC BY-SA 4.0 | `cs`, `de`, `el`, `es`, `it`, `nl`, `pl`, `pt`, `ru`, and `tr` |
-| `uk/wiktionary` | CC BY-SA 4.0 | Prepared for the cited Ukrainian hyphenation thesis |
+| `uk/wiktionary` | CC BY-SA 4.0 | Prepared for Sojka, O.: *Transfer Learning of Slavic Syllabification for Hyphenation Patterns*, Bachelor Thesis, Masaryk University, Brno, 2025 |
 | `uk/dict_uk` | GPL-3.0 | Derived from [brown-uk/dict_uk](https://github.com/brown-uk/dict_uk) |
 
 The original software in this repository is available under the [MIT License](LICENSE). Dataset files retain the separate licenses and attribution requirements listed above; the software license does not override those terms.

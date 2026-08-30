@@ -146,8 +146,8 @@ KNOWN_RUNS: Tuple[RunSpec, ...] = (
     RunSpec(
         key="gpopt8",
         display="GPopt8",
-        # Directory is spelled `gptopt8` on disk; the run itself is GPopt8.
-        profiles="results/gptopt8",
+        # Directory is spelled `gpopt8` on disk; the run itself is GPopt8.
+        profiles="results/gpopt8",
         baselines="results/paper2_revision_analysis_currentci/bootstrap_ci.json",
         note="best-validation-objective export; VC-0.005 post-selection not applied",
     ),
