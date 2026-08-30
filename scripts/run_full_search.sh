@@ -58,7 +58,7 @@ run_dataset() {
 
   started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "[${started}] START ${dataset}"
-  uv run python -u -m scripts.paper2_final_search \
+  uv run python -u -m scripts.per_level_search \
     --lang "${dataset}" \
     --patgen "${PATGEN_BIN}" \
     --output-dir "${OUTPUT_DIR}" \

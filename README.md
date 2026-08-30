@@ -46,7 +46,7 @@ Every reported score is computed once on a held-out test split that the search n
 The default and recommended workflow is the per-level search: one weight ratio and one threshold per PATGEN level, eight parameters in total for the standard four-level profile. The script defaults match the paper protocol. This command exercises the full train, validation, selection, held-out test, and pattern-export path on the bundled Thai ORCHID dataset:
 
 ```bash
-uv run python -m scripts.paper2_final_search \
+uv run python -m scripts.per_level_search \
   --lang th/orchid \
   --patgen "$(command -v patgen)" \
   --iterations 1 \
@@ -83,7 +83,7 @@ This writes `example.wlh.tra` with left and right minima of 2; override with `--
 Then run the search (either place files under `data/` and use `--lang`, or pass explicit `--wordlist`/`--translate` paths):
 
 ```bash
-uv run python -m scripts.paper2_final_search \
+uv run python -m scripts.per_level_search \
   --lang xx/example \
   --patgen "$(command -v patgen)" \
   --output-dir results/final \
@@ -110,7 +110,7 @@ The command uses the repository's Liang-pattern implementation; it does not subs
 
 - `data/`: hyphenated word lists and translate files for 17 datasets.
 - `profiles/`: hand-tuned PATGEN baselines used for comparison.
-- `scripts/`: preprocessing, optimization, evaluation, and reporting code. `scripts.paper2_final_search` is the canonical workflow; much of the rest serves the paper experiments.
+- `scripts/`: preprocessing, optimization, evaluation, and reporting code. `scripts.per_level_search` is the canonical workflow; much of the rest serves the paper experiments.
 - `results/`: paper run histories, selected profiles, ablations, and figures — historical evidence, not needed to use the optimizer.
 - `docs/REPRODUCING.md`: the paper reproduction and audit protocol.
 

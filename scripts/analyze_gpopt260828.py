@@ -46,7 +46,7 @@ from .dataset_utls import find_dataset
 from .hyperparameters.sample import Sample
 from .hyperparameters.score import PatgenScorer
 from .optimize_validation import create_mod10_split, train_patgen_multilevel
-from .paper2_final_search import WEIGHT_LABELS
+from .per_level_search import WEIGHT_LABELS
 
 RESULTS_DIR = Path("results/gpopt260828")
 OUTPUT_DIR = Path("results/gpopt260828_analysis")

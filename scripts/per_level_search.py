@@ -33,15 +33,15 @@ from .trie_normalizer import (
 )
 
 # The dated runner uses the extended space; the historical GPTopt8 launcher pins
-# its original space through PAPER2_WEIGHT_SPACE=legacy for reproducibility.
+# its original space through PATGEN_OPT_WEIGHT_SPACE=legacy for reproducibility.
 _WEIGHT_SPACES = {
     "extended": (5, 4, 3, 2),
     "legacy": (3, 2),
 }
-_weight_space = os.environ.get("PAPER2_WEIGHT_SPACE", "extended")
+_weight_space = os.environ.get("PATGEN_OPT_WEIGHT_SPACE", "extended")
 if _weight_space not in _WEIGHT_SPACES:
     raise ValueError(
-        f"unknown PAPER2_WEIGHT_SPACE={_weight_space!r}; "
+        f"unknown PATGEN_OPT_WEIGHT_SPACE={_weight_space!r}; "
         f"expected one of {tuple(_WEIGHT_SPACES)}"
     )
 FRACTIONAL_DENOMINATORS = _WEIGHT_SPACES[_weight_space]
@@ -145,7 +145,7 @@ def main() -> None:
     parser.add_argument("--translate")
     parser.add_argument("--patgen", default="patgen")
     parser.add_argument("--profile")
-    parser.add_argument("--output-dir", default="results/paper2_final")
+    parser.add_argument("--output-dir", default="results/per_level_search")
     parser.add_argument("--iterations", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
@@ -175,11 +175,11 @@ def main() -> None:
     trie_normalizer = None
     if args.objective == "f17_trie":
         trie_normalizer, fixed = resolve_trie_normalizer(
-            args, wordlist_path, "scripts.paper2_final_search", dataset=args.lang
+            args, wordlist_path, "scripts.per_level_search", dataset=args.lang
         )
         if fixed:
             warn_fixed_trie_normalizer(
-                "scripts.paper2_final_search", trie_normalizer, "search"
+                "scripts.per_level_search", trie_normalizer, "search"
             )
 
     objective = (

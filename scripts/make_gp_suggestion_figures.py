@@ -39,7 +39,7 @@ from sklearn.gaussian_process.kernels import Matern, WhiteKernel
 from sklearn.inspection import permutation_importance
 
 # --- search space ---------------------------------------------------------
-# Mirrors paper2_final_search.WEIGHT_LABELS and the --min/--max-threshold
+# Mirrors per_level_search.WEIGHT_LABELS and the --min/--max-threshold
 # defaults recorded in every run_config.json of the reported run.
 WEIGHT_LABELS = ("1/5", "1/4", "1/3", "1/2") + tuple(str(v) for v in range(1, 31))
 N_LEVELS = 4

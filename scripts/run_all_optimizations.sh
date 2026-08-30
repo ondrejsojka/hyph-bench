@@ -1,6 +1,6 @@
 #!/bin/bash
 # Legacy in-sample optimization queue (scripts.optimize); kept for history.
-# Do not use for camera-ready results; see scripts/run_paper2_gpopt260828.sh.
+# Do not use for camera-ready results; see scripts/run_full_search.sh.
 cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
 mkdir -p optimization_logs
 mkdir -p results

@@ -52,7 +52,7 @@ Run the full matrix or fill missing datasets:
 
 ```bash
 PATGEN_BIN=/path/to/high-capacity/patgen \
-  bash scripts/run_paper2_gpopt260828.sh
+  bash scripts/run_full_search.sh
 ```
 
 By default, the runner writes to `results/gpopt260828/`. Each complete dataset contains:
@@ -84,15 +84,17 @@ The analysis regenerates the selected profile and both hand-tuned baselines with
 
 ## Historical and auxiliary experiments
 
-Historical GPTopt8 artifacts remain under `results/gptopt8/`. Its launcher pins `PAPER2_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the extended default space. Do not combine histories from the two spaces.
+Historical GPTopt8 artifacts remain under `results/gptopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the extended default space. Do not combine histories from the two spaces.
+
+Frozen run records (`run_config.json` command strings and `_logs/`) reference the module by its historical name `scripts.paper2_final_search`; it was renamed to `scripts.per_level_search` after the reported runs, with identical behavior.
 
 Related scripts:
 
 | Purpose | Command or script |
 |---|---|
-| Final per-level GP search | `python -m scripts.paper2_final_search` |
-| Final 17-dataset queue | `scripts/run_paper2_gpopt260828.sh` |
-| Historical GPTopt8 queue | `scripts/run_paper2_gptopt8.sh` |
+| Final per-level GP search | `python -m scripts.per_level_search` |
+| Final 17-dataset queue | `scripts/run_full_search.sh` |
+| Historical GPTopt8 queue | `scripts/run_gptopt8.sh` |
 | GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
 | Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
 
@@ -171,6 +173,6 @@ make stats_all_datasets # Report dataset statistics (no dump needed)
 
 ## Known scope boundaries
 
-- `scripts.paper2_final_search` is the final, canonical workflow; `scripts.optimize_validation` and `scripts.optimize_shared_parameters` are the reduced held-out workflows.
+- `scripts.per_level_search` is the final, canonical workflow; `scripts.optimize_validation` and `scripts.optimize_shared_parameters` are the reduced held-out workflows.
 - `scripts.optimize` performs in-sample optimization and serves older experiments. Do not use it to reproduce held-out camera-ready results.
 - Malay (`ms/wiktionary`) was dropped from the benchmark and is not part of the reported 17-dataset collection. The preprocessing and optimization queues no longer list it. Older ablation artifacts under `results/threshold_ablation/` and `results/hpo_representative_150/` still contain recorded Malay rows; those are historical evidence and are left untouched.

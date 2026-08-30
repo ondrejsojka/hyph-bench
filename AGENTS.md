@@ -10,7 +10,7 @@ Large datasets need the high-capacity build (`/home/dev/patgen-10x` here); the p
 
 Key commands:
 
-- Use `uv run python -m scripts.paper2_final_search ...` for the canonical per-level held-out search (per-level weights and thresholds; defaults match the paper protocol).
+- Use `uv run python -m scripts.per_level_search ...` for the canonical per-level held-out search (per-level weights and thresholds; defaults match the paper protocol).
 - Use `uv run python -m scripts.optimize_validation ...` and `uv run python -m scripts.optimize_shared_parameters ...` for the reduced held-out searches.
 - Use `uv run python -m scripts.cross_validate ...` for cross-validation.
 - `scripts.optimize` is in-sample and legacy; do not use it for camera-ready results.
