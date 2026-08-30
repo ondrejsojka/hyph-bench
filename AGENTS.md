@@ -1,6 +1,6 @@
 # pat-gen-opt
 
-Optimization of PATGEN pattern-generation hyperparameters, plus benchmark datasets. The repository is still named `hyph-bench`; the rename to `pat-gen-opt` is pending.
+Optimization of PATGEN pattern-generation hyperparameters, plus benchmark datasets (github.com/ondrejsojka/pat-gen-opt). A local checkout may still live in a directory named `hyph-bench`, the repository's pre-rename name.
 
 Read `README.md` for setup, dataset layout, optimizer workflows, and dataset licenses. The paper reproduction and audit protocol lives in `docs/REPRODUCING.md`.
 
