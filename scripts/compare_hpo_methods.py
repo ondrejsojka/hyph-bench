@@ -50,6 +50,7 @@ from .trie_normalizer import (
     resolve_trie_normalizer,
     warn_fixed_trie_normalizer,
 )
+from .dataset_split import resolve_word_entries
 from .optimize import (run_patgen_multilevel, run_parallel_patgen,
                        run_parallel_cross_validation)
 
@@ -410,6 +411,8 @@ def main():
         wl, tr = find_dataset(dataset)
         print(f"Wordlist:  {wl}")
         print(f"Translate: {tr}")
+        resolved_entries, _, _ = resolve_word_entries(wl)
+
 
         fixed_trie_normalizer = False
         trie_normalizer = None
@@ -419,6 +422,7 @@ def main():
                 wl,
                 "scripts.compare_hpo_methods",
                 dataset=dataset,
+                wordlist_size=len(resolved_entries),
             )
             if fixed_trie_normalizer:
                 fixed_trie_normalizers.append(trie_normalizer)

@@ -22,89 +22,120 @@
     ],
     "weight_ratios": [
       "30",
-      "30",
-      "25",
-      "2"
+      "1/5",
+      "29",
+      "6"
     ],
     "thresholds": [
-      40,
-      39,
-      21,
-      1
+      37,
+      8,
+      14,
+      31
     ],
-    "validation_objective": 0.9709166048014479,
+    "validation_objective": 0.9716320312622392,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 485200,
-          "sha256": "acaabca3f0ace5d33f8a97b8aa6aa88b45aac3e6e411dfe1e108f6214b7bf390"
+          "count": 477513,
+          "sha256": "7160e3a6898003d74d2035be6485a0419eff7b3b136de2dbc8ca8d25f1ad62d6"
         },
         "validation": {
-          "count": 60650,
-          "sha256": "cac467b75df193fcdb2564926e64c1dc5628a87442a28d83a599ebfde4c5e1e7"
+          "count": 59689,
+          "sha256": "ba2a2da3bb4296ba45931a8fe8c40e3a20776452ae5f0f08f70f60fc13236c1b"
         },
         "test": {
-          "count": 60649,
-          "sha256": "35fcbeb7c172f3496f130163c3da8db146c5ba491f337d77ca66d6cedf287ae3"
+          "count": 59690,
+          "sha256": "cb9f40b47b340ec74efc4306953e60d0bb9607836a8e9215485409c77a2f774e"
         }
       },
-      "source_lines": 606499,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 596892,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
-        "train_vs_validation": 972,
-        "train_vs_test": 930,
-        "validation_vs_test": 940
+        "train_vs_validation": 0,
+        "train_vs_test": 0,
+        "validation_vs_test": 0
       }
     },
     "optimized": {
-      "good": 164977,
-      "bad": 4778,
-      "missed": 3279,
-      "precision": 0.9718535536508498,
-      "recall": 0.9805118391023203,
-      "f17": 0.9720252205597031,
-      "train_good": 1319773,
-      "train_bad": 124,
-      "train_missed": 25899,
-      "n_patterns": 3841,
-      "trie_nodes": 5369,
+      "good": 163570,
+      "bad": 4873,
+      "missed": 2779,
+      "precision": 0.9710703323973094,
+      "recall": 0.9832941586664182,
+      "f17": 0.9713118297550516,
+      "train_good": 1311265,
+      "train_bad": 296,
+      "train_missed": 20089,
+      "n_patterns": 4019,
+      "trie_nodes": 5434,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 163514,
+      "bad": 4813,
+      "missed": 2823,
+      "precision": 0.9714068450100103,
+      "recall": 0.9830284302350049,
+      "f17": 0.9716365831744779,
+      "trie_nodes": 5434,
+      "n_patterns": 4019
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 168116,
-        "bad": 11557,
-        "missed": 140,
-        "precision": 0.9356775920700383,
-        "recall": 0.9991679345758844,
-        "f17": 0.9368682244431236,
-        "trie_nodes": 8878,
-        "n_patterns": 6641
+        "good": 166179,
+        "bad": 11492,
+        "missed": 170,
+        "precision": 0.9353186507646155,
+        "recall": 0.9989780521674311,
+        "f17": 0.9365122266921003,
+        "trie_nodes": 8847,
+        "n_patterns": 6580
       },
       "wortliste": {
-        "good": 168066,
-        "bad": 14207,
-        "missed": 190,
-        "precision": 0.9220564757259715,
-        "recall": 0.9988707683529859,
-        "f17": 0.923476803954621,
-        "trie_nodes": 11284,
-        "n_patterns": 7932
+        "good": 166151,
+        "bad": 14069,
+        "missed": 198,
+        "precision": 0.9219343025191433,
+        "recall": 0.9988097313479491,
+        "f17": 0.9233556615671512,
+        "trie_nodes": 11327,
+        "n_patterns": 8007
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 166157,
+        "bad": 11433,
+        "missed": 180,
+        "precision": 0.9356213750774255,
+        "recall": 0.9989178595261428,
+        "f17": 0.9368085936262263,
+        "trie_nodes": 8847,
+        "n_patterns": 6580
+      },
+      "wortliste": {
+        "good": 166092,
+        "bad": 13988,
+        "missed": 245,
+        "precision": 0.9223234118169702,
+        "recall": 0.9985270865772498,
+        "f17": 0.9237333259772217,
+        "trie_nodes": 11327,
+        "n_patterns": 8007
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.03515699611657952,
-    "ci_low": 0.03433321098885452,
-    "ci_high": 0.03599260159063569,
-    "opt_trie": 5369,
-    "base_trie": 8878,
-    "trie_ratio": 0.604753322820455,
-    "test_lines": 60649,
+    "delta_f17": 0.03479960306295127,
+    "ci_low": 0.03399064144806956,
+    "ci_high": 0.03563688436919531,
+    "opt_trie": 5434,
+    "base_trie": 8847,
+    "trie_ratio": 0.6142195094382277,
+    "test_lines": 59690,
     "resamples": 10000,
     "resample_seed": 20260830
   },
@@ -130,90 +161,121 @@
       ]
     ],
     "weight_ratios": [
+      "30",
+      "1/3",
       "28",
-      "1/4",
-      "27",
-      "1/4"
+      "1/3"
     ],
     "thresholds": [
-      25,
-      4,
-      37,
-      39
+      23,
+      6,
+      39,
+      1
     ],
-    "validation_objective": 0.9897400428174269,
+    "validation_objective": 0.9897827557883065,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 84116,
-          "sha256": "5e78dccbe83c7f7b417d805b648a39e040723d2e1f5f3b0ab7706993ef992b12"
+          "count": 83408,
+          "sha256": "201c1aa0be2ddfc858092678acdccc537567cc82959c15df168b5cb62af7fbb4"
         },
         "validation": {
-          "count": 10514,
-          "sha256": "6d8e9d24534f5f905f81d1b31305a337e02fc2d3af7822ca8cb18102f98c8e56"
+          "count": 10426,
+          "sha256": "bb004b67a71ef4887247501bf99f7c184a2b14677eb1406ea2ebd3a3a13407cc"
         },
         "test": {
-          "count": 10514,
-          "sha256": "6f9682ba06d46ca071174a7c5cd384922c010e366bc74eaa432c54231063b40b"
+          "count": 10426,
+          "sha256": "e2793026e3e3672557f4cc6adb2c41162f594604284c88254a511fa0a61b5276"
         }
       },
-      "source_lines": 105144,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 104260,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
-        "train_vs_validation": 76,
-        "train_vs_test": 79,
-        "validation_vs_test": 56
+        "train_vs_validation": 0,
+        "train_vs_test": 0,
+        "validation_vs_test": 0
       }
     },
     "optimized": {
-      "good": 22682,
-      "bad": 149,
-      "missed": 4479,
-      "precision": 0.9934737856423285,
-      "recall": 0.8350944368764036,
-      "f17": 0.9897196914162042,
-      "train_good": 182209,
-      "train_bad": 89,
-      "train_missed": 34050,
-      "n_patterns": 1637,
-      "trie_nodes": 2738,
+      "good": 22685,
+      "bad": 140,
+      "missed": 4461,
+      "precision": 0.9938663745892662,
+      "recall": 0.835666396522508,
+      "f17": 0.9901175920130658,
+      "train_good": 182241,
+      "train_bad": 2,
+      "train_missed": 33084,
+      "n_patterns": 1731,
+      "trie_nodes": 2935,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 22572,
+      "bad": 146,
+      "missed": 4480,
+      "precision": 0.9935733779381988,
+      "recall": 0.8343930208487358,
+      "f17": 0.9897968311767585,
+      "trie_nodes": 2935,
+      "n_patterns": 1731
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 26469,
-        "bad": 2356,
-        "missed": 692,
-        "precision": 0.9182653946227234,
-        "recall": 0.9745222929936306,
-        "f17": 0.9193268064568564,
-        "trie_nodes": 13799,
-        "n_patterns": 9172
+        "good": 26517,
+        "bad": 2342,
+        "missed": 629,
+        "precision": 0.9188468068886656,
+        "recall": 0.9768289987475135,
+        "f17": 0.9199389135860376,
+        "trie_nodes": 13693,
+        "n_patterns": 9124
       },
       "wortliste": {
-        "good": 26522,
-        "bad": 3641,
-        "missed": 639,
-        "precision": 0.8792891953718132,
-        "recall": 0.9764736202643496,
-        "f17": 0.8810429273400356,
-        "trie_nodes": 12734,
-        "n_patterns": 8193
+        "good": 26553,
+        "bad": 3655,
+        "missed": 593,
+        "precision": 0.879005561440678,
+        "recall": 0.97815516098136,
+        "f17": 0.880791169598325,
+        "trie_nodes": 12854,
+        "n_patterns": 8251
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 26399,
+        "bad": 2426,
+        "missed": 653,
+        "precision": 0.915836947094536,
+        "recall": 0.9758613041549609,
+        "f17": 0.9169649810313052,
+        "trie_nodes": 13693,
+        "n_patterns": 9124
+      },
+      "wortliste": {
+        "good": 26466,
+        "bad": 3653,
+        "missed": 586,
+        "precision": 0.8787144327500913,
+        "recall": 0.9783380156735176,
+        "f17": 0.8805076642692744,
+        "trie_nodes": 12854,
+        "n_patterns": 8251
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.07039288495934781,
-    "ci_low": 0.0675121076323002,
-    "ci_high": 0.07331967165195427,
-    "opt_trie": 2738,
-    "base_trie": 13799,
-    "trie_ratio": 0.19842017537502718,
-    "test_lines": 10514,
+    "delta_f17": 0.07017867842702818,
+    "ci_low": 0.0672746753085521,
+    "ci_high": 0.0730557958082674,
+    "opt_trie": 2935,
+    "base_trie": 13693,
+    "trie_ratio": 0.21434309501204996,
+    "test_lines": 10426,
     "resamples": 10000,
     "resample_seed": 20260831
   },
@@ -239,38 +301,37 @@
       ]
     ],
     "weight_ratios": [
-      "26",
-      "15",
-      "10",
-      "1/3"
+      "25",
+      "6",
+      "16",
+      "1/4"
     ],
     "thresholds": [
+      41,
+      41,
       40,
-      1,
-      30,
-      1
+      3
     ],
-    "validation_objective": 0.9766042093692627,
+    "validation_objective": 0.9778920804884915,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 43170,
-          "sha256": "e55eaaec650337184b5b68135ae80e753abdaa8c7809fb13afcc8bf7fc524c94"
+          "count": 43145,
+          "sha256": "fa4806e0bd1a5ae2990ef6c420c5f83429f4e36a4e960abacddb415ce8b1796e"
         },
         "validation": {
-          "count": 5396,
-          "sha256": "bf5711196f5c2e5591fab5e692b2647ff03f18faa5e295aa8ea9ade30546f399"
+          "count": 5393,
+          "sha256": "a4d014c004b910e472ff6adc4f207705c10ce5e5462a9998c7ad330269433c91"
         },
         "test": {
-          "count": 5396,
-          "sha256": "2f548d2dc7aeaf680760cbb63dee3cba473f5575277bbd75cc87dc8fd1b4e264"
+          "count": 5394,
+          "sha256": "67a8357d1d2eab0688f9f8e69ba5e449f97c92b08e57d736430d878a4bd7e627"
         }
       },
-      "source_lines": 53962,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 53932,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -278,51 +339,83 @@
       }
     },
     "optimized": {
-      "good": 9248,
-      "bad": 164,
-      "missed": 2382,
-      "precision": 0.9825754356141096,
-      "recall": 0.7951848667239897,
-      "f17": 0.9779661518808507,
-      "train_good": 74583,
-      "train_bad": 5,
-      "train_missed": 18408,
-      "n_patterns": 1204,
-      "trie_nodes": 2186,
+      "good": 8600,
+      "bad": 122,
+      "missed": 3170,
+      "precision": 0.9860123824810824,
+      "recall": 0.7306711979609176,
+      "f17": 0.9791687540419174,
+      "train_good": 68039,
+      "train_bad": 3,
+      "train_missed": 24882,
+      "n_patterns": 849,
+      "trie_nodes": 1662,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 8350,
+      "bad": 128,
+      "missed": 3160,
+      "precision": 0.9849020995517811,
+      "recall": 0.7254561251086012,
+      "f17": 0.9779074887804147,
+      "trie_nodes": 1662,
+      "n_patterns": 849
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 11286,
-        "bad": 1083,
-        "missed": 344,
-        "precision": 0.9124423963133641,
-        "recall": 0.9704213241616509,
-        "f17": 0.9135339989088749,
-        "trie_nodes": 8122,
-        "n_patterns": 5550
+        "good": 11447,
+        "bad": 1202,
+        "missed": 323,
+        "precision": 0.90497272511661,
+        "recall": 0.9725573491928632,
+        "f17": 0.9062322367556458,
+        "trie_nodes": 8159,
+        "n_patterns": 5615
       },
       "wortliste": {
-        "good": 11329,
-        "bad": 1831,
-        "missed": 301,
-        "precision": 0.8608662613981763,
-        "recall": 0.9741186586414445,
-        "f17": 0.8628726369826497,
-        "trie_nodes": 7425,
-        "n_patterns": 4808
+        "good": 11496,
+        "bad": 1845,
+        "missed": 274,
+        "precision": 0.8617045199010569,
+        "recall": 0.9767204757858964,
+        "f17": 0.8637387505841657,
+        "trie_nodes": 7379,
+        "n_patterns": 4803
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 11180,
+        "bad": 1169,
+        "missed": 330,
+        "precision": 0.9053364644910519,
+        "recall": 0.9713292788879235,
+        "f17": 0.9065683226539909,
+        "trie_nodes": 8159,
+        "n_patterns": 5615
+      },
+      "wortliste": {
+        "good": 11219,
+        "bad": 1755,
+        "missed": 291,
+        "precision": 0.8647294589178357,
+        "recall": 0.9747176368375325,
+        "f17": 0.8666854130487179,
+        "trie_nodes": 7379,
+        "n_patterns": 4803
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.0644321529719758,
-    "ci_low": 0.05995672418282779,
-    "ci_high": 0.06886133198228492,
-    "opt_trie": 2186,
-    "base_trie": 8122,
-    "trie_ratio": 0.26914553065747354,
-    "test_lines": 5396,
+    "delta_f17": 0.0729365172862716,
+    "ci_low": 0.06839329033139327,
+    "ci_high": 0.07754281527797795,
+    "opt_trie": 1662,
+    "base_trie": 8159,
+    "trie_ratio": 0.2037014339992646,
+    "test_lines": 5394,
     "resamples": 10000,
     "resample_seed": 20260832
   },
@@ -349,89 +442,120 @@
     ],
     "weight_ratios": [
       "30",
-      "1/4",
-      "9",
-      "4"
+      "11",
+      "24",
+      "15"
     ],
     "thresholds": [
-      31,
-      23,
-      25,
-      1
+      42,
+      3,
+      24,
+      9
     ],
-    "validation_objective": 0.9840460628595239,
+    "validation_objective": 0.9837312976915942,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 913444,
-          "sha256": "5d4366d21dd34f7d0159b9e91d9603a04aca74d015408d579ea9569250e30f55"
+          "count": 911855,
+          "sha256": "db3c29fd13d6dd97b3c6681b4c4dd366ea64c5d41d5601cd57b997ea539e9160"
         },
         "validation": {
-          "count": 114180,
-          "sha256": "13b598eb74fdb6ebc7c05ea31296f092493d072974acd58e13ed3781c5957d36"
+          "count": 83415,
+          "sha256": "c50b8b0c1a024715651ef52b067d45632c1163410614bb4209dd43e3eb00e36e"
         },
         "test": {
-          "count": 114180,
-          "sha256": "d7e293b0148f26d995b774dcd2c16ce99ad7b115d61615cc87b34a4f8632a7d5"
+          "count": 83416,
+          "sha256": "e384ddd4fe02a50a213128eb6638e85eba423b6b05cba333dc5f2082900c91d2"
         }
       },
-      "source_lines": 1141804,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 834152,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
-        "train_vs_validation": 44761,
-        "train_vs_test": 44864,
-        "validation_vs_test": 30360
+        "train_vs_validation": 0,
+        "train_vs_test": 0,
+        "validation_vs_test": 0
       }
     },
     "optimized": {
-      "good": 269718,
-      "bad": 4266,
-      "missed": 6720,
-      "precision": 0.9844297477224947,
-      "recall": 0.9756907516332777,
-      "f17": 0.9842534339284877,
-      "train_good": 2157125,
-      "train_bad": 11,
-      "train_missed": 51336,
-      "n_patterns": 5083,
-      "trie_nodes": 6598,
+      "good": 206771,
+      "bad": 3439,
+      "missed": 5408,
+      "precision": 0.9836401693544551,
+      "recall": 0.9745120864930082,
+      "f17": 0.9834559321887181,
+      "train_good": 2153839,
+      "train_bad": 848,
+      "train_missed": 51122,
+      "n_patterns": 4719,
+      "trie_nodes": 6611,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 206298,
+      "bad": 3371,
+      "missed": 5364,
+      "precision": 0.9839222774945271,
+      "recall": 0.9746577089888596,
+      "f17": 0.9837352603986308,
+      "trie_nodes": 6611,
+      "n_patterns": 4719
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 276017,
-        "bad": 21436,
-        "missed": 421,
-        "precision": 0.9279348334022518,
-        "recall": 0.9984770545294063,
-        "f17": 0.9292478572224541,
-        "trie_nodes": 11534,
-        "n_patterns": 8518
+        "good": 211878,
+        "bad": 16885,
+        "missed": 301,
+        "precision": 0.9261899870171313,
+        "recall": 0.9985813864708571,
+        "f17": 0.9275348056474918,
+        "trie_nodes": 11461,
+        "n_patterns": 8483
       },
       "wortliste": {
-        "good": 275995,
-        "bad": 28255,
-        "missed": 443,
-        "precision": 0.9071322925225965,
-        "recall": 0.9983974706805866,
-        "f17": 0.9087937796285311,
-        "trie_nodes": 16048,
-        "n_patterns": 11466
+        "good": 211794,
+        "bad": 22079,
+        "missed": 385,
+        "precision": 0.9055940617343601,
+        "recall": 0.9981854943231894,
+        "f17": 0.9072772378511366,
+        "trie_nodes": 16005,
+        "n_patterns": 11387
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 211362,
+        "bad": 17013,
+        "missed": 300,
+        "precision": 0.925504105090312,
+        "recall": 0.9985826459166028,
+        "f17": 0.9268607004169518,
+        "trie_nodes": 11461,
+        "n_patterns": 8483
+      },
+      "wortliste": {
+        "good": 211306,
+        "bad": 22102,
+        "missed": 356,
+        "precision": 0.9053074444749108,
+        "recall": 0.9983180731543687,
+        "f17": 0.9069974951612435,
+        "trie_nodes": 16005,
+        "n_patterns": 11387
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.055005576706033676,
-    "ci_low": 0.05422580219245832,
-    "ci_high": 0.05576118290023377,
-    "opt_trie": 6598,
-    "base_trie": 11534,
-    "trie_ratio": 0.5720478585052887,
-    "test_lines": 114180,
+    "delta_f17": 0.055921126541226274,
+    "ci_low": 0.055035269486068045,
+    "ci_high": 0.05680904432585395,
+    "opt_trie": 6611,
+    "base_trie": 11461,
+    "trie_ratio": 0.5768257569147544,
+    "test_lines": 83416,
     "resamples": 10000,
     "resample_seed": 20260833
   },
@@ -457,38 +581,37 @@
       ]
     ],
     "weight_ratios": [
-      "27",
+      "30",
       "1/5",
-      "28",
-      "17"
+      "29",
+      "2"
     ],
     "thresholds": [
       40,
-      3,
-      38,
-      30
+      29,
+      32,
+      1
     ],
-    "validation_objective": 0.9936008222956013,
+    "validation_objective": 0.9948733209697572,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 646251,
-          "sha256": "1ae17cc5830ea506f1874e2674af065754eb2a1c1e77985048db37f85a117798"
+          "count": 645716,
+          "sha256": "0fb13b0527521a18d88de9d5cb6a1b7d8a60f4d615fba56743de713f6d61cbf3"
         },
         "validation": {
-          "count": 80781,
-          "sha256": "ca12af4618d03424d3ae8ed2adeb92ff3d4f1426709ddde396c0f81af66bc659"
+          "count": 80714,
+          "sha256": "6358867cac73750ccd1ff5efd04af19c2ef0deb0bf3799c049af90772e908668"
         },
         "test": {
-          "count": 80781,
-          "sha256": "c96ab3f2f815425eba97537ee30a104b97e81e3bd9f4f0aabce12dfdd5247b76"
+          "count": 80716,
+          "sha256": "19c8adbb4a52b3f53b9785d0f7de86c7558aa81f56d764757ca5dc1fae9134b7"
         }
       },
-      "source_lines": 807813,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 807146,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -496,51 +619,83 @@
       }
     },
     "optimized": {
-      "good": 224423,
-      "bad": 1205,
-      "missed": 14524,
-      "precision": 0.9946593507897956,
-      "recall": 0.9392166463692786,
-      "f17": 0.9934864249389472,
-      "train_good": 1796719,
-      "train_bad": 1116,
-      "train_missed": 112482,
-      "n_patterns": 6308,
-      "trie_nodes": 9897,
+      "good": 226121,
+      "bad": 938,
+      "missed": 12430,
+      "precision": 0.9958689151277862,
+      "recall": 0.9478937417994475,
+      "f17": 0.994861868272987,
+      "train_good": 1814104,
+      "train_bad": 366,
+      "train_missed": 94652,
+      "n_patterns": 6985,
+      "trie_nodes": 12148,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 225782,
+      "bad": 936,
+      "missed": 12224,
+      "precision": 0.9958715232138604,
+      "recall": 0.9486399502533549,
+      "f17": 0.9948808462501898,
+      "trie_nodes": 12148,
+      "n_patterns": 6985
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 237235,
-        "bad": 6209,
-        "missed": 1712,
-        "precision": 0.9744951611048126,
-        "recall": 0.9928352312437486,
-        "f17": 0.9748553198578236,
-        "trie_nodes": 28974,
-        "n_patterns": 22554
+        "good": 236985,
+        "bad": 5824,
+        "missed": 1566,
+        "precision": 0.9760140686712602,
+        "recall": 0.99343536602236,
+        "f17": 0.9763565045773831,
+        "trie_nodes": 29614,
+        "n_patterns": 23139
       },
       "wortliste": {
-        "good": 237487,
-        "bad": 25140,
-        "missed": 1460,
-        "precision": 0.9042748841512868,
-        "recall": 0.9938898584204866,
-        "f17": 0.905908525313805,
-        "trie_nodes": 27685,
-        "n_patterns": 21770
+        "good": 237268,
+        "bad": 24857,
+        "missed": 1283,
+        "precision": 0.905171196948021,
+        "recall": 0.9946216951511417,
+        "f17": 0.9068022474912624,
+        "trie_nodes": 28108,
+        "n_patterns": 22177
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 236582,
+        "bad": 5907,
+        "missed": 1424,
+        "precision": 0.9756401321297049,
+        "recall": 0.9940169575556919,
+        "f17": 0.9760010072634686,
+        "trie_nodes": 29614,
+        "n_patterns": 23139
+      },
+      "wortliste": {
+        "good": 236759,
+        "bad": 25036,
+        "missed": 1247,
+        "precision": 0.9043679214652687,
+        "recall": 0.9947606362864801,
+        "f17": 0.9060144906295069,
+        "trie_nodes": 28108,
+        "n_patterns": 22177
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.018631105081123644,
-    "ci_low": 0.018060853346194197,
-    "ci_high": 0.019209531708769424,
-    "opt_trie": 9897,
-    "base_trie": 28974,
-    "trie_ratio": 0.34158210809691447,
-    "test_lines": 80781,
+    "delta_f17": 0.01850536369560385,
+    "ci_low": 0.01797114277478825,
+    "ci_high": 0.019068301950013865,
+    "opt_trie": 12148,
+    "base_trie": 29614,
+    "trie_ratio": 0.4102113865063821,
+    "test_lines": 80716,
     "resamples": 10000,
     "resample_seed": 20260834
   },
@@ -567,37 +722,36 @@
     ],
     "weight_ratios": [
       "20",
-      "24",
-      "16",
+      "15",
+      "23",
       "1/5"
     ],
     "thresholds": [
-      27,
-      25,
-      38,
+      41,
+      1,
+      39,
       2
     ],
-    "validation_objective": 0.9921962906993111,
+    "validation_objective": 0.9922115608545392,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 483976,
-          "sha256": "78a9fa5bb3240d9a3e02fb6b4c10dec0649066075c611bcdd96e538d884e1240"
+          "count": 467688,
+          "sha256": "2c5bb5b1604ed4929995b6025f9da30b174a6386817fabefe0173c203d071000"
         },
         "validation": {
-          "count": 60497,
-          "sha256": "e2f6f295086ba643b694df317cdba133d32fd63f717628476a47d93651bb82c1"
+          "count": 58461,
+          "sha256": "357187b458b6c81adaf3b737125b94b4d6ae02440f8af91f37630c4a371c2d91"
         },
         "test": {
-          "count": 60497,
-          "sha256": "a090ab4a97a226c3aaa85a793980ec069724494eacad15b6557b63d87b9942db"
+          "count": 58462,
+          "sha256": "8fdc84421a71c8789f4b7c85bf244d0426af92506d7ecaa233357bdd88c8e1d7"
         }
       },
-      "source_lines": 604970,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 584611,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -605,51 +759,83 @@
       }
     },
     "optimized": {
-      "good": 163971,
-      "bad": 1037,
-      "missed": 17098,
-      "precision": 0.9937154562203044,
-      "recall": 0.9055719090512456,
-      "f17": 0.9917847552900813,
-      "train_good": 1314254,
-      "train_bad": 30,
-      "train_missed": 132466,
-      "n_patterns": 8193,
-      "trie_nodes": 12547,
+      "good": 159139,
+      "bad": 913,
+      "missed": 15499,
+      "precision": 0.9942956039287232,
+      "recall": 0.9112507014510015,
+      "f17": 0.9924866405743862,
+      "train_good": 1277078,
+      "train_bad": 23,
+      "train_missed": 120386,
+      "n_patterns": 9546,
+      "trie_nodes": 15353,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 158229,
+      "bad": 948,
+      "missed": 15544,
+      "precision": 0.9940443657061008,
+      "recall": 0.9105499703636353,
+      "f17": 0.9922246918082845,
+      "trie_nodes": 15353,
+      "n_patterns": 9546
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 178370,
-        "bad": 4522,
-        "missed": 2699,
-        "precision": 0.9752750256982263,
-        "recall": 0.985094080157288,
-        "f17": 0.9754694880997318,
-        "trie_nodes": 44783,
-        "n_patterns": 37847
+        "good": 172302,
+        "bad": 3942,
+        "missed": 2336,
+        "precision": 0.9776332811329748,
+        "recall": 0.9866237588611871,
+        "f17": 0.9778114846740187,
+        "trie_nodes": 44070,
+        "n_patterns": 37080
       },
       "wortliste": {
-        "good": 177955,
-        "bad": 20745,
-        "missed": 3114,
-        "precision": 0.8955963764469049,
-        "recall": 0.9828021362022212,
-        "f17": 0.8971885587800554,
-        "trie_nodes": 40803,
-        "n_patterns": 34921
+        "good": 171873,
+        "bad": 17163,
+        "missed": 2765,
+        "precision": 0.9092077699485812,
+        "recall": 0.9841672488232801,
+        "f17": 0.9105948861773611,
+        "trie_nodes": 40548,
+        "n_patterns": 34602
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 171446,
+        "bad": 4026,
+        "missed": 2327,
+        "precision": 0.9770561685055166,
+        "recall": 0.9866089668705725,
+        "f17": 0.9772454112284215,
+        "trie_nodes": 44070,
+        "n_patterns": 37080
+      },
+      "wortliste": {
+        "good": 171084,
+        "bad": 17154,
+        "missed": 2689,
+        "precision": 0.9088706849839033,
+        "recall": 0.9845257893919078,
+        "f17": 0.9102696640093814,
+        "trie_nodes": 40548,
+        "n_patterns": 34602
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.01631526719034948,
-    "ci_low": 0.015661097828879804,
-    "ci_high": 0.016986033330020075,
-    "opt_trie": 12547,
-    "base_trie": 44783,
-    "trie_ratio": 0.28017328003930064,
-    "test_lines": 60497,
+    "delta_f17": 0.014675155900367498,
+    "ci_low": 0.014044877093706287,
+    "ci_high": 0.015313410458940512,
+    "opt_trie": 15353,
+    "base_trie": 44070,
+    "trie_ratio": 0.34837758112094397,
+    "test_lines": 58462,
     "resamples": 10000,
     "resample_seed": 20260835
   },
@@ -675,38 +861,37 @@
       ]
     ],
     "weight_ratios": [
-      "1/3",
+      "1",
       "1/4",
-      "17",
-      "1/4"
+      "19",
+      "1/5"
     ],
     "thresholds": [
-      39,
-      11,
-      7,
-      6
+      40,
+      36,
+      6,
+      7
     ],
-    "validation_objective": 0.942949528307118,
+    "validation_objective": 0.9738257573095752,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 22568,
-          "sha256": "5d049f94d171609e6e7268b94d30943ee5e48c07b02a6894a77e5f1fb0b9f342"
+          "count": 22523,
+          "sha256": "b2ae7ac90fe6fe6348f7401e999b06b4e03560a3e440590c5f587670de54cc67"
         },
         "validation": {
-          "count": 2820,
-          "sha256": "9ef0752a32666127864d6b205817f28e3950c1cb4d95ce647675ee650511e319"
+          "count": 2815,
+          "sha256": "71491f373440d1075cb0fa2fc496cde4808af88a906960e817f9b39f4b0b8262"
         },
         "test": {
-          "count": 2820,
-          "sha256": "9d4cb4d857be86400afc70de347256bb2fe952da51fa2a5c48b90bb056e6f970"
+          "count": 2816,
+          "sha256": "c1bef60c873da65f410e14bcbdc3a0b33440460ff44ae0815e08e19af4e70109"
         }
       },
-      "source_lines": 28208,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 28154,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -714,51 +899,83 @@
       }
     },
     "optimized": {
-      "good": 7194,
-      "bad": 423,
-      "missed": 904,
-      "precision": 0.944466325324931,
-      "recall": 0.8883674981476908,
-      "f17": 0.9432750025568338,
-      "train_good": 56429,
-      "train_bad": 176,
-      "train_missed": 1851,
-      "n_patterns": 443,
-      "trie_nodes": 872,
+      "good": 7127,
+      "bad": 178,
+      "missed": 875,
+      "precision": 0.9756331279945243,
+      "recall": 0.8906523369157711,
+      "f17": 0.9737748908995018,
+      "train_good": 56265,
+      "train_bad": 159,
+      "train_missed": 1903,
+      "n_patterns": 464,
+      "trie_nodes": 928,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 7262,
+      "bad": 181,
+      "missed": 884,
+      "precision": 0.9756818487169152,
+      "recall": 0.8914804812177756,
+      "f17": 0.9738422380938332,
+      "trie_nodes": 928,
+      "n_patterns": 464
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 7397,
-        "bad": 794,
-        "missed": 701,
-        "precision": 0.9030643389085582,
-        "recall": 0.9134354161521363,
-        "f17": 0.9032694519815267,
-        "trie_nodes": 2743,
-        "n_patterns": 1496
+        "good": 7321,
+        "bad": 793,
+        "missed": 681,
+        "precision": 0.9022676854818832,
+        "recall": 0.9148962759310173,
+        "f17": 0.9025168397487106,
+        "trie_nodes": 2722,
+        "n_patterns": 1481
       },
       "wortliste": {
-        "good": 7415,
-        "bad": 824,
-        "missed": 683,
-        "precision": 0.899987862604685,
-        "recall": 0.9156581872067177,
-        "f17": 0.9002960110148152,
-        "trie_nodes": 2487,
-        "n_patterns": 1265
+        "good": 7335,
+        "bad": 830,
+        "missed": 667,
+        "precision": 0.8983466013472137,
+        "recall": 0.9166458385403649,
+        "f17": 0.8987054231083079,
+        "trie_nodes": 2478,
+        "n_patterns": 1245
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 7480,
+        "bad": 715,
+        "missed": 666,
+        "precision": 0.912751677852349,
+        "recall": 0.9182420820034373,
+        "f17": 0.9128608424192278,
+        "trie_nodes": 2722,
+        "n_patterns": 1481
+      },
+      "wortliste": {
+        "good": 7494,
+        "bad": 770,
+        "missed": 652,
+        "precision": 0.9068247821878025,
+        "recall": 0.9199607169162779,
+        "f17": 0.907083823550772,
+        "trie_nodes": 2478,
+        "n_patterns": 1245
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.04000555057530708,
-    "ci_low": 0.03578388287254115,
-    "ci_high": 0.044269435245445236,
-    "opt_trie": 872,
-    "base_trie": 2743,
-    "trie_ratio": 0.3179001093693037,
-    "test_lines": 2820,
+    "delta_f17": 0.0712580511507912,
+    "ci_low": 0.06583501591150166,
+    "ci_high": 0.07677430764388354,
+    "opt_trie": 928,
+    "base_trie": 2722,
+    "trie_ratio": 0.3409257898603968,
+    "test_lines": 2816,
     "resamples": 10000,
     "resample_seed": 20260836
   },
@@ -786,36 +1003,35 @@
     "weight_ratios": [
       "30",
       "1/4",
-      "22",
-      "22"
+      "24",
+      "30"
     ],
     "thresholds": [
-      19,
-      3,
-      41,
-      9
+      40,
+      20,
+      40,
+      1
     ],
-    "validation_objective": 0.9849547545344163,
+    "validation_objective": 0.9852537736349464,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 653379,
-          "sha256": "d2fa9420b23fd46ca2d6ea0cb4bf5808f4215b5643d0ac557bce5982282dde45"
+          "count": 653367,
+          "sha256": "95015876654f6971de0087686416b1c5e47f347473c51957da4d2935b84589ab"
         },
         "validation": {
-          "count": 81672,
-          "sha256": "76ea6fa17450aaf98781c06e5a18333a4b32071d414cb1e137327d16a630fe90"
+          "count": 81670,
+          "sha256": "06ff68f7c499a96a4df31e2a07abf34c955cfd0106798b33eec5a056df886869"
         },
         "test": {
           "count": 81672,
-          "sha256": "72d6e8e6a9189303832fd92212b05853db806dec18acfac342d9570cb47aa585"
+          "sha256": "62d531ac137ef45ad3730a0118f48e043126a2fdfdc45d5e34eea63da75a8cb8"
         }
       },
-      "source_lines": 816723,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 816709,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -823,50 +1039,82 @@
       }
     },
     "optimized": {
-      "good": 252967,
-      "bad": 3784,
-      "missed": 13957,
-      "precision": 0.9852619853476715,
-      "recall": 0.9477117082015855,
-      "f17": 0.9844818416461814,
-      "train_good": 1999945,
-      "train_bad": 31,
-      "train_missed": 1994,
-      "n_patterns": 706,
-      "trie_nodes": 1129,
+      "good": 252843,
+      "bad": 3534,
+      "missed": 14106,
+      "precision": 0.9862156121648978,
+      "recall": 0.9471584459953025,
+      "f17": 0.9854029277390675,
+      "train_good": 1999295,
+      "train_bad": 10,
+      "train_missed": 2524,
+      "n_patterns": 700,
+      "trie_nodes": 1218,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 252837,
+      "bad": 3579,
+      "missed": 13829,
+      "precision": 0.9860422126544366,
+      "recall": 0.9481411203528008,
+      "f17": 0.9852545193105787,
+      "trie_nodes": 1218,
+      "n_patterns": 700
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 253216,
-        "bad": 8033,
-        "missed": 13708,
-        "precision": 0.9692515569437586,
-        "recall": 0.9486445580015285,
-        "f17": 0.96883064708977,
-        "trie_nodes": 1799,
-        "n_patterns": 1156
+        "good": 253145,
+        "bad": 8089,
+        "missed": 13804,
+        "precision": 0.9690354241790885,
+        "recall": 0.9482897482290625,
+        "f17": 0.9686116190539599,
+        "trie_nodes": 1851,
+        "n_patterns": 1180
       },
       "wortliste": {
-        "good": 253223,
-        "bad": 22103,
-        "missed": 13701,
-        "precision": 0.9197206220988937,
-        "recall": 0.9486707826946996,
-        "f17": 0.920282298938399,
-        "trie_nodes": 1521,
-        "n_patterns": 944
+        "good": 253147,
+        "bad": 21903,
+        "missed": 13802,
+        "precision": 0.9203672059625523,
+        "recall": 0.9482972402968357,
+        "f17": 0.9209096738242248,
+        "trie_nodes": 1538,
+        "n_patterns": 957
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 253141,
+        "bad": 8204,
+        "missed": 13525,
+        "precision": 0.9686085442614168,
+        "recall": 0.949281123202808,
+        "f17": 0.968214286233366,
+        "trie_nodes": 1851,
+        "n_patterns": 1180
+      },
+      "wortliste": {
+        "good": 253145,
+        "bad": 21983,
+        "missed": 13521,
+        "precision": 0.920099008461516,
+        "recall": 0.9492961232403081,
+        "f17": 0.9206653390493904,
+        "trie_nodes": 1538,
+        "n_patterns": 957
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.015651194556411396,
-    "ci_low": 0.015192397947239611,
-    "ci_high": 0.016105338964926767,
-    "opt_trie": 1129,
-    "base_trie": 1799,
-    "trie_ratio": 0.6275708727070595,
+    "delta_f17": 0.016791308685107587,
+    "ci_low": 0.016322034501210368,
+    "ci_high": 0.017282521030762794,
+    "opt_trie": 1218,
+    "base_trie": 1851,
+    "trie_ratio": 0.6580226904376013,
     "test_lines": 81672,
     "resamples": 10000,
     "resample_seed": 20260837
@@ -893,38 +1141,37 @@
       ]
     ],
     "weight_ratios": [
-      "29",
-      "6",
-      "28",
-      "1/4"
+      "26",
+      "1/3",
+      "21",
+      "15"
     ],
     "thresholds": [
+      42,
       26,
-      13,
-      38,
-      2
+      40,
+      1
     ],
-    "validation_objective": 0.9797357105693817,
+    "validation_objective": 0.9795420905402459,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 174648,
-          "sha256": "673e2a92f32be11a8ac9edde0a29cb29be0b034150cf2dc1b792348d9315d2f6"
+          "count": 174646,
+          "sha256": "85f3e1fb078cb346d19f85f182fc340fc6eec230d00eeceb9fc875e13a9aaadb"
         },
         "validation": {
           "count": 21830,
-          "sha256": "b7bd956648b82bdc29d50c487283266f1a29017c43b7cf464415727b2e387a31"
+          "sha256": "610456242f1a0e7f026aaf7a8f403a13e238c735f49fda676c9aac70206557dc"
         },
         "test": {
-          "count": 21830,
-          "sha256": "cfd12e977f898c737edbc0b2278ea712a5a449c5dfe81a58d142b06ef97053be"
+          "count": 21832,
+          "sha256": "347a6490a290599591460059941cfe239f47e97da93d999834443b6fd0ee2d54"
         }
       },
-      "source_lines": 218308,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 218308,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -932,51 +1179,83 @@
       }
     },
     "optimized": {
-      "good": 32969,
-      "bad": 504,
-      "missed": 8757,
-      "precision": 0.9849430884593553,
-      "recall": 0.790130853664382,
-      "f17": 0.9801100301265888,
-      "train_good": 264174,
-      "train_bad": 12,
-      "train_missed": 62842,
-      "n_patterns": 2654,
-      "trie_nodes": 4556,
+      "good": 32067,
+      "bad": 468,
+      "missed": 9469,
+      "precision": 0.9856154910096819,
+      "recall": 0.7720290832049307,
+      "f17": 0.9801919729836631,
+      "train_good": 259671,
+      "train_bad": 27,
+      "train_missed": 67777,
+      "n_patterns": 2405,
+      "trie_nodes": 4497,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 32272,
+      "bad": 497,
+      "missed": 9330,
+      "precision": 0.9848332265250694,
+      "recall": 0.7757319359646171,
+      "f17": 0.9795523902086043,
+      "trie_nodes": 4497,
+      "n_patterns": 2405
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 39789,
-        "bad": 3395,
-        "missed": 1937,
-        "precision": 0.9213829195998517,
-        "recall": 0.953578104778795,
-        "f17": 0.9220055039017641,
-        "trie_nodes": 27554,
-        "n_patterns": 22905
+        "good": 39626,
+        "bad": 3525,
+        "missed": 1910,
+        "precision": 0.9183101202753122,
+        "recall": 0.9540157935285054,
+        "f17": 0.9189980217399875,
+        "trie_nodes": 27816,
+        "n_patterns": 23070
       },
       "wortliste": {
-        "good": 39845,
-        "bad": 5644,
-        "missed": 1881,
-        "precision": 0.8759260480555738,
-        "recall": 0.9549201936442506,
-        "f17": 0.8773776394544912,
-        "trie_nodes": 25122,
-        "n_patterns": 21754
+        "good": 39644,
+        "bad": 5796,
+        "missed": 1892,
+        "precision": 0.8724471830985916,
+        "recall": 0.9544491525423728,
+        "f17": 0.8739488981066059,
+        "trie_nodes": 25288,
+        "n_patterns": 21835
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 39759,
+        "bad": 3478,
+        "missed": 1843,
+        "precision": 0.9195596364225085,
+        "recall": 0.9556992452285947,
+        "f17": 0.9202556227042216,
+        "trie_nodes": 27816,
+        "n_patterns": 23070
+      },
+      "wortliste": {
+        "good": 39790,
+        "bad": 5572,
+        "missed": 1812,
+        "precision": 0.8771659097923372,
+        "recall": 0.9564444017114562,
+        "f17": 0.8786224683572256,
+        "trie_nodes": 25288,
+        "n_patterns": 21835
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.05810452622482476,
-    "ci_low": 0.055809913524927986,
-    "ci_high": 0.06047826806509189,
-    "opt_trie": 4556,
-    "base_trie": 27554,
-    "trie_ratio": 0.1653480438411846,
-    "test_lines": 21830,
+    "delta_f17": 0.06119395124367566,
+    "ci_low": 0.058826196983942425,
+    "ci_high": 0.06362928709854372,
+    "opt_trie": 4497,
+    "base_trie": 27816,
+    "trie_ratio": 0.1616695427092321,
+    "test_lines": 21832,
     "resamples": 10000,
     "resample_seed": 20260838
   },
@@ -1002,38 +1281,37 @@
       ]
     ],
     "weight_ratios": [
-      "30",
-      "5",
-      "21",
-      "1/5"
+      "27",
+      "13",
+      "22",
+      "25"
     ],
     "thresholds": [
-      19,
-      13,
-      11,
-      4
+      14,
+      1,
+      27,
+      2
     ],
-    "validation_objective": 0.9983811250769157,
+    "validation_objective": 0.9981942171416982,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 61881,
-          "sha256": "d5106520e670cd86a361f9fc12736739bc172642487b90717c137b04b1a573d3"
+          "count": 61854,
+          "sha256": "2214fd2897ff3466554da870e5c89774b8befde4c374480d13a7e017366bd9b4"
         },
         "validation": {
-          "count": 7735,
-          "sha256": "e3301683944be70df965008fc9f026737a8da18465c854788af514b1ed0574c6"
+          "count": 7731,
+          "sha256": "33ac15f018574ab67071427b27b743eb621944ef0537347b5478b5a52a39d3bb"
         },
         "test": {
-          "count": 7735,
-          "sha256": "ef22752cb16e680e65085db26337a2ab6bd671ea90229562e1306a1c06d11131"
+          "count": 7733,
+          "sha256": "923a983ebaab9f46e6f2c05b5cd44b1024f0c2e30aacbc3434bc85e83ffa7c50"
         }
       },
-      "source_lines": 77351,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 77318,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1041,51 +1319,83 @@
       }
     },
     "optimized": {
-      "good": 21297,
-      "bad": 21,
-      "missed": 1179,
-      "precision": 0.9990149169715733,
-      "recall": 0.947544046983449,
-      "f17": 0.997930759152736,
-      "train_good": 169134,
-      "train_bad": 2,
-      "train_missed": 1762,
-      "n_patterns": 485,
-      "trie_nodes": 895,
+      "good": 21207,
+      "bad": 20,
+      "missed": 1257,
+      "precision": 0.9990578037405191,
+      "recall": 0.9440438034188035,
+      "f17": 0.9978947606172482,
+      "train_good": 169071,
+      "train_bad": 11,
+      "train_missed": 1962,
+      "n_patterns": 445,
+      "trie_nodes": 828,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 21057,
+      "bad": 14,
+      "missed": 1213,
+      "precision": 0.999335579706706,
+      "recall": 0.9455321059721599,
+      "f17": 0.9981995716516442,
+      "trie_nodes": 828,
+      "n_patterns": 445
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 21483,
-        "bad": 88,
-        "missed": 993,
-        "precision": 0.9959204487506375,
-        "recall": 0.9558195408435665,
-        "f17": 0.9950854829520454,
-        "trie_nodes": 1906,
+        "good": 21443,
+        "bad": 96,
+        "missed": 1021,
+        "precision": 0.9955429685686429,
+        "recall": 0.9545495014245015,
+        "f17": 0.9946886234489157,
+        "trie_nodes": 1927,
         "n_patterns": 1033
       },
       "wortliste": {
-        "good": 21519,
-        "bad": 188,
-        "missed": 957,
-        "precision": 0.9913391993366195,
-        "recall": 0.9574212493326215,
-        "f17": 0.9906373058569089,
-        "trie_nodes": 1631,
-        "n_patterns": 810
+        "good": 21480,
+        "bad": 170,
+        "missed": 984,
+        "precision": 0.9921478060046189,
+        "recall": 0.9561965811965812,
+        "f17": 0.9914023081027291,
+        "trie_nodes": 1624,
+        "n_patterns": 801
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 21309,
+        "bad": 89,
+        "missed": 961,
+        "precision": 0.9958407327787644,
+        "recall": 0.9568477772788505,
+        "f17": 0.9950297542333942,
+        "trie_nodes": 1927,
+        "n_patterns": 1033
+      },
+      "wortliste": {
+        "good": 21342,
+        "bad": 154,
+        "missed": 928,
+        "precision": 0.9928358764421288,
+        "recall": 0.9583295913785361,
+        "f17": 0.9921214160996826,
+        "trie_nodes": 1624,
+        "n_patterns": 801
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.0028452762006906385,
-    "ci_low": 0.002071397937155822,
-    "ci_high": 0.003671934789307204,
-    "opt_trie": 895,
-    "base_trie": 1906,
-    "trie_ratio": 0.4695697796432319,
-    "test_lines": 7735,
+    "delta_f17": 0.0032061371683325124,
+    "ci_low": 0.0024390979988444667,
+    "ci_high": 0.004016346754429572,
+    "opt_trie": 828,
+    "base_trie": 1927,
+    "trie_ratio": 0.4296834457706279,
+    "test_lines": 7733,
     "resamples": 10000,
     "resample_seed": 20260839
   },
@@ -1111,38 +1421,37 @@
       ]
     ],
     "weight_ratios": [
-      "20",
+      "23",
+      "1/5",
       "30",
-      "11",
-      "1/5"
+      "28"
     ],
     "thresholds": [
-      35,
-      9,
-      38,
-      1
+      7,
+      1,
+      36,
+      11
     ],
-    "validation_objective": 0.9923211908259442,
+    "validation_objective": 0.9921047487605297,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 422880,
-          "sha256": "7706ed307777c60b59589dcff8a9b72ce031f9d5bec87a9917662043dd13ec16"
+          "count": 422684,
+          "sha256": "d6627a0d9f1588de09c5a08c6484071555a57cf48e85c69b854126feedfc65ce"
         },
         "validation": {
-          "count": 52859,
-          "sha256": "6835301b8917bbed0f352fd2d706f26cc5a51e95cf0ec45a62d0a0972b77ce86"
+          "count": 52835,
+          "sha256": "baca48925345c3a0d47fe9b1f805e0fd80a00db86be65e852adf609a35b9a3d3"
         },
         "test": {
-          "count": 52859,
-          "sha256": "d6d471bb53e23e9d044adfa44eaa8e0ae70966f6b3cc98c7145d7602e92b9e45"
+          "count": 52836,
+          "sha256": "eca43a534a2947896a3516973955faa4de9dfaee941ce693108a9b37376b923f"
         }
       },
-      "source_lines": 528598,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 528355,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1150,51 +1459,83 @@
       }
     },
     "optimized": {
-      "good": 136734,
-      "bad": 800,
-      "missed": 12523,
-      "precision": 0.9941832565038463,
-      "recall": 0.9160977374595496,
-      "f17": 0.9924913147755299,
-      "train_good": 1097195,
-      "train_bad": 31,
-      "train_missed": 96017,
-      "n_patterns": 5953,
-      "trie_nodes": 9443,
+      "good": 139334,
+      "bad": 971,
+      "missed": 9525,
+      "precision": 0.9930793628167207,
+      "recall": 0.9360132743065586,
+      "f17": 0.9918699325892351,
+      "train_good": 1121269,
+      "train_bad": 516,
+      "train_missed": 71925,
+      "n_patterns": 8448,
+      "trie_nodes": 11680,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 139386,
+      "bad": 934,
+      "missed": 9618,
+      "precision": 0.9933437856328392,
+      "recall": 0.9354513972779255,
+      "f17": 0.9921158019350051,
+      "trie_nodes": 11680,
+      "n_patterns": 8448
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 147815,
-        "bad": 3264,
-        "missed": 1442,
-        "precision": 0.9783954090244177,
-        "recall": 0.9903388115800263,
-        "f17": 0.9786314532804528,
-        "trie_nodes": 27496,
-        "n_patterns": 21775
+        "good": 147670,
+        "bad": 2933,
+        "missed": 1189,
+        "precision": 0.9805249563421712,
+        "recall": 0.9920125756588449,
+        "f17": 0.9807521007767116,
+        "trie_nodes": 27916,
+        "n_patterns": 22187
       },
       "wortliste": {
-        "good": 147766,
-        "bad": 14092,
-        "missed": 1491,
-        "precision": 0.9129360303475886,
-        "recall": 0.990010518769639,
-        "f17": 0.9143597285199471,
-        "trie_nodes": 25753,
-        "n_patterns": 20508
+        "good": 147533,
+        "bad": 13901,
+        "missed": 1326,
+        "precision": 0.913890506336955,
+        "recall": 0.9910922416514957,
+        "f17": 0.9153164890729454,
+        "trie_nodes": 26230,
+        "n_patterns": 20949
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 147757,
+        "bad": 2927,
+        "missed": 1247,
+        "precision": 0.9805752435560511,
+        "recall": 0.9916310971517543,
+        "f17": 0.9807939441249409,
+        "trie_nodes": 27916,
+        "n_patterns": 22187
+      },
+      "wortliste": {
+        "good": 147634,
+        "bad": 14038,
+        "missed": 1370,
+        "precision": 0.9131698748082537,
+        "recall": 0.9908056159566186,
+        "f17": 0.9146031709844662,
+        "trie_nodes": 26230,
+        "n_patterns": 20949
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.01385986149507712,
-    "ci_low": 0.013189374834792236,
-    "ci_high": 0.014528402227912292,
-    "opt_trie": 9443,
-    "base_trie": 27496,
-    "trie_ratio": 0.3434317718940937,
-    "test_lines": 52859,
+    "delta_f17": 0.01111783181252346,
+    "ci_low": 0.010502992023153268,
+    "ci_high": 0.011753342576940948,
+    "opt_trie": 11680,
+    "base_trie": 27916,
+    "trie_ratio": 0.4183980512967474,
+    "test_lines": 52836,
     "resamples": 10000,
     "resample_seed": 20260840
   },
@@ -1220,38 +1561,37 @@
       ]
     ],
     "weight_ratios": [
-      "30",
-      "1/4",
-      "21",
-      "1/3"
+      "29",
+      "1/5",
+      "28",
+      "29"
     ],
     "thresholds": [
-      32,
-      42,
-      27,
-      1
+      24,
+      1,
+      35,
+      30
     ],
-    "validation_objective": 0.9912612863511034,
+    "validation_objective": 0.9918724523366047,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 113534,
-          "sha256": "dcbb4ed6a074090c2a476b9ab9b506e9047e5c47bb43cef7d5827c80a2bb7484"
+          "count": 113444,
+          "sha256": "237e5e1d1acbfea7f5dde1cefd3fbcaa1fce7eeee427c1cff0cd53763189724e"
         },
         "validation": {
-          "count": 14191,
-          "sha256": "022f81a67f7a059eb0049fc875f326caf7cce28aaeb87cdd4e040aa7157faef2"
+          "count": 14180,
+          "sha256": "641490b4d6f443d1e31667455aba95085899a4e68a280d98fb35314b15906737"
         },
         "test": {
-          "count": 14191,
-          "sha256": "fb9e8274efe6b99a3395237908927da88c4811083c1f1b31f31baccc636b8f1e"
+          "count": 14181,
+          "sha256": "a5d98f93c7e2cb72d7a361fa12ba856d9e6b86986f2e3f19337326c2f18bb868"
         }
       },
-      "source_lines": 141916,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 141805,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1259,51 +1599,83 @@
       }
     },
     "optimized": {
-      "good": 27078,
-      "bad": 161,
-      "missed": 4126,
-      "precision": 0.9940893571717023,
-      "recall": 0.8677733623894373,
-      "f17": 0.9912036986196068,
-      "train_good": 217145,
-      "train_bad": 12,
-      "train_missed": 21851,
-      "n_patterns": 1474,
-      "trie_nodes": 2459,
+      "good": 26988,
+      "bad": 158,
+      "missed": 4047,
+      "precision": 0.9941796213070065,
+      "recall": 0.869598840019333,
+      "f17": 0.9913391894880138,
+      "train_good": 217460,
+      "train_bad": 27,
+      "train_missed": 21327,
+      "n_patterns": 1507,
+      "trie_nodes": 2366,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 27404,
+      "bad": 146,
+      "missed": 4062,
+      "precision": 0.9947005444646098,
+      "recall": 0.8709082819551262,
+      "f17": 0.9918807947786906,
+      "trie_nodes": 2366,
+      "n_patterns": 1507
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 29581,
-        "bad": 1750,
-        "missed": 1623,
-        "precision": 0.9441447767386933,
-        "recall": 0.9479874375080118,
-        "f17": 0.9442213246358104,
-        "trie_nodes": 7226,
-        "n_patterns": 5119
+        "good": 29452,
+        "bad": 1775,
+        "missed": 1583,
+        "precision": 0.943158164409005,
+        "recall": 0.9489930723376833,
+        "f17": 0.9432741593099482,
+        "trie_nodes": 7187,
+        "n_patterns": 5105
       },
       "wortliste": {
-        "good": 29584,
-        "bad": 3154,
-        "missed": 1620,
-        "precision": 0.903659356099945,
-        "recall": 0.9480835790283297,
-        "f17": 0.9045070033252495,
-        "trie_nodes": 6930,
-        "n_patterns": 4766
+        "good": 29449,
+        "bad": 3100,
+        "missed": 1586,
+        "precision": 0.9047589787704692,
+        "recall": 0.9488964072821009,
+        "f17": 0.9056014504875961,
+        "trie_nodes": 6748,
+        "n_patterns": 4664
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 29851,
+        "bad": 1764,
+        "missed": 1615,
+        "precision": 0.9442037007749486,
+        "recall": 0.9486747600584758,
+        "f17": 0.9442927089126225,
+        "trie_nodes": 7187,
+        "n_patterns": 5105
+      },
+      "wortliste": {
+        "good": 29877,
+        "bad": 3177,
+        "missed": 1589,
+        "precision": 0.9038845525503721,
+        "recall": 0.9495010487510328,
+        "f17": 0.9047538870773153,
+        "trie_nodes": 6748,
+        "n_patterns": 4664
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.046982373983796344,
-    "ci_low": 0.04464680020738626,
-    "ci_high": 0.049350731026860856,
-    "opt_trie": 2459,
-    "base_trie": 7226,
-    "trie_ratio": 0.34029892056462774,
-    "test_lines": 14191,
+    "delta_f17": 0.048065030178065626,
+    "ci_low": 0.04569916231210854,
+    "ci_high": 0.05047138874674892,
+    "opt_trie": 2366,
+    "base_trie": 7187,
+    "trie_ratio": 0.32920550994851816,
+    "test_lines": 14181,
     "resamples": 10000,
     "resample_seed": 20260841
   },
@@ -1329,38 +1701,37 @@
       ]
     ],
     "weight_ratios": [
-      "25",
-      "17",
       "30",
-      "1/5"
+      "1/5",
+      "22",
+      "22"
     ],
     "thresholds": [
-      28,
-      34,
-      10,
-      9
+      23,
+      2,
+      6,
+      10
     ],
-    "validation_objective": 0.9951574502808315,
+    "validation_objective": 0.9927629475184631,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 35457,
-          "sha256": "2b458efb89ce30db3dc6ffe02f5049d681319dc3d66aabd676b794759d0f9e66"
+          "count": 35439,
+          "sha256": "b55acd9772aa949ff16b45c5700e68b43d482e8158650ba38df92d1330c7aa79"
         },
         "validation": {
-          "count": 4432,
-          "sha256": "880551151121eece9f5aceddaf9e4077f33ea175c7b92653430bdd1ef4fd1158"
+          "count": 4429,
+          "sha256": "cc098bbbc3a28b4d219fcadfcf4686704255bf97ed0d090ec799b847be5b9f9e"
         },
         "test": {
-          "count": 4432,
-          "sha256": "d1a987cb9060458650c83e2a7e3e608dd8b1abb61e79308283831d4f3b666177"
+          "count": 4431,
+          "sha256": "727e4b014eb6df40ff40125464a7f9ad5479bdcd2a22ab746fa3e26e17ee55fa"
         }
       },
-      "source_lines": 44321,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 44299,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1368,51 +1739,83 @@
       }
     },
     "optimized": {
-      "good": 11306,
-      "bad": 45,
-      "missed": 842,
-      "precision": 0.9960355915778345,
-      "recall": 0.9306881791241357,
-      "f17": 0.9946388385968431,
-      "train_good": 87926,
-      "train_bad": 107,
-      "train_missed": 1296,
-      "n_patterns": 310,
-      "trie_nodes": 652,
+      "good": 11338,
+      "bad": 62,
+      "missed": 820,
+      "precision": 0.994561403508772,
+      "recall": 0.9325546964961342,
+      "f17": 0.9932405678063206,
+      "train_good": 88002,
+      "train_bad": 6,
+      "train_missed": 994,
+      "n_patterns": 519,
+      "trie_nodes": 961,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 11370,
+      "bad": 68,
+      "missed": 806,
+      "precision": 0.9940549047036196,
+      "recall": 0.9338042049934296,
+      "f17": 0.9927737942644392,
+      "trie_nodes": 961,
+      "n_patterns": 519
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 11467,
-        "bad": 273,
-        "missed": 681,
-        "precision": 0.9767461669505962,
-        "recall": 0.9439413895291406,
-        "f17": 0.9760677416718874,
-        "trie_nodes": 1442,
-        "n_patterns": 810
+        "good": 11480,
+        "bad": 292,
+        "missed": 678,
+        "precision": 0.9751953788651037,
+        "recall": 0.9442342490541208,
+        "f17": 0.9745562712865841,
+        "trie_nodes": 1405,
+        "n_patterns": 794
       },
       "wortliste": {
-        "good": 11471,
-        "bad": 793,
+        "good": 11481,
+        "bad": 805,
         "missed": 677,
-        "precision": 0.9353392041748206,
-        "recall": 0.9442706618373394,
-        "f17": 0.9355161772285691,
-        "trie_nodes": 1214,
+        "precision": 0.9344782679472571,
+        "recall": 0.9443164994242474,
+        "f17": 0.9346730231922002,
+        "trie_nodes": 1213,
+        "n_patterns": 685
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 11491,
+        "bad": 315,
+        "missed": 685,
+        "precision": 0.9733186515331188,
+        "recall": 0.9437417871222076,
+        "f17": 0.9727089576243927,
+        "trie_nodes": 1405,
+        "n_patterns": 794
+      },
+      "wortliste": {
+        "good": 11497,
+        "bad": 835,
+        "missed": 679,
+        "precision": 0.9322899772948426,
+        "recall": 0.9442345597897503,
+        "f17": 0.9325259066516991,
+        "trie_nodes": 1213,
         "n_patterns": 685
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.018571096924955732,
-    "ci_low": 0.016091160743504498,
-    "ci_high": 0.021001001380129423,
-    "opt_trie": 652,
-    "base_trie": 1442,
-    "trie_ratio": 0.4521497919556172,
-    "test_lines": 4432,
+    "delta_f17": 0.018684296519736576,
+    "ci_low": 0.01594191821397265,
+    "ci_high": 0.02137823349377856,
+    "opt_trie": 961,
+    "base_trie": 1405,
+    "trie_ratio": 0.6839857651245551,
+    "test_lines": 4431,
     "resamples": 10000,
     "resample_seed": 20260842
   },
@@ -1438,38 +1841,37 @@
       ]
     ],
     "weight_ratios": [
-      "14",
-      "21",
+      "30",
       "5",
+      "13",
       "1/4"
     ],
     "thresholds": [
-      10,
-      2,
-      41,
+      42,
+      26,
+      33,
       1
     ],
-    "validation_objective": 0.9554154337118369,
+    "validation_objective": 0.9579665759627597,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 122088,
-          "sha256": "c71b265a20aec47e44ba9245e77c77a9d0e8ff358e59aa050cbe5a7e084de320"
+          "count": 121946,
+          "sha256": "b6023ea47f08c194014773dc0165635c001ba12901a2c145f90d3b06e306b0aa"
         },
         "validation": {
-          "count": 15260,
-          "sha256": "c4dd156964472c2758dc543d0293a070ff732768e691a3569dec4a34492feeb7"
+          "count": 15243,
+          "sha256": "4657c91af139b06000af359875e76f0d2425e096f0c38cdc41af7bafddca8f90"
         },
         "test": {
-          "count": 15260,
-          "sha256": "fe3492b5f8144b5843f520fd734bc12df3fe475529054001116a1de1d4aeada1"
+          "count": 15244,
+          "sha256": "2be36eae9cb7a125ff878be39b08227e0ff9795ab2c03b8c3a8718ae56830a57"
         }
       },
-      "source_lines": 152608,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 152433,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1477,51 +1879,83 @@
       }
     },
     "optimized": {
-      "good": 29085,
-      "bad": 1093,
-      "missed": 12871,
-      "precision": 0.963781562727815,
-      "recall": 0.6932262370102011,
-      "f17": 0.9563168534035477,
-      "train_good": 238694,
-      "train_bad": 463,
-      "train_missed": 94936,
-      "n_patterns": 10093,
-      "trie_nodes": 16558,
+      "good": 22322,
+      "bad": 654,
+      "missed": 19591,
+      "precision": 0.9715355153203342,
+      "recall": 0.5325793906425215,
+      "f17": 0.9557802827177697,
+      "train_good": 182767,
+      "train_bad": 388,
+      "train_missed": 150787,
+      "n_patterns": 5322,
+      "trie_nodes": 10299,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 22156,
+      "bad": 595,
+      "missed": 19412,
+      "precision": 0.9738473034152345,
+      "recall": 0.5330061585835257,
+      "f17": 0.9580003580178265,
+      "trie_nodes": 10299,
+      "n_patterns": 5322
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 38767,
-        "bad": 4863,
-        "missed": 3189,
-        "precision": 0.8885399954159982,
-        "recall": 0.9239918009343121,
-        "f17": 0.8892223507747867,
-        "trie_nodes": 46699,
-        "n_patterns": 30537
+        "good": 38800,
+        "bad": 4803,
+        "missed": 3113,
+        "precision": 0.88984702887416,
+        "recall": 0.9257271013766611,
+        "f17": 0.8905373520744011,
+        "trie_nodes": 46978,
+        "n_patterns": 30654
       },
       "wortliste": {
-        "good": 39440,
-        "bad": 7737,
-        "missed": 2516,
-        "precision": 0.8360005935095491,
-        "recall": 0.940032414910859,
-        "f17": 0.8378550740154884,
-        "trie_nodes": 38687,
-        "n_patterns": 26600
+        "good": 39408,
+        "bad": 7680,
+        "missed": 2505,
+        "precision": 0.836901121304791,
+        "recall": 0.9402333404910171,
+        "f17": 0.8387446923985571,
+        "trie_nodes": 38780,
+        "n_patterns": 26651
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 38524,
+        "bad": 4582,
+        "missed": 3044,
+        "precision": 0.8937038927295504,
+        "recall": 0.9267705927636644,
+        "f17": 0.8943420860800776,
+        "trie_nodes": 46978,
+        "n_patterns": 30654
+      },
+      "wortliste": {
+        "good": 39164,
+        "bad": 7438,
+        "missed": 2404,
+        "precision": 0.8403931161752715,
+        "recall": 0.9421670515781371,
+        "f17": 0.8422126511677518,
+        "trie_nodes": 38780,
+        "n_patterns": 26651
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.06709450262876093,
-    "ci_low": 0.06422757816140875,
-    "ci_high": 0.07004126300113014,
-    "opt_trie": 16558,
-    "base_trie": 46699,
-    "trie_ratio": 0.3545686203130688,
-    "test_lines": 15260,
+    "delta_f17": 0.06524293064336861,
+    "ci_low": 0.06207873305355542,
+    "ci_high": 0.06843257324223949,
+    "opt_trie": 10299,
+    "base_trie": 46978,
+    "trie_ratio": 0.21923027800246925,
+    "test_lines": 15244,
     "resamples": 10000,
     "resample_seed": 20260843
   },
@@ -1547,90 +1981,121 @@
       ]
     ],
     "weight_ratios": [
-      "29",
+      "25",
       "1/5",
-      "22",
-      "5"
+      "30",
+      "15"
     ],
     "thresholds": [
-      16,
+      17,
       1,
-      6,
-      15
+      14,
+      25
     ],
-    "validation_objective": 0.9839122065174741,
+    "validation_objective": 0.9808697053417081,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 31753,
-          "sha256": "33dc01dc58871cbe8681f80f9619e6884dd14a94550b10c75e07bd60c59ae1ee"
+          "count": 27744,
+          "sha256": "408eb7053e4c21816781644a8976bd093fad3ad720d659afaba2669a8efa6370"
         },
         "validation": {
-          "count": 3969,
-          "sha256": "2461fec5516d366c04d1b29eb6f113dd3e3432734252fea2083dd5f8995421b5"
+          "count": 3468,
+          "sha256": "ceb466fe81a2941c1f6cdd4ddb32f3cb390930b9e961c10221b912dd439b2e32"
         },
         "test": {
-          "count": 3969,
-          "sha256": "0adadb7727203faa58eee4068060fb6a95ac55262d36bf370458943fe05a808b"
+          "count": 3469,
+          "sha256": "d7d50a06a323eda758b0c9e68f695b78004690c06d547f144fad47ce5c44571c"
         }
       },
-      "source_lines": 39691,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 34681,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
-        "train_vs_validation": 566,
-        "train_vs_test": 584,
-        "validation_vs_test": 70
+        "train_vs_validation": 0,
+        "train_vs_test": 0,
+        "validation_vs_test": 0
       }
     },
     "optimized": {
-      "good": 18771,
-      "bad": 231,
-      "missed": 3938,
-      "precision": 0.9878433849068519,
-      "recall": 0.8265885772160817,
-      "f17": 0.9840041014586809,
-      "train_good": 155159,
-      "train_bad": 211,
-      "train_missed": 27271,
-      "n_patterns": 5554,
-      "trie_nodes": 9597,
+      "good": 15268,
+      "bad": 160,
+      "missed": 5748,
+      "precision": 0.9896292455276121,
+      "recall": 0.7264940997335364,
+      "f17": 0.9825119564266115,
+      "train_good": 122647,
+      "train_bad": 147,
+      "train_missed": 43778,
+      "n_patterns": 2720,
+      "trie_nodes": 5022,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 14969,
+      "bad": 179,
+      "missed": 5770,
+      "precision": 0.9881832585159757,
+      "recall": 0.7217802208399634,
+      "f17": 0.9809421080982608,
+      "trie_nodes": 5022,
+      "n_patterns": 2720
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 21569,
-        "bad": 744,
-        "missed": 1140,
-        "precision": 0.9666562093846637,
-        "recall": 0.9497996389096833,
-        "f17": 0.9663132164803243,
-        "trie_nodes": 26966,
-        "n_patterns": 18003
+        "good": 19827,
+        "bad": 798,
+        "missed": 1189,
+        "precision": 0.9613090909090909,
+        "recall": 0.9434240578606776,
+        "f17": 0.9609447472521935,
+        "trie_nodes": 26810,
+        "n_patterns": 17832
       },
       "wortliste": {
-        "good": 21806,
-        "bad": 1105,
-        "missed": 903,
-        "precision": 0.9517698921915237,
-        "recall": 0.9602360297679334,
-        "f17": 0.9519377516702348,
-        "trie_nodes": 22716,
-        "n_patterns": 15556
+        "good": 20093,
+        "bad": 1123,
+        "missed": 923,
+        "precision": 0.9470682503770739,
+        "recall": 0.956081081081081,
+        "f17": 0.9472468414105223,
+        "trie_nodes": 22538,
+        "n_patterns": 15429
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 19599,
+        "bad": 863,
+        "missed": 1140,
+        "precision": 0.9578242596031669,
+        "recall": 0.9450311008245335,
+        "f17": 0.9575650029265854,
+        "trie_nodes": 26810,
+        "n_patterns": 17832
+      },
+      "wortliste": {
+        "good": 19852,
+        "bad": 1165,
+        "missed": 887,
+        "precision": 0.944568682495123,
+        "recall": 0.9572303389748783,
+        "f17": 0.9448186321356365,
+        "trie_nodes": 22538,
+        "n_patterns": 15429
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.01769088497835658,
-    "ci_low": 0.015390915031590412,
-    "ci_high": 0.020047408899209567,
-    "opt_trie": 9597,
-    "base_trie": 26966,
-    "trie_ratio": 0.35589260550322627,
-    "test_lines": 3969,
+    "delta_f17": 0.02156720917441801,
+    "ci_low": 0.01900039384076339,
+    "ci_high": 0.024194375125091757,
+    "opt_trie": 5022,
+    "base_trie": 26810,
+    "trie_ratio": 0.18731816486385677,
+    "test_lines": 3469,
     "resamples": 10000,
     "resample_seed": 20260844
   },
@@ -1656,38 +2121,37 @@
       ]
     ],
     "weight_ratios": [
-      "25",
-      "15",
-      "30",
-      "1/5"
+      "20",
+      "24",
+      "29",
+      "1/3"
     ],
     "thresholds": [
-      4,
-      34,
-      13,
-      1
+      6,
+      37,
+      6,
+      2
     ],
-    "validation_objective": 0.992705854268856,
+    "validation_objective": 0.9942928465985217,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 12496,
-          "sha256": "7ebdea7ee2e00fc680a7f158740f18a581fa50cf8c9249ede11e1c275ce29ebc"
+          "count": 12475,
+          "sha256": "2697b60d474744355129b377a926208eab9111cc90b515f8de90f83d499cc13e"
         },
         "validation": {
-          "count": 1562,
-          "sha256": "2385c4a014e7f37e2b7a04629c24e109d8ae3be5228ade89d03128a1a0ae6c0b"
+          "count": 1559,
+          "sha256": "da0f4604b1543623ca7ae47fa92decf1a69a27ae53d669cab8ffca9e64140bf8"
         },
         "test": {
-          "count": 1561,
-          "sha256": "734fe567f2252bd1090fd583e24a89a7330b9b83ad48e677440d8a052cc86d3b"
+          "count": 1560,
+          "sha256": "31686116ec58d6509f8357e4ae09f3d9fccea861f983f6deb36b27bd365fb373"
         }
       },
-      "source_lines": 15619,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 15594,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
         "train_vs_validation": 0,
         "train_vs_test": 0,
@@ -1695,51 +2159,83 @@
       }
     },
     "optimized": {
-      "good": 3327,
-      "bad": 17,
-      "missed": 309,
-      "precision": 0.9949162679425837,
-      "recall": 0.915016501650165,
-      "f17": 0.9931817639051417,
-      "train_good": 27496,
-      "train_bad": 3,
-      "train_missed": 782,
-      "n_patterns": 619,
-      "trie_nodes": 1090,
+      "good": 3333,
+      "bad": 19,
+      "missed": 321,
+      "precision": 0.9943317422434368,
+      "recall": 0.9121510673234812,
+      "f17": 0.9925432692880372,
+      "train_good": 27548,
+      "train_bad": 4,
+      "train_missed": 797,
+      "n_patterns": 517,
+      "trie_nodes": 978,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 3283,
+      "bad": 13,
+      "missed": 300,
+      "precision": 0.9960558252427184,
+      "recall": 0.9162712810493999,
+      "f17": 0.9943242048132196,
+      "trie_nodes": 978,
+      "n_patterns": 517
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 3435,
-        "bad": 59,
-        "missed": 201,
-        "precision": 0.9831139095592444,
-        "recall": 0.9447194719471947,
-        "f17": 0.982315461959941,
-        "trie_nodes": 1242,
-        "n_patterns": 771
+        "good": 3439,
+        "bad": 57,
+        "missed": 215,
+        "precision": 0.9836956521739131,
+        "recall": 0.9411603721948549,
+        "f17": 0.9828073023239865,
+        "trie_nodes": 1238,
+        "n_patterns": 774
       },
       "wortliste": {
-        "good": 3437,
-        "bad": 494,
-        "missed": 199,
-        "precision": 0.8743322309844823,
-        "recall": 0.9452695269526953,
-        "f17": 0.8756464803444499,
-        "trie_nodes": 1164,
-        "n_patterns": 736
+        "good": 3442,
+        "bad": 466,
+        "missed": 212,
+        "precision": 0.8807574206755373,
+        "recall": 0.9419813902572524,
+        "f17": 0.8819038053559898,
+        "trie_nodes": 1179,
+        "n_patterns": 741
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 3382,
+        "bad": 55,
+        "missed": 201,
+        "precision": 0.983997672388711,
+        "recall": 0.943901758303098,
+        "f17": 0.9831623991255609,
+        "trie_nodes": 1238,
+        "n_patterns": 774
+      },
+      "wortliste": {
+        "good": 3381,
+        "bad": 502,
+        "missed": 202,
+        "precision": 0.8707185166108679,
+        "recall": 0.9436226625732627,
+        "f17": 0.872066030435904,
+        "trie_nodes": 1179,
+        "n_patterns": 741
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.010866301945200663,
-    "ci_low": 0.0071027424254915626,
-    "ci_high": 0.014732406826431173,
-    "opt_trie": 1090,
-    "base_trie": 1242,
-    "trie_ratio": 0.8776167471819646,
-    "test_lines": 1561,
+    "delta_f17": 0.009735966964050657,
+    "ci_low": 0.006034158926624225,
+    "ci_high": 0.013707480575558267,
+    "opt_trie": 978,
+    "base_trie": 1238,
+    "trie_ratio": 0.789983844911147,
+    "test_lines": 1560,
     "resamples": 10000,
     "resample_seed": 20260845
   },
@@ -1765,90 +2261,121 @@
       ]
     ],
     "weight_ratios": [
-      "24",
-      "1/2",
-      "27",
-      "1/5"
+      "30",
+      "2",
+      "25",
+      "5"
     ],
     "thresholds": [
-      17,
-      26,
-      41,
-      3
+      31,
+      36,
+      11,
+      21
     ],
-    "validation_objective": 0.9808261161077221,
+    "validation_objective": 0.9779871568106671,
     "patgen": "/home/dev/patgen-10x",
     "split_evidence": {
       "splits": {
         "train": {
-          "count": 12572,
-          "sha256": "1813e052a45300822ec451613917ba5c20db6373907945378e7b6b764fd95cd4"
+          "count": 12486,
+          "sha256": "b0d40572c3e58d1968491f1b9dde6d7505895047b64c35775b6e2493e5768e26"
         },
         "validation": {
-          "count": 1571,
-          "sha256": "8ed9a5076f71c367905c89eaf80d96538a405fc84795d47b16b31c7e20fd1ca5"
+          "count": 1560,
+          "sha256": "6b955d2f109bbf98603b391c3b6dd12aa7bfba58b6f9ddff8a442fe899cc1fc6"
         },
         "test": {
-          "count": 1571,
-          "sha256": "af40951c2d2dbd909408ace1185b1a14527abe8bd24811b11f68f44d854180c4"
+          "count": 1562,
+          "sha256": "07a03610564a8a6cd41f4c4afcab10d1399b36edc51b425e9d1594fc80e3d89b"
         }
       },
-      "source_lines": 15714,
-      "mod10_membership_ok": true,
-      "coverage_ok": true,
-      "index_disjoint_ok": true,
+      "unique_word_types": 15608,
+      "grouped_hash_membership_ok": true,
+      "surface_disjoint_ok": true,
       "content_line_overlap": {
-        "train_vs_validation": 4,
-        "train_vs_test": 1,
+        "train_vs_validation": 0,
+        "train_vs_test": 0,
         "validation_vs_test": 0
       }
     },
     "optimized": {
-      "good": 3052,
-      "bad": 35,
-      "missed": 1094,
-      "precision": 0.9886621315192744,
-      "recall": 0.7361312108055957,
-      "f17": 0.981925113732152,
-      "train_good": 24967,
-      "train_bad": 1,
-      "train_missed": 6831,
-      "n_patterns": 516,
-      "trie_nodes": 1104,
+      "good": 3304,
+      "bad": 59,
+      "missed": 846,
+      "precision": 0.9824561403508771,
+      "recall": 0.796144578313253,
+      "f17": 0.9778793277967526,
+      "train_good": 26196,
+      "train_bad": 241,
+      "train_missed": 5390,
+      "n_patterns": 427,
+      "trie_nodes": 922,
       "reproduces_selected_profile": true
+    },
+    "validation_optimized": {
+      "good": 3213,
+      "bad": 56,
+      "missed": 867,
+      "precision": 0.9828693790149893,
+      "recall": 0.7875,
+      "f17": 0.9780166929459823,
+      "trie_nodes": 922,
+      "n_patterns": 427
     },
     "hand_baselines": {
       "cshyphen": {
-        "good": 3815,
-        "bad": 384,
-        "missed": 331,
-        "precision": 0.9085496546796856,
-        "recall": 0.9201640135069947,
-        "f17": 0.9087790678285064,
-        "trie_nodes": 3863,
-        "n_patterns": 2561
+        "good": 3844,
+        "bad": 377,
+        "missed": 306,
+        "precision": 0.9106846718787017,
+        "recall": 0.9262650602409639,
+        "f17": 0.9109911412984231,
+        "trie_nodes": 3875,
+        "n_patterns": 2573
       },
       "wortliste": {
-        "good": 3849,
-        "bad": 928,
-        "missed": 297,
-        "precision": 0.8057358174586561,
-        "recall": 0.9283646888567294,
-        "f17": 0.807870069138062,
-        "trie_nodes": 3626,
-        "n_patterns": 2456
+        "good": 3858,
+        "bad": 598,
+        "missed": 292,
+        "precision": 0.8657989228007181,
+        "recall": 0.9296385542168675,
+        "f17": 0.8669896716315946,
+        "trie_nodes": 3702,
+        "n_patterns": 2482
+      }
+    },
+    "validation_hand_baselines": {
+      "cshyphen": {
+        "good": 3767,
+        "bad": 361,
+        "missed": 313,
+        "precision": 0.9125484496124031,
+        "recall": 0.9232843137254902,
+        "f17": 0.9127607195471815,
+        "trie_nodes": 3875,
+        "n_patterns": 2573
+      },
+      "wortliste": {
+        "good": 3788,
+        "bad": 589,
+        "missed": 292,
+        "precision": 0.8654329449394562,
+        "recall": 0.9284313725490196,
+        "f17": 0.866609014746995,
+        "trie_nodes": 3702,
+        "n_patterns": 2482
       }
     },
     "best_baseline": "cshyphen",
     "manuscript_baseline": "cshyphen",
     "manuscript_consistent": true,
-    "delta_f17": 0.0731460459036456,
-    "ci_low": 0.06543076003322866,
-    "ci_high": 0.08100725653446995,
-    "opt_trie": 1104,
-    "base_trie": 3863,
-    "trie_ratio": 0.28578824747605486,
-    "test_lines": 1571,
+    "delta_f17": 0.0668881864983295,
+    "ci_low": 0.05888201464039557,
+    "ci_high": 0.07476172742585727,
+    "opt_trie": 922,
+    "base_trie": 3875,
+    "trie_ratio": 0.23793548387096775,
+    "test_lines": 1562,
     "resamples": 10000,
     "resample_seed": 20260846
   }

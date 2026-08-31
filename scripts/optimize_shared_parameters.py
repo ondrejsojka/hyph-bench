@@ -33,8 +33,8 @@ from typing import Dict, List, Optional, Tuple
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
 from .gp_optimizer import GPOptimizer
 from .objectives import get_objective
+from .dataset_split import create_clean_split
 from .optimize_validation import (
-    create_mod10_split,
     evaluate_parameter_set,
     f17_score,
     failed_evaluation_result,
@@ -121,12 +121,17 @@ def main() -> None:
         translate_path = os.path.abspath(args.translate)
     else:
         wordlist_path, translate_path = find_dataset(args.lang)
+    lang_dir = os.path.join(args.output_dir, args.lang)
+    split = create_clean_split(
+        wordlist_path, os.path.join(lang_dir, "splits"), seed=args.seed
+    )
+
 
     trie_normalizer = None
     if args.objective == "f17_trie":
         trie_normalizer, fixed = resolve_trie_normalizer(
             args,
-            wordlist_path,
+            split["unique"],
             "scripts.optimize_shared_parameters",
             dataset=args.lang,
         )
@@ -145,8 +150,6 @@ def main() -> None:
         else get_objective(args.objective, beta=args.beta)
     )
 
-    lang_dir = os.path.join(args.output_dir, args.lang)
-    split = create_mod10_split(wordlist_path, os.path.join(lang_dir, "splits"))
 
     state_path = os.path.join(lang_dir, "wider_state.pkl")
     history_path = os.path.join(lang_dir, "wider_history.csv")

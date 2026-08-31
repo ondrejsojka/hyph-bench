@@ -1,8 +1,8 @@
 {
   "weight_ratios": [
-    "14",
-    "21",
+    "30",
     "5",
+    "13",
     "1/4"
   ],
   "good_weights": [
@@ -12,27 +12,27 @@
     4
   ],
   "bad_weights": [
-    14,
-    21,
+    30,
     5,
+    13,
     1
   ],
   "thresholds": [
-    10,
-    2,
-    41,
+    42,
+    26,
+    33,
     1
   ],
-  "validation_objective": 0.9554154337118369,
+  "validation_objective": 0.9579665759627597,
   "held_out_test": {
-    "good": 29085,
-    "bad": 1093,
-    "missed": 12871,
-    "train_good": 238694,
-    "train_bad": 463,
-    "train_missed": 94936,
-    "n_patterns": 10093,
-    "trie_nodes": 16558
+    "good": 22322,
+    "bad": 654,
+    "missed": 19591,
+    "train_good": 182767,
+    "train_bad": 388,
+    "train_missed": 150787,
+    "n_patterns": 5322,
+    "trie_nodes": 10299
   },
-  "held_out_test_f17": 0.9563168534035477
+  "held_out_test_f17": 0.9557802827177697
 }

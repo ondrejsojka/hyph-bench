@@ -26,7 +26,8 @@ from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset
 from .hyphenator.hyphenator import Hyphenator
 from .hyperparameters.sample import Sample
 from .hyperparameters.score import PatgenScorer
-from .optimize_validation import create_mod10_split, train_patgen_multilevel
+from .legacy_split import create_legacy_mod10_split
+from .optimize_validation import train_patgen_multilevel
 
 
 PROFILE_PATHS = {
@@ -245,7 +246,7 @@ def evaluate_profile_counts(pattern_path: str, test_path: str, translate_path: s
 def dataset_splits(dataset: str, output_dir: Path) -> Tuple[str, str, dict]:
     wl, tr = find_dataset(dataset)
     split_dir = output_dir / safe_name(dataset) / "splits"
-    splits = create_mod10_split(wl, str(split_dir))
+    splits = create_legacy_mod10_split(wl, str(split_dir))
     return wl, tr, splits
 
 

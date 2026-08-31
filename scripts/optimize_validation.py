@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""
-Validation-set GP optimization for patgen parameters.
+"""Validation-set GP optimization for PATGEN parameters.
 
-This is a GPopt4-style optimizer that selects parameters by training
-patterns on an 8/10 training split, scoring them on a 1/10 validation
-split, and reporting the selected parameters on a held-out 1/10 test
-split. Splits are deterministic by line index modulo 10.
+Candidates train on a deterministic 8/10 split, are selected on a 1/10
+validation split, and are reported on a held-out 1/10 test split. Word
+identities are grouped before a seeded hash-ranked split so no surface form can
+cross partitions. Weighted sources repeat priorities in training only.
 """
 
 import argparse
@@ -17,6 +16,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from typing import Dict, List, Tuple
 
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
+from .dataset_split import create_clean_split
 from .gp_optimizer import GPOptimizer
 from .hyphenator.hyphenator import Hyphenator
 from .hyperparameters.score import PatgenScorer
@@ -73,34 +73,6 @@ def safe_name(name: str) -> str:
     return name.replace(os.sep, "_").replace("/", "_")
 
 
-def create_mod10_split(wordlist_path: str, output_dir: str) -> Dict[str, str]:
-    os.makedirs(output_dir, exist_ok=True)
-    paths = {
-        "train": os.path.join(output_dir, "data.train.wlh"),
-        "validation": os.path.join(output_dir, "data.validation.wlh"),
-        "test": os.path.join(output_dir, "data.test.wlh"),
-    }
-    counts = {key: 0 for key in paths}
-
-    with (
-        open(wordlist_path, encoding="utf-8") as wordlist,
-        open(paths["train"], "w", encoding="utf-8") as train,
-        open(paths["validation"], "w", encoding="utf-8") as validation,
-        open(paths["test"], "w", encoding="utf-8") as test,
-    ):
-        for i, line in enumerate(wordlist):
-            bucket = i % 10
-            if bucket < 8:
-                train.write(line)
-                counts["train"] += 1
-            elif bucket == 8:
-                validation.write(line)
-                counts["validation"] += 1
-            else:
-                test.write(line)
-                counts["test"] += 1
-
-    return {**paths, **{f"{key}_count": str(value) for key, value in counts.items()}}
 
 
 def train_patgen_multilevel(
@@ -327,12 +299,16 @@ def main() -> None:
     else:
         wordlist_path, translate_path = find_dataset(args.lang)
 
+    lang_dir = os.path.join(args.output_dir, args.lang)
+    split_dir = os.path.join(lang_dir, "splits")
+    split = create_clean_split(wordlist_path, split_dir, seed=args.seed)
+
     fixed_trie_normalizer = False
     trie_normalizer = None
     if args.objective == "f17_trie":
         trie_normalizer, fixed_trie_normalizer = resolve_trie_normalizer(
             args,
-            wordlist_path,
+            split["unique"],
             "scripts.optimize_validation",
             dataset=args.lang,
         )
@@ -344,10 +320,6 @@ def main() -> None:
         trie_weight=args.trie_weight,
         trie_normalizer=trie_normalizer,
     ) if args.objective == "f17_trie" else get_objective(args.objective, beta=args.beta)
-
-    lang_dir = os.path.join(args.output_dir, args.lang)
-    split_dir = os.path.join(lang_dir, "splits")
-    split = create_mod10_split(wordlist_path, split_dir)
 
     state_path = os.path.join(lang_dir, "gpoptval4_state.pkl")
     history_path = os.path.join(lang_dir, "gpoptval4_history.csv")

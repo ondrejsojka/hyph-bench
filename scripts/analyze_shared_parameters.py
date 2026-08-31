@@ -22,11 +22,8 @@ from typing import Dict, List, Tuple
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset
 from .hyperparameters.sample import Sample
 from .hyperparameters.score import PatgenScorer
-from .optimize_validation import (
-    create_mod10_split,
-    evaluate_parameter_set,
-    f17_score,
-)
+from .legacy_split import create_legacy_mod10_split
+from .optimize_validation import evaluate_parameter_set, f17_score
 from .analyze_heldout_results import (
     aggregate,
     bootstrap_delta,
@@ -279,7 +276,7 @@ def main() -> None:
         params = shared_params(selected)
 
         wordlist_path, translate_path = find_dataset(dataset)
-        splits = create_mod10_split(wordlist_path, str(dataset_dir / "splits"))
+        splits = create_legacy_mod10_split(wordlist_path, str(dataset_dir / "splits"))
         selected_pattern = dataset_dir / "wider_vc005_final.pat"
         _, test = evaluate_parameter_set(
             args.patgen,

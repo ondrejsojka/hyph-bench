@@ -33,7 +33,7 @@ $$
 
 $F_{1/7}$ is an F-score that weights precision far more strongly than recall, because in typesetting an incorrect hyphen is usually much worse than a missed optional break point. The second term penalizes pattern-trie size, normalized by dataset size $|D|$ so the compactness pressure is comparable across languages. The paper motivates and validates both choices.
 
-Every reported score is computed once on a held-out test split that the search never sees: the word list is split deterministically 8/1/1 (by line index modulo 10) into train, validation, and test; parameters are selected on validation only.
+Every reported score is computed once on a held-out test split that the search never sees. The default splitter groups entries by normalized, case-folded surface form, ranks the groups by a seed-42 SHA-256 digest, and assigns exact 8/1/1 train, validation, and test partitions. Source priorities such as those in `cssk/cshyphen` are expanded in training only; validation and test contain one entry per resolved word type. Parameters are selected on validation only.
 
 ## Requirements
 
@@ -65,6 +65,18 @@ It writes, under `/tmp/pat-gen-opt-smoke/th/orchid/`:
 
 A one-iteration run is a smoke test, not a result. For a real search, drop `--iterations` and `--batch-size` to use the defaults: 30 GP iterations with batches of 5, followed by three exploitation evaluations.
 
+To reproduce the paper's complete 17-dataset matrix, run:
+
+```bash
+PATGEN_BIN=/path/to/high-capacity/patgen bash scripts/run_full_search.sh
+```
+
+This is the canonical paper protocol and writes `results/gpopt260828/`.
+`gpopt260828` is the dated artifact identifier, not a separate optimizer; the
+method is the per-level GP search implemented by `scripts.per_level_search`.
+The runner regenerates the expanded CSSK input when needed and refuses to treat
+an older result using a different split protocol as complete.
+
 ## Optimize patterns for your own word list
 
 A dataset lives under `data/<language>/<name>/` and consists of:
@@ -90,7 +102,7 @@ uv run python -m scripts.per_level_search \
   --export-final-patterns
 ```
 
-The split is a function of line order; do not reorder the word list between related runs.
+Split membership is content-derived and independent of input order. Preserve source order anyway: it is the deterministic final tie-breaker when duplicate surface forms have equally prioritized conflicting annotations.
 
 Reduced searches with fewer parameters — four per-level weights with a shared threshold (`scripts.optimize_validation`), or shared weights across levels (`scripts.optimize_shared_parameters`) — are described in [docs/REPRODUCING.md](docs/REPRODUCING.md).
 

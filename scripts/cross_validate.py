@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""
-Cross-validation for optimized patgen parameters.
-Uses NFoldCrossValidator from scripts.train_test.
+"""Cross-validation for optimized PATGEN parameters.
+
+Folds group normalized surface forms before seeded hash assignment. Source
+priorities are expanded in training only; each test fold is type-based.
 """
 
 import argparse

@@ -64,6 +64,7 @@ def resolve_trie_normalizer(
     wordlist_path: str,
     script: str,
     dataset: Optional[str] = None,
+    wordlist_size: Optional[int] = None,
 ) -> tuple[float, bool]:
     """Return ``(trie_normalizer, uses_fixed_normalizer)``."""
     if args.trie_normalizer is not None:
@@ -71,7 +72,11 @@ def resolve_trie_normalizer(
         warn_fixed_trie_normalizer(script, value, "START WARNING")
         return value, True
 
-    value = float(count_wordlist_lines(wordlist_path))
+    value = float(
+        wordlist_size
+        if wordlist_size is not None
+        else count_wordlist_lines(wordlist_path)
+    )
     label = f" for {dataset}" if dataset else ""
     print(f"Proportional trie_normalizer{label}: |D| = {value:.0f}")
     return value, False

@@ -22,8 +22,8 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from typing import Dict, List, Optional, Tuple
 
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset
+from .legacy_split import create_legacy_mod10_split
 from .optimize_validation import (
-    create_mod10_split,
     evaluate_parameter_set,
     f17_score,
     precision,
@@ -82,15 +82,7 @@ def read_best_baseline(history_path: str) -> Optional[Dict]:
 def split_paths_for(lang: str, splits_root: str) -> Dict[str, str]:
     wordlist_path, _ = find_dataset(lang)
     split_dir = os.path.join(splits_root, lang, "splits")
-    paths = {
-        "train": os.path.join(split_dir, "data.train.wlh"),
-        "validation": os.path.join(split_dir, "data.validation.wlh"),
-        "test": os.path.join(split_dir, "data.test.wlh"),
-    }
-    if not all(os.path.exists(p) for p in paths.values()):
-        # Deterministic mod-10 split; only created when missing.
-        paths = {**paths, **create_mod10_split(wordlist_path, split_dir)}
-    return paths
+    return create_legacy_mod10_split(wordlist_path, split_dir)
 
 
 def baseline_test_eval(lang: str, params: Tuple[int, ...], patgen: str,

@@ -22,19 +22,20 @@ The paper runs use `/home/dev/patgen-10x`, a local name for a TeX Live 2024 PATG
 
 Pass a non-default binary with `--patgen /path/to/patgen` or set `PATGEN_BIN` where a batch script supports it.
 
-One dataset needs a regeneration step in a clean clone: the repository tracks the weighted `cssk/cshyphen` source (`.wlhw`) but not its expanded word list. Regenerate it before any `cssk/cshyphen` run or audit:
+The repository tracks the weighted `cssk/cshyphen` source (`.wlhw`) but not its expanded word list. `scripts/run_full_search.sh` regenerates the expansion automatically. Before an individual `cssk/cshyphen` command, run:
 
 ```bash
 uv run python -m scripts.expand_weights data/cssk/cshyphen/cssk-all-weighted.wlhw
 ```
 
-The expansion is deterministic, and the audit's split SHA-256 comparison verifies the regenerated word list against the reported run.
+The canonical splitter reads the source priorities, resolves duplicate surface forms before splitting, and expands priorities in training only. Validation and test retain one entry per resolved word type.
 
 ## The final per-level search protocol
 
 The final per-level search uses the following protocol for every manuscript dataset:
 
-- deterministic 8/1/1 train, validation, and held-out test split;
+- deterministic, surface-form-disjoint 8/1/1 train, validation, and held-out test split: normalized word identities are ranked by a seed-42 SHA-256 digest;
+- source priorities are expanded in training only; validation and test contain one entry per resolved word type;
 - four independently selected weight ratios, one per PATGEN level;
 - four independently selected thresholds, one per PATGEN level;
 - weight ratios in `{1/5, 1/4, 1/3, 1/2, 1, ..., 30}`;
@@ -42,11 +43,11 @@ The final per-level search uses the following protocol for every manuscript data
 - pattern ranges `[(1,4), (2,5), (2,6), (2,7)]`;
 - 30 GP iterations with batches of 5, followed by three exploitation evaluations;
 - seed 42 and UCB $\kappa=2.5$;
-- proportional trie normalization by $|D|$ and `trie_weight=0.0005`;
+- proportional trie normalization by the number of resolved word types $|D|$ and `trie_weight=0.0005`;
 - selection by the best observed validation objective;
 - one held-out test evaluation after selection.
 
-The dated repository identifier for the final 17-dataset run is `gpopt260828`. The paper describes it generically as the per-level GP search and does not use the dated identifier as a method name.
+The dated repository identifier for the final 17-dataset paper run is `gpopt260828`. It is an artifact directory name, not a method name. The default `scripts.run_full_search.sh` command reproduces that matrix with the canonical `scripts.per_level_search` defaults and writes `results/gpopt260828/`.
 
 Run the full matrix or fill missing datasets:
 
@@ -78,15 +79,15 @@ uv run python -m scripts.analyze_gpopt260828 \
   --write-splits
 ```
 
-Without `--write-splits` the analysis refuses to run against a run directory that has no split files. With it, `scripts.optimize_validation.create_mod10_split` rewrites the deterministic 8/1/1 partition, and the run is then checked for mod-10 membership, coverage, index disjointness, recorded split counts, and SHA-256 equality with the split hashes stored in an existing `bootstrap_ci.json`. A word list that differs from the one used by the reported run fails on the hash comparison before any PATGEN work starts.
+Without `--write-splits` the analysis refuses to run against a run directory that has no split files. With it, `scripts.dataset_split.create_clean_split` rewrites the deterministic grouped 8/1/1 partition. The audit verifies exact seeded hash membership, zero cross-partition surface overlap, recorded split counts, and SHA-256 equality with the split hashes stored in an existing `bootstrap_ci.json`. A source word list that differs from the reported run fails the hash comparison before any PATGEN work starts.
 
 The analysis regenerates the selected profile and both hand-tuned baselines with PATGEN, asserts that the regenerated held-out Good/Bad/Missed counts and $F_{1/7}$ reproduce `selected_profile.json` exactly, and writes `bootstrap_ci.json`, `bootstrap_ci_table.tex`, and `summary.json`.
 
 ## Historical and auxiliary experiments
 
-Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. The dated final runner uses the extended default space. Do not combine histories from the two spaces.
+Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. Other archived pre-cutover analyses explicitly use `scripts.legacy_split` to reproduce their original line-index partitions; canonical searches never use that splitter.
 
-Frozen run records (`run_config.json` command strings and `_logs/`) reference the module by its historical name `scripts.paper2_final_search`; it was renamed to `scripts.per_level_search` after the reported runs, with identical behavior.
+Frozen run records (`run_config.json` command strings and `_logs/`) may reference the module by its historical name `scripts.paper2_final_search`; the canonical implementation is now `scripts.per_level_search`.
 
 Related scripts:
 
@@ -95,10 +96,11 @@ Related scripts:
 | Final per-level GP search | `python -m scripts.per_level_search` |
 | Final 17-dataset queue | `scripts/run_full_search.sh` |
 | Historical GPopt8 queue | `scripts/run_gpopt8.sh` |
-| GP, TPE, Random comparison | `python -m scripts.compare_hpo_methods` |
+| Random/TPE comparison queue | `scripts/run_hpo_baselines_8d.sh` (per-dataset: `python -m scripts.per_level_hpo_baselines`) |
+| Legacy restricted-space comparison | `python -m scripts.compare_hpo_methods` |
 | Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
 
-The budget-matched GP/TPE/Random experiment uses a separate restricted four-parameter space. Its results must not be presented as repeated runs or uncertainty estimates for the final per-level search. Its published evidence — per-dataset histories, summaries, and `summary_all.json`, the source of the paper's comparison table — lives under `results/hpo_representative_150/`.
+The paper's budget-matched HPO comparison (`tab:hpo-baselines`) runs Random Search and TPE in the same 8-D per-level space, grouped split, and 153-evaluation budget as the final search; the GP column is the recorded main-experiment runs. Its published evidence lives under `results/hpo_baselines_grouped/` (run `OUTPUT_DIR=results/hpo_baselines_grouped bash scripts/run_hpo_baselines_8d.sh` to regenerate; seed 42 makes the runs deterministic). The hand-tuned column comes from the regenerated baselines in `bootstrap_ci.json`. An older restricted four-parameter comparison remains under `results/hpo_representative_150/`; it is superseded and must not be mixed with the 8-D results.
 
 The threshold ablation under `results/threshold_ablation/` motivates searching thresholds per level at all: with thresholds in `[1,5]` and the GPoptval4 budget (153 evaluations per arm), per-level thresholds beat the fixed-at-1 baseline on 18 of 18 datasets under GP, and shared thresholds are weaker than per-level under every optimizer (see `SUMMARY.md`; histories, per-variant summaries, `ablation_summary.json`, and run logs are alongside). It is background evidence, not a paper table; the final protocol adopts per-level thresholds and extends the searched range to `[1,42]`.
 

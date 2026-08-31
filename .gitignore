@@ -68,9 +68,26 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/selector_ablation_table.tex
 !results/gpopt260828_analysis/wortliste8_regeneration.json
 
-# Publish the budget-matched GP/TPE/Random comparison (paper appendix table
-# source) and the threshold ablation: summaries, histories, and logs. Optimizer
-# pickle state and split files stay out, matching the gpopt260828 policy.
+# Publish the paper's budget-matched Random/TPE comparison runs (grouped split,
+# 8-D space; source of tab:hpo-baselines together with the recorded GP runs),
+# the superseded restricted-space comparison, and the threshold ablation:
+# summaries, histories, and logs. Optimizer pickle state and split files stay
+# out, matching the gpopt260828 policy.
+!results/hpo_baselines_grouped/
+results/hpo_baselines_grouped/*
+!results/hpo_baselines_grouped/_logs/
+results/hpo_baselines_grouped/_logs/*
+!results/hpo_baselines_grouped/_logs/*.log
+!results/hpo_baselines_grouped/_logs/run-status.tsv
+!results/hpo_baselines_grouped/*/
+results/hpo_baselines_grouped/*/*
+!results/hpo_baselines_grouped/*/*/
+results/hpo_baselines_grouped/*/*/*
+!results/hpo_baselines_grouped/*/*/*/
+results/hpo_baselines_grouped/*/*/*/*
+!results/hpo_baselines_grouped/*/*/*/run_config.json
+!results/hpo_baselines_grouped/*/*/*/final_history.csv
+!results/hpo_baselines_grouped/*/*/*/selected_profile.json
 !results/hpo_representative_150/
 results/hpo_representative_150/*
 !results/hpo_representative_150/*.csv

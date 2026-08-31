@@ -6,7 +6,7 @@ Ablates two decisions in the paper's main experiments:
   1. threshold fixed at 1  vs. tunable threshold
   2. one threshold shared across all levels vs. per-level thresholds
 
-Three threshold modes (same 8/1/1 mod-10 validation protocol, objective,
+Three threshold modes (same grouped-hash 8/1/1 validation protocol, objective,
 budget, seed, and bounds on bad_weight as scripts.optimize_validation):
 
   fixed1    bad_1..4 in (1, max_bad), threshold == 1                (paper arm)
@@ -43,8 +43,8 @@ from typing import Dict, List, Optional, Tuple
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
 from .gp_optimizer import GPOptimizer
 from .objectives import ObjectiveFunction, get_objective
+from .dataset_split import create_clean_split
 from .optimize_validation import (
-    create_mod10_split,
     evaluate_parameter_set,
     f17_score,
     failed_evaluation_result,
@@ -310,12 +310,20 @@ def main() -> None:
         translate_path = os.path.abspath(args.translate)
     else:
         wordlist_path, translate_path = find_dataset(args.lang)
+    run_dir = os.path.join(
+        args.output_dir, args.lang, f"{args.threshold_mode}_{args.method}"
+    )
+    os.makedirs(run_dir, exist_ok=True)
+    split = create_clean_split(
+        wordlist_path, os.path.join(run_dir, "splits"), seed=args.seed
+    )
+
 
     trie_normalizer = None
     fixed_trie_normalizer = False
     if args.objective == "f17_trie":
         trie_normalizer, fixed_trie_normalizer = resolve_trie_normalizer(
-            args, wordlist_path, "scripts.threshold_ablation", dataset=args.lang,
+            args, split["unique"], "scripts.threshold_ablation", dataset=args.lang,
         )
 
     pat_ranges = parse_profile(args.profile) if args.profile else DEFAULT_PAT_RANGES
@@ -335,11 +343,6 @@ def main() -> None:
     budget = args.iterations * args.batch_size + args.final_exploitation
     workers = args.workers or args.batch_size
 
-    run_dir = os.path.join(
-        args.output_dir, args.lang, f"{args.threshold_mode}_{args.method}"
-    )
-    os.makedirs(run_dir, exist_ok=True)
-    split = create_mod10_split(wordlist_path, os.path.join(run_dir, "splits"))
 
     state_path = os.path.join(run_dir, "state.pkl")
     history_path = os.path.join(run_dir, "history.csv")

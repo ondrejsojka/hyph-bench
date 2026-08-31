@@ -5,6 +5,7 @@ import shutil
 
 from .hyperparameters import combine, score, sample, metaheuristic
 from .hyphenator.hyphenator import Hyphenator
+from .dataset_split import rank_word_entries, resolve_word_entries
 
 class Validator:
     """
@@ -170,15 +171,22 @@ class NFoldCrossValidator(Validator):
     """
     N-fold cross-validation
     """
-    def __init__(self, model: combine.Combiner, translate_file: str, n: int, tmp_suffix: str = ""):
-        """
-        Create validator
-        :param model: model to evaluate
-        :param translate_file: path to translate file
-        :param n: number of folds
-        """
+    def __init__(
+        self,
+        model: combine.Combiner,
+        translate_file: str,
+        n: int,
+        tmp_suffix: str = "",
+        seed: int = 42,
+    ):
+        """Create a deterministic, surface-form-disjoint cross-validator."""
         super().__init__(model, translate_file, tmp_suffix=tmp_suffix)
         self.n = n
+        self.seed = seed
+        self._entries_path = ""
+        self._entries = []
+        self._weighted = False
+
 
     def n_fold_split(self, wordlist_file: str, index: int = 0, outfile_train: str = "", outfile_test: str = "", tmp_suffix: str = ""):
         """
@@ -208,12 +216,16 @@ class NFoldCrossValidator(Validator):
             outfile_test = os.path.join(tmp_dir, f"data.test{tmp_suffix}")
         test = open(outfile_test, "w")
 
-        with open(wordlist_file) as wordlist:
-            for i, line in enumerate(wordlist):
-                if i % self.n == index:
-                    test.write(line)
-                else:
-                    train.write(line)
+        if self._entries_path != wordlist_file:
+            self._entries, self._weighted, _ = resolve_word_entries(wordlist_file)
+            rank_word_entries(self._entries, self.seed)
+            self._entries_path = wordlist_file
+        for position, (_, annotation, priority) in enumerate(self._entries):
+            if position % self.n == index:
+                test.write(annotation + "\n")
+            else:
+                repetitions = priority if self._weighted else 1
+                train.write((annotation + "\n") * repetitions)
 
         train.close()
         test.close()

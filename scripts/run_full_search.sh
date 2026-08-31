@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Run the 17-dataset gpopt260828 matrix, two datasets at a time.
+# Reproduce the 17-dataset gpopt260828 paper matrix, two datasets at a time.
 # Each dataset uses five PATGEN workers; two concurrent runs occupy all 12 CPUs
-# with ten PATGEN workers and two GP coordinator processes.
+# with ten PATGEN workers and two GP coordinator processes. The canonical
+# protocol uses grouped hash splits and training-only source priorities.
 
 set -u
 
@@ -13,6 +14,9 @@ OUTPUT_DIR="${OUTPUT_DIR:-results/gpopt260828}"
 MAX_PARALLEL="${MAX_PARALLEL:-2}"
 LOG_DIR="${OUTPUT_DIR}/_logs"
 STATUS_FILE="${LOG_DIR}/run-status.tsv"
+SPLIT_METHOD="sha256_grouped_8_1_1"
+CSSK_WEIGHTED="data/cssk/cshyphen/cssk-all-weighted.wlhw"
+uv run python -m scripts.expand_weights "${CSSK_WEIGHTED}" || exit 1
 mkdir -p "${LOG_DIR}"
 
 DATASETS=(
@@ -43,13 +47,15 @@ run_dataset() {
   local history="${OUTPUT_DIR}/${dataset}/final_history.csv"
   local patterns="${OUTPUT_DIR}/${dataset}/final_patterns.pat"
   local log="${LOG_DIR}/${safe_name}.log"
-  local started finished rc rows
+  local started finished rc rows config
 
+  config="${OUTPUT_DIR}/${dataset}/run_config.json"
   rows=0
   if [[ -f "${history}" ]]; then
     rows=$(($(wc -l < "${history}") - 1))
   fi
-  if [[ "${rows}" -eq 153 && -s "${patterns}" ]]; then
+  if [[ "${rows}" -eq 153 && -s "${patterns}" && -f "${config}" ]] \
+      && grep -q "\"split_method\": \"${SPLIT_METHOD}\"" "${config}"; then
     started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
     printf '%s\t%s\t%s\t%s\n' "${dataset}" "${started}" "${started}" "skipped-complete" >> "${STATUS_FILE}"
     echo "[${started}] SKIP complete ${dataset}"

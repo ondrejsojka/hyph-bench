@@ -4,12 +4,12 @@
 For every dataset with a stored ``selected_profile.json`` under the final run
 directory this script:
 
-* materializes the deterministic mod-10 train/validation/test split from the
-  source word list when a published artifact set ships without the split files
+* materializes the deterministic grouped train/validation/test split from the
+  source word list when a published artifact set ships without split files
   (``--write-splits``),
-* validates that split against the source word list (membership, coverage,
-  disjointness, counts, SHA-256 hashes) and, when a previous
-  ``bootstrap_ci.json`` is present, against its recorded split hashes,
+* validates exact seeded hash membership, surface disjointness, counts, and
+  SHA-256 hashes and, when a previous ``bootstrap_ci.json`` is present, checks
+  its recorded split hashes,
 * regenerates the selected optimized profile and the manuscript's hand-tuned
   baseline profiles on the stored train split with the recorded PATGEN binary,
 * asserts that the regenerated optimized held-out Good/Bad/Missed aggregates
@@ -27,6 +27,7 @@ import math
 import os
 import shutil
 import uuid
+import tempfile
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from statistics import median
@@ -45,7 +46,8 @@ from .analyze_heldout_results import (
 from .dataset_utls import find_dataset
 from .hyperparameters.sample import Sample
 from .hyperparameters.score import PatgenScorer
-from .optimize_validation import create_mod10_split, train_patgen_multilevel
+from .dataset_split import create_clean_split
+from .optimize_validation import train_patgen_multilevel
 from .per_level_search import WEIGHT_LABELS
 
 RESULTS_DIR = Path("results/gpopt260828")
@@ -82,23 +84,12 @@ def read_lines(path: str) -> List[str]:
         return [line.rstrip("\n") for line in handle]
 
 
-def materialize_splits(wordlist_path: str, split_dir: Path) -> bool:
-    """Write the deterministic mod-10 split when it is absent; report whether it was written.
-
-    Published artifact sets ship histories, patterns, configurations and selected
-    profiles but not the split files, which are a pure function of the source word
-    list and an order of magnitude larger. Regenerating them here lets a clean
-    clone run the full audit; ``validate_splits`` then proves the regenerated
-    files are the partition the reported run used.
-    """
-    if all((split_dir / f"data.{name}.wlh").is_file() for name in SPLIT_NAMES):
-        return False
-    create_mod10_split(wordlist_path, str(split_dir))
-    return True
 
 
-def validate_splits(wordlist_path: str, split_dir: Path, config_counts: Dict[str, str]) -> Dict[str, object]:
-    """Assert stored splits are the deterministic mod-10 partition of the source list."""
+def validate_splits(
+    wordlist_path: str, split_dir: Path, config_counts: Dict[str, str]
+) -> Dict[str, object]:
+    """Assert stored splits exactly match the canonical grouped hash split."""
     split_paths = {name: split_dir / f"data.{name}.wlh" for name in SPLIT_NAMES}
     stored: Dict[str, List[str]] = {}
     evidence: Dict[str, Dict[str, object]] = {}
@@ -107,23 +98,13 @@ def validate_splits(wordlist_path: str, split_dir: Path, config_counts: Dict[str
         stored[name] = read_lines(str(path))
         evidence[name] = {"count": len(stored[name]), "sha256": sha256_file(str(path))}
 
-    # Sequential per-bucket match proves deterministic mod-10 membership,
-    # coverage of every source line, and index-level disjointness in one pass.
-    cursors = {name: 0 for name in SPLIT_NAMES}
-    source_lines = 0
-    with open(wordlist_path, encoding="utf-8") as wordlist:
-        for index, line in enumerate(wordlist):
-            source_lines = index + 1
-            bucket = index % 10
-            name = "train" if bucket < 8 else ("validation" if bucket == 8 else "test")
-            cursor = cursors[name]
-            assert cursor < len(stored[name]) and stored[name][cursor] == line.rstrip("\n"), (
-                f"mod-10 membership mismatch: source line {index} not found in {name} split"
+    with tempfile.TemporaryDirectory(prefix="pat-gen-opt-split-audit-") as temp_dir:
+        expected = create_clean_split(wordlist_path, temp_dir)
+        for name in SPLIT_NAMES:
+            expected_path = expected[name]
+            assert sha256_file(str(split_paths[name])) == sha256_file(expected_path), (
+                f"{name} split does not match canonical grouped hash membership"
             )
-            cursors[name] += 1
-    for name in SPLIT_NAMES:
-        assert cursors[name] == len(stored[name]), f"{name} split has extra lines"
-    assert sum(cursors.values()) == source_lines, "split coverage does not match source line count"
 
     for name in SPLIT_NAMES:
         recorded = config_counts.get(name)
@@ -131,20 +112,18 @@ def validate_splits(wordlist_path: str, split_dir: Path, config_counts: Dict[str
             f"{name} count {len(stored[name])} does not match run_config {recorded}"
         )
 
-    # Content-level overlap is informational only: duplicate words inside the
-    # source list legitimately reappear in different splits.
     line_sets = {name: set(stored[name]) for name in SPLIT_NAMES}
     overlap = {
         f"{a}_vs_{b}": len(line_sets[a] & line_sets[b])
         for a, b in (("train", "validation"), ("train", "test"), ("validation", "test"))
     }
+    assert not any(overlap.values()), f"split content overlap detected: {overlap}"
 
     return {
         "splits": evidence,
-        "source_lines": source_lines,
-        "mod10_membership_ok": True,
-        "coverage_ok": True,
-        "index_disjoint_ok": True,
+        "unique_word_types": int(expected["unique_count"]),
+        "grouped_hash_membership_ok": True,
+        "surface_disjoint_ok": True,
         "content_line_overlap": overlap,
     }
 
@@ -325,8 +304,9 @@ def analyze_dataset(
 
     wordlist_path, translate_path = find_dataset(dataset)
     split_dir = run_dir / "splits"
-    if write_splits and materialize_splits(wordlist_path, split_dir):
-        print(f"[splits] regenerated deterministic mod-10 split for {dataset}", flush=True)
+    if write_splits:
+        create_clean_split(wordlist_path, str(split_dir))
+        print(f"[splits] regenerated canonical grouped split for {dataset}", flush=True)
     split_evidence = validate_splits(
         wordlist_path, split_dir, config.get("split_counts", {})
     )
@@ -343,10 +323,14 @@ def analyze_dataset(
     opt_pattern = opt_scorer = None
     hand = {}
     opt_counts = None
+    opt_validation_agg = None
     expected_test = profile["held_out_test"]
     try:
         opt_pattern, opt_stats, opt_scorer = train_optimized_profile(
             patgen, profile, pat_ranges, splits["train"], translate_path, f"_ci_opt_{run_tag}"
+        )
+        opt_validation_agg = aggregate(
+            per_line_counts(splits["validation"], opt_pattern, translate_path)
         )
         opt_counts = per_line_counts(splits["test"], opt_pattern, translate_path)
         opt_agg = aggregate(opt_counts)
@@ -373,9 +357,13 @@ def analyze_dataset(
                     patgen, hand_path, splits["train"], translate_path, f"_ci_{name}_{run_tag}"
                 )
                 hand_counts = per_line_counts(splits["test"], hand_pattern, translate_path)
+                validation_aggregate = aggregate(
+                    per_line_counts(splits["validation"], hand_pattern, translate_path)
+                )
                 hand[name] = {
                     "aggregate": aggregate(hand_counts),
                     "stats": hand_stats,
+                    "validation_aggregate": validation_aggregate,
                     "counts": hand_counts,
                 }
             finally:
@@ -385,7 +373,7 @@ def analyze_dataset(
         if opt_scorer:
             opt_scorer.clean()
 
-    assert opt_counts is not None
+    assert opt_counts is not None and opt_validation_agg is not None
     for name in HAND_PROFILES:
         assert name in hand, f"hand baseline {name} failed"
 
@@ -423,9 +411,22 @@ def analyze_dataset(
             "trie_nodes": opt_stats["trie_nodes"],
             "reproduces_selected_profile": True,
         },
+        "validation_optimized": {
+            **score_block(opt_validation_agg),
+            "trie_nodes": opt_stats["trie_nodes"],
+            "n_patterns": opt_stats["n_patterns"],
+        },
         "hand_baselines": {
             name: {
                 **hand_scores[name],
+                "trie_nodes": hand[name]["stats"]["trie_nodes"],
+                "n_patterns": hand[name]["stats"]["n_patterns"],
+            }
+            for name in sorted(hand_scores)
+        },
+        "validation_hand_baselines": {
+            name: {
+                **score_block(hand[name]["validation_aggregate"]),
                 "trie_nodes": hand[name]["stats"]["trie_nodes"],
                 "n_patterns": hand[name]["stats"]["n_patterns"],
             }
@@ -489,13 +490,16 @@ def load_manuscript_baselines(path: Path) -> Dict[str, str]:
 
 
 def load_recorded_split_hashes(path: Path) -> Dict[str, Dict[str, str]]:
-    """Per-dataset split SHA-256 values from a previously published bootstrap_ci.json."""
+    """Per-dataset hashes from a previous canonical grouped-split audit."""
     if not path.is_file():
         return {}
     rows = json.loads(path.read_text(encoding="utf-8"))
     recorded: Dict[str, Dict[str, str]] = {}
     for row in rows:
-        splits = row.get("split_evidence", {}).get("splits", {})
+        split_evidence = row.get("split_evidence", {})
+        if not split_evidence.get("grouped_hash_membership_ok"):
+            continue
+        splits = split_evidence.get("splits", {})
         hashes = {
             name: evidence["sha256"]
             for name, evidence in splits.items()
@@ -517,8 +521,8 @@ def main() -> None:
         "--write-splits",
         action="store_true",
         help=(
-            "regenerate the deterministic mod-10 split from the source word list when a "
-            "run directory ships without split files (published artifact sets omit them)"
+            "regenerate the deterministic grouped split from the source word list "
+            "when a run directory ships without split files"
         ),
     )
     args = parser.parse_args()

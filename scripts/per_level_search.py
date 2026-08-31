@@ -4,7 +4,9 @@
 Each level searches the ordered weight ratios 1/5, 1/4, 1/3, 1/2, and 1..30.
 Ratios are converted to integer PATGEN parameters: 1/n becomes good_wt=n,
 bad_wt=1; integer n becomes good_wt=1, bad_wt=n. Each level independently
-searches threshold 1..5 by default.
+searches threshold 1..42 by default. Dataset splitting groups normalized word
+identities before a seeded hash-ranked 8/1/1 split. Source priorities, when
+present, are expanded in training only.
 """
 
 import argparse
@@ -20,8 +22,8 @@ from typing import Dict, List, Optional, Tuple
 from .dataset_utls import DEFAULT_PAT_RANGES, find_dataset, parse_profile
 from .gp_optimizer import GPOptimizer
 from .objectives import get_objective
+from .dataset_split import create_clean_split
 from .optimize_validation import (
-    create_mod10_split,
     evaluate_parameter_set,
     f17_score,
     failed_evaluation_result,
@@ -136,6 +138,7 @@ def write_history(path: str, rows: List[Dict[str, object]], n_levels: int) -> No
         writer.writerows(rows)
 
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Per-level GP search over weight ratios and thresholds"
@@ -145,7 +148,7 @@ def main() -> None:
     parser.add_argument("--translate")
     parser.add_argument("--patgen", default="patgen")
     parser.add_argument("--profile")
-    parser.add_argument("--output-dir", default="results/per_level_search")
+    parser.add_argument("--output-dir", default="results/gpopt260828")
     parser.add_argument("--iterations", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument("--seed", type=int, default=42)
@@ -171,11 +174,17 @@ def main() -> None:
         translate_path = os.path.abspath(args.translate)
     else:
         wordlist_path, translate_path = find_dataset(args.lang)
+    lang_dir = os.path.join(args.output_dir, args.lang)
+    os.makedirs(lang_dir, exist_ok=True)
+    split = create_clean_split(
+        wordlist_path, os.path.join(lang_dir, "splits"), seed=args.seed
+    )
+
 
     trie_normalizer = None
     if args.objective == "f17_trie":
         trie_normalizer, fixed = resolve_trie_normalizer(
-            args, wordlist_path, "scripts.per_level_search", dataset=args.lang
+            args, split["unique"], "scripts.per_level_search", dataset=args.lang
         )
         if fixed:
             warn_fixed_trie_normalizer(
@@ -199,9 +208,6 @@ def main() -> None:
         + [(args.min_threshold, args.max_threshold)] * n_levels
     )
 
-    lang_dir = os.path.join(args.output_dir, args.lang)
-    os.makedirs(lang_dir, exist_ok=True)
-    split = create_mod10_split(wordlist_path, os.path.join(lang_dir, "splits"))
     state_path = os.path.join(lang_dir, "final_state.pkl")
     history_path = os.path.join(lang_dir, "final_history.csv")
     patterns_path = os.path.join(lang_dir, "final_patterns.pat")
@@ -220,7 +226,16 @@ def main() -> None:
         "weight_values": list(WEIGHT_LABELS),
         "threshold_range": [args.min_threshold, args.max_threshold],
         "pattern_ranges": pat_ranges,
-        "split_counts": {key: split[f"{key}_count"] for key in ("train", "validation", "test")},
+        "split_counts": {
+            key: split[f"{key}_count"] for key in ("train", "validation", "test")
+        },
+        "split_type_counts": {
+            key: split[f"{key}_type_count"]
+            for key in ("train", "validation", "test")
+        },
+        "split_method": split["split_method"],
+        "weighted_training": split["weighted_training"] == "true",
+        "weighted_source": split["weighted_source"] or None,
     }
     with open(config_path, "w", encoding="utf-8") as handle:
         json.dump(config, handle, indent=2)

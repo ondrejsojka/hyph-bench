@@ -14,7 +14,7 @@ of canvas.
 This script builds candidate heroes from data already on disk:
 
   * held-out test points          results/gpopt260828_analysis/bootstrap_ci.json
-  * validation baseline points    results/paper2_baseline_validation_metrics.json
+  * validation baseline points    same canonical bootstrap_ci.json audit
   * the 153 recorded evaluations  results/gpopt260828/<lang>/<name>/final_history.csv
   * exported optimized patterns   results/gpopt260828/<lang>/<name>/final_patterns.pat
   * the recorded test split       results/gpopt260828/<lang>/<name>/splits/data.test.wlh
@@ -215,9 +215,6 @@ def load_cases(repo_root: Path) -> List[Case]:
     analysis = json.loads(
         (repo_root / "results/gpopt260828_analysis/bootstrap_ci.json").read_text("utf-8")
     )
-    val_base = json.loads(
-        (repo_root / "results/paper2_baseline_validation_metrics.json").read_text("utf-8")
-    )
     cases: List[Case] = []
     for entry in sorted(analysis, key=lambda e: e["dataset"]):
         dataset = entry["dataset"]
@@ -240,7 +237,7 @@ def load_cases(repo_root: Path) -> List[Case]:
                 label=short_name(dataset),
                 test_base=_metrics(entry["hand_baselines"][baseline_name]),
                 test_opt=_metrics(entry["optimized"]),
-                val_base=_metrics(val_base[dataset][baseline_name]),
+                val_base=_metrics(entry["validation_hand_baselines"][baseline_name]),
                 val_opt_trie=int(best[0][0]),
                 val_opt_err=float(best[0][1]),
                 history=np.asarray(history_rows, dtype=float),
@@ -892,6 +889,59 @@ def fig_mechanism(cases: List[Case], out_dir: Path, stats: dict) -> None:
     save(fig, out_dir, "hero_e_mechanism")
 
 
+def fig_hero_stack(cases: List[Case], out_dir: Path, stats: dict) -> None:
+    """Panels B and E as one two-row figure sharing frame geometry.
+
+    Saving the panels separately with a tight bounding box lets each panel's
+    y-label extent set its own left edge, so the frames do not align once both
+    are scaled to \\columnwidth. One figure, one subplot column: same axes
+    rectangle for both rows.
+    """
+    case = next(c for c in cases if c.dataset == FLAGSHIP)
+    fig, axes = plt.subplots(2, 1, figsize=(4.0, 6.55))
+
+    med_t, med_e = _gain_axes(axes[0], cases)
+    axes[0].annotate(
+        "every hand-tuned baseline\nis this one point",
+        xy=(1.0, 1.0),
+        xytext=(0.585, 1.06),
+        fontsize=7.4,
+        color=BLUE,
+        ha="center",
+        va="bottom",
+        arrowprops=dict(arrowstyle="-", color=BLUE, lw=0.7, shrinkA=1, shrinkB=6),
+    )
+    axes[0].text(
+        math.sqrt(axes[0].get_xlim()[0] * med_t),
+        1.06,
+        f"median: {1 / med_t:.1f}× smaller,\n{med_e:.1f}× fewer errors",
+        fontsize=7.4,
+        color=GREEN,
+        ha="center",
+        va="bottom",
+    )
+    axes[0].set_title("All 17 datasets", loc="left", fontsize=8.6)
+
+    stats["hero_stack"] = _mechanism_panel(axes[1], case)
+    axes[1].set_title(
+        f"One dataset ({case.label}): the trade-off is a curve", loc="left", fontsize=8.6
+    )
+    axes[1].legend(
+        handles=[
+            Line2D([], [], marker="o", ls="", color=MUTED, ms=3.6, label="153 evaluated profiles"),
+            Line2D([], [], color=GREEN, lw=1.6, label="attainable frontier"),
+        ],
+        loc="upper right",
+        fontsize=7.2,
+    )
+
+    fig.tight_layout(h_pad=2.2)
+    fig.align_ylabels(axes)
+    place_labels(axes[0], [c.trie_ratio for c in cases], [c.err_gain for c in cases],
+                 [c.label for c in cases])
+    save(fig, out_dir, "hero_stack")
+
+
 
 
 # ---------------------------------------------------------------------------
@@ -1514,6 +1564,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "frontiers": lambda: fig_frontiers(cases, out_dir, stats),
         "twopanel": lambda: fig_twopanel(cases, out_dir, stats),
         "mechanism": lambda: fig_mechanism(cases, out_dir, stats),
+        "stack": lambda: fig_hero_stack(cases, out_dir, stats),
         "readout": lambda: fig_readout(cases, out_dir, stats),
         "multiples": lambda: fig_multiples(cases, out_dir, stats),
         "lollipop": lambda: fig_lollipop(cases, out_dir, stats),
