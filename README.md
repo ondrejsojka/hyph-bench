@@ -21,7 +21,7 @@
 - Applications that need a runtime hyphenation library; this repository generates and evaluates patterns, it is not a hyphenation engine for documents.
 - Languages without a hyphenated word list. PATGEN learns from examples; without training data there is nothing to optimize.
 
-This is not a PATGEN replacement: the optimizer drives a stock TeX Live `patgen` binary.
+This is not a PATGEN replacement: the optimizer drives an unmodified TeX Live `patgen` binary. The paper runs use a build whose only change is raised Web2C capacity limits, so that the largest datasets fit; the algorithm is stock PATGEN either way. The exact limits and how to build them are in [docs/REPRODUCING.md](docs/REPRODUCING.md#requirements).
 
 ## The measure
 
