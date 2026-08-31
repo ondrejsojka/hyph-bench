@@ -66,6 +66,7 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/summary.json
 !results/gpopt260828_analysis/selector_ablation.json
 !results/gpopt260828_analysis/selector_ablation_table.tex
+!results/gpopt260828_analysis/wortliste8_regeneration.json
 
 # Publish the budget-matched GP/TPE/Random comparison (paper appendix table
 # source) and the threshold ablation: summaries, histories, and logs. Optimizer
