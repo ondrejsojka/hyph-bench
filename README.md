@@ -125,6 +125,7 @@ The command uses the repository's Liang-pattern implementation; it does not subs
 - `scripts/`: preprocessing, optimization, evaluation, and reporting code. `scripts.per_level_search` is the canonical workflow; much of the rest serves the paper experiments.
 - `results/`: paper run histories, selected profiles, ablations, and figures — historical evidence, not needed to use the optimizer.
 - `docs/REPRODUCING.md`: the paper reproduction and audit protocol.
+- `docs/future_work.md`: known deferred items — data-quality residues, tooling gaps, and planned experiments.
 
 ## Datasets and licenses
 
