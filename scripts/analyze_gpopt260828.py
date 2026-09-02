@@ -10,8 +10,10 @@ directory this script:
 * validates exact seeded hash membership, surface disjointness, counts, and
   SHA-256 hashes and, when a previous ``bootstrap_ci.json`` is present, checks
   its recorded split hashes,
-* regenerates the selected optimized profile and the manuscript's hand-tuned
-  baseline profiles on the stored train split with the recorded PATGEN binary,
+* regenerates the selected optimized profile and both hand-tuned baseline
+  profiles on the stored train split with the recorded PATGEN binary, and
+  picks the comparison baseline per dataset by validation F_{1/7} (never by
+  the held-out score),
 * asserts that the regenerated optimized held-out Good/Bad/Missed aggregates
   and F_{1/7} exactly reproduce the recorded ``selected_profile.json`` values,
 * evaluates optimized and baseline patterns per held-out test-list line and
@@ -285,6 +287,7 @@ def analyze_dataset(
     results_dir: str,
     write_splits: bool,
     recorded_split_hashes: Dict[str, str],
+    enforce_manuscript_baseline: bool,
 ) -> Dict[str, object]:
     profile_path = Path(profile_path_str)
     run_dir = profile_path.parent
@@ -378,12 +381,16 @@ def analyze_dataset(
         assert name in hand, f"hand baseline {name} failed"
 
     hand_scores = {name: score_block(entry["aggregate"]) for name, entry in hand.items()}
-    best_name = max(hand_scores, key=lambda name: hand_scores[name]["f17"])
+    hand_validation_scores = {
+        name: score_block(entry["validation_aggregate"]) for name, entry in hand.items()
+    }
+    best_name = max(hand_validation_scores, key=lambda name: hand_validation_scores[name]["f17"])
     manuscript_name = manuscript_baselines.get(dataset)
     manuscript_consistent = manuscript_name is None or manuscript_name == best_name
-    assert manuscript_consistent, (
-        f"regenerated best baseline {best_name} != manuscript baseline {manuscript_name}"
-    )
+    if enforce_manuscript_baseline:
+        assert manuscript_consistent, (
+            f"regenerated best baseline {best_name} != manuscript baseline {manuscript_name}"
+        )
 
     best = hand[best_name]
     base_agg = best["aggregate"]
@@ -426,12 +433,13 @@ def analyze_dataset(
         },
         "validation_hand_baselines": {
             name: {
-                **score_block(hand[name]["validation_aggregate"]),
+                **hand_validation_scores[name],
                 "trie_nodes": hand[name]["stats"]["trie_nodes"],
                 "n_patterns": hand[name]["stats"]["n_patterns"],
             }
             for name in sorted(hand_scores)
         },
+        "best_baseline_rule": "max_validation_f17",
         "best_baseline": best_name,
         "manuscript_baseline": manuscript_name,
         "manuscript_consistent": manuscript_consistent,
@@ -525,6 +533,11 @@ def main() -> None:
             "when a run directory ships without split files"
         ),
     )
+    parser.add_argument(
+        "--allow-baseline-changes",
+        action="store_true",
+        help="report corrected best-baseline changes instead of requiring the old manuscript choice",
+    )
     args = parser.parse_args()
 
     results_dir = Path(args.results_dir)
@@ -552,6 +565,7 @@ def main() -> None:
                 recorded_split_hashes.get(
                     Path(profile_path).parent.relative_to(results_dir).as_posix(), {}
                 ),
+                not args.allow_baseline_changes,
             ): profile_path
             for index, profile_path in enumerate(profiles, start=1)
         }
