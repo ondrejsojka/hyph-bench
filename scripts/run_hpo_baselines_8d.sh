@@ -10,7 +10,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}" || exit 1
 
 PATGEN_BIN="${PATGEN_BIN:-/home/dev/patgen-10x}"
-OUTPUT_DIR="${OUTPUT_DIR:-results/hpo_baselines_8d}"
+OUTPUT_DIR="${OUTPUT_DIR:-results/hpo_baselines_grouped}"
 MAX_PARALLEL="${MAX_PARALLEL:-2}"
 LOG_DIR="${OUTPUT_DIR}/_logs"
 STATUS_FILE="${LOG_DIR}/run-status.tsv"

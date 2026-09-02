@@ -20,7 +20,7 @@ selected_profile.json files, which used the identical protocol and seed.
 Usage:
     PATGEN_BIN=/home/dev/patgen-10x uv run python -m scripts.per_level_hpo_baselines \
         --lang cssk/cshyphen --method tpe --patgen "$PATGEN_BIN" \
-        --output-dir results/hpo_baselines_8d
+        --output-dir results/hpo_baselines_grouped
 """
 
 import argparse
@@ -62,7 +62,7 @@ def main() -> None:
     parser.add_argument("--method", required=True, choices=["random", "tpe"])
     parser.add_argument("--patgen", default="patgen")
     parser.add_argument("--profile")
-    parser.add_argument("--output-dir", default="results/hpo_baselines_8d")
+    parser.add_argument("--output-dir", default="results/hpo_baselines_grouped")
     parser.add_argument("--iterations", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=5)
     parser.add_argument("--final-extra", type=int, default=3,
