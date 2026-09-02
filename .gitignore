@@ -66,6 +66,7 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/summary.json
 !results/gpopt260828_analysis/selector_ablation.json
 !results/gpopt260828_analysis/selector_ablation_table.tex
+!results/gpopt260828_analysis/wortliste8_regeneration.json
 
 # Publish the derived statistics quoted in the figure captions (permutation
 # importance shares, anytime medians, random-draw dominance). Figures themselves

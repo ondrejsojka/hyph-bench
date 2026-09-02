@@ -1,0 +1,19 @@
+{
+  "profile": "profiles/wortliste8.in",
+  "dataset": "de/wortliste",
+  "levels": 8,
+  "train_split": "results/gpopt260828/de/wortliste/splits/data.train.wlh",
+  "test_split": "results/gpopt260828/de/wortliste/splits/data.test.wlh",
+  "patgen": "/home/dev/patgen-10x",
+  "f17": 0.9910892181783797,
+  "precision": 0.9910819567034149,
+  "recall": 0.9914451608470093,
+  "good": 173144,
+  "bad": 1558,
+  "missed": 1494,
+  "train_good": 1397464,
+  "train_bad": 0,
+  "train_missed": 0,
+  "n_patterns": 42175,
+  "trie_nodes": 50861
+}
