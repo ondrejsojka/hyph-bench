@@ -4,14 +4,19 @@
   "resamples": 10000,
   "seed": 20260829,
   "bootstrap": "paired percentile 95% intervals over held-out test word-list lines",
-  "positive_delta_count": 17,
-  "bootstrap_positive_ci_count": 17,
-  "crossing_zero_count": 0,
-  "crossing_zero_datasets": [],
+  "positive_delta_count": 16,
+  "bootstrap_positive_ci_count": 16,
+  "crossing_zero_count": 1,
+  "crossing_zero_datasets": [
+    "tr/wiktionary"
+  ],
   "negative_ci_count": 0,
-  "median_delta_f17": 0.03479960306295127,
-  "median_trie_ratio": 0.34837758112094397,
-  "manuscript_baseline_mismatches": [],
+  "median_delta_f17": 0.003919790103458443,
+  "median_trie_ratio": 0.40736896730669436,
+  "manuscript_baseline_mismatches": [
+    "es/wiktionary",
+    "pt/wiktionary"
+  ],
   "all_split_assertions_passed": true,
   "all_aggregate_assertions_passed": true,
   "artifacts": {

@@ -1,297 +1,297 @@
 {
  "axis_decompression": {
-  "factor": 6.2,
-  "linear_axis_share_pct": 5.2,
-  "log_axis_share_pct": 32.0,
-  "n_crowded": 8
+  "factor": 9.0,
+  "linear_axis_share_pct": 6.9,
+  "log_axis_share_pct": 62.0,
+  "n_crowded": 14
  },
  "frontier_band": {
-  "median_gain_at_equal_size": 3.33,
-  "median_gain_at_one_fifth_size": 2.47,
-  "median_gain_at_one_third_size": 2.64
+  "median_gain_at_equal_size": 2.18,
+  "median_gain_at_one_fifth_size": 1.8,
+  "median_gain_at_one_third_size": 2.02
  },
  "frontier_cost_of_halving": {
-  "datasets_with_half_size_point": 13,
-  "median_error_inflation": 1.56
+  "datasets_with_half_size_point": 15,
+  "median_error_inflation": 1.79
  },
  "frontiers": {
-  "median_points": 10,
-  "median_trie_sweep": 2.44,
+  "median_points": 12,
+  "median_trie_sweep": 2.98,
   "per_dataset": {
    "cs": {
-    "error_sweep": 9.38,
-    "n_points": 10,
+    "error_sweep": 9.49,
+    "n_points": 17,
     "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.77
+    "trie_sweep": 4.46
    },
    "cs/ctt": {
-    "error_sweep": 1.23,
-    "n_points": 9,
+    "error_sweep": 8.12,
+    "n_points": 8,
     "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.15
+    "trie_sweep": 1.98
    },
    "cs/ujc": {
-    "error_sweep": 19.13,
-    "n_points": 13,
+    "error_sweep": 13.84,
+    "n_points": 12,
     "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 3.6
+    "trie_sweep": 5.67
    },
    "cssk": {
-    "error_sweep": 6.58,
-    "n_points": 8,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 1.84
-   },
-   "de": {
-    "error_sweep": 3.34,
-    "n_points": 8,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.47
-   },
-   "de/wl": {
-    "error_sweep": 4.26,
-    "n_points": 13,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 3.79
-   },
-   "el": {
-    "error_sweep": 4.28,
-    "n_points": 10,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 1.95
-   },
-   "es": {
-    "error_sweep": 7.96,
-    "n_points": 10,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.41
-   },
-   "is": {
-    "error_sweep": 1.41,
-    "n_points": 7,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 1.77
-   },
-   "it": {
-    "error_sweep": 11.33,
-    "n_points": 16,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 1.91
-   },
-   "nl": {
-    "error_sweep": 20.96,
-    "n_points": 10,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 4.16
-   },
-   "pl": {
-    "error_sweep": 20.72,
-    "n_points": 10,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.25
-   },
-   "pt": {
-    "error_sweep": 16.29,
-    "n_points": 16,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.61
-   },
-   "ru": {
-    "error_sweep": 6.63,
-    "n_points": 19,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 8.17
-   },
-   "th": {
-    "error_sweep": 2.7,
-    "n_points": 13,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 3.54
-   },
-   "tr": {
-    "error_sweep": 42.35,
-    "n_points": 16,
-    "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.44
-   },
-   "uk": {
-    "error_sweep": 12.19,
+    "error_sweep": 24.34,
     "n_points": 11,
     "selected_is_largest_trie_on_frontier": true,
-    "trie_sweep": 2.15
+    "trie_sweep": 2.96
+   },
+   "de": {
+    "error_sweep": 6.51,
+    "n_points": 14,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 5.34
+   },
+   "de/wl": {
+    "error_sweep": 15.81,
+    "n_points": 10,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 3.28
+   },
+   "el": {
+    "error_sweep": 12.11,
+    "n_points": 10,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.36
+   },
+   "es": {
+    "error_sweep": 6.47,
+    "n_points": 14,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.21
+   },
+   "is": {
+    "error_sweep": 4.07,
+    "n_points": 9,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 3.5
+   },
+   "it": {
+    "error_sweep": 16.44,
+    "n_points": 13,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 1.83
+   },
+   "nl": {
+    "error_sweep": 14.63,
+    "n_points": 17,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 5.03
+   },
+   "pl": {
+    "error_sweep": 17.86,
+    "n_points": 11,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 3.25
+   },
+   "pt": {
+    "error_sweep": 11.55,
+    "n_points": 19,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.2
+   },
+   "ru": {
+    "error_sweep": 4.48,
+    "n_points": 17,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 11.75
+   },
+   "th": {
+    "error_sweep": 1.37,
+    "n_points": 10,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.83
+   },
+   "tr": {
+    "error_sweep": 29.56,
+    "n_points": 15,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.62
+   },
+   "uk": {
+    "error_sweep": 7.65,
+    "n_points": 12,
+    "selected_is_largest_trie_on_frontier": true,
+    "trie_sweep": 2.98
    }
   },
   "selected_at_large_trie_end": 17
  },
  "gain_plane": {
-  "all_in_better_quadrant": 17,
-  "median_error_gain": 3.717,
-  "median_trie_ratio": 0.3484,
-  "weakest_error_gain": 2.15,
-  "weakest_trie_ratio": 0.79
+  "all_in_better_quadrant": 16,
+  "median_error_gain": 2.098,
+  "median_trie_ratio": 0.4074,
+  "weakest_error_gain": 0.966,
+  "weakest_trie_ratio": 0.954
  },
  "headline": {
-  "datasets_better_on_both_axes": 17,
-  "median_error_gain": 3.717,
-  "median_error_ratio": 0.269,
-  "median_trie_ratio": 0.3484,
-  "median_wrong_hyphen_ratio": 0.2037
+  "datasets_better_on_both_axes": 16,
+  "median_error_gain": 2.098,
+  "median_error_ratio": 0.4766,
+  "median_trie_ratio": 0.4074,
+  "median_wrong_hyphen_ratio": 0.3018
  },
  "hero_stack": {
-  "fewer": 4.496801140111162,
-  "smaller": 2.881820467689213
+  "fewer": 1.4054907999532549,
+  "smaller": 1.7219050480769231
  },
  "mechanism": {
-  "fewer": 4.496801140111162,
-  "smaller": 2.881820467689213
+  "fewer": 1.4054907999532549,
+  "smaller": 1.7219050480769231
  },
  "precision_recall": {
   "datasets_losing_recall": 17,
-  "median_precision_gain": 0.0358,
-  "median_recall_loss": -0.056,
-  "median_wrong_hyphen_ratio": 0.2037,
+  "median_precision_gain": 0.005,
+  "median_recall_loss": -0.0392,
+  "median_wrong_hyphen_ratio": 0.3018,
   "worst_recall": [
-   0.5326,
+   0.6695,
    "ru"
   ]
  },
  "profile_space": {
   "classical_thresholds_all_one": true,
   "datasets_with_level1_ratio_above_cshyphen": 16,
-  "datasets_with_level4_ratio_below_one": 6,
+  "datasets_with_level4_ratio_below_one": 15,
   "datasets_with_threshold_above_one": {
    "level_1": 17,
-   "level_2": 12,
+   "level_2": 17,
    "level_3": 17,
-   "level_4": 12
+   "level_4": 7
   },
   "median_thresholds": [
-   37.0,
-   8.0,
-   32.0,
-   3.0
+   15.0,
+   22.0,
+   16.0,
+   1.0
   ],
   "median_weight_ratios": [
-   29.0,
-   0.333,
-   24.0,
-   6.0
+   23.0,
+   15.0,
+   19.0,
+   0.2
   ]
  },
  "qualitative": {
   "dataset": "cs/wiktionary",
-  "exact_pct": 49.0,
-  "false_pct": 1.0,
-  "missed_pct": 50.0,
+  "exact_pct": 60.4,
+  "false_pct": 1.4,
+  "missed_pct": 38.2,
   "n_words": 1413
  },
  "size_normalization": {
-  "raw_trie_decades": 1.75,
-  "trie_per_1k_words_decades": 2.71
+  "raw_trie_decades": 1.78,
+  "trie_per_1k_words_decades": 2.74
  },
  "space": {
-  "all_evals_dominating_pct": 73.0,
-  "datasets_with_dominating_random_draw": 17,
-  "random_draws_dominating_pct": 74.1
+  "all_evals_dominating_pct": 43.3,
+  "datasets_with_dominating_random_draw": 11,
+  "random_draws_dominating_pct": 30.6
  },
  "two_way_readout": {
-  "median_fewer_errors_at_equal_size": 3.33,
-  "median_smaller_at_equal_accuracy": 6.03,
+  "median_fewer_errors_at_equal_size": 2.18,
+  "median_smaller_at_equal_accuracy": 4.93,
   "per_dataset": {
    "cs": [
-    10.54,
-    4.23
+    10.51,
+    2.18
    ],
    "cs/ctt": [
-    3.5,
-    2.23
+    2.29,
+    1.25
    ],
    "cs/ujc": [
     12.92,
-    8.14
+    2.48
    ],
    "cssk": [
-    2.88,
-    4.5
+    1.72,
+    1.41
    ],
    "de": [
-    6.03,
-    4.69
+    2.62,
+    1.46
    ],
    "de/wl": [
-    8.01,
-    2.93
-   ],
-   "el": [
-    5.56,
-    3.33
-   ],
-   "es": [
-    3.08,
+    6.06,
     2.16
    ],
+   "el": [
+    4.93,
+    2.82
+   ],
+   "es": [
+    1.53,
+    1.54
+   ],
    "is": [
-    10.97,
-    3.9
+    10.86,
+    2.2
    ],
    "it": [
-    3.43,
-    2.76
+    3.42,
+    3.53
    ],
    "nl": [
-    5.84,
-    2.44
+    3.19,
+    1.55
    ],
    "pl": [
-    6.11,
-    6.86
+    5.54,
+    2.86
    ],
    "pt": [
-    3.26,
-    3.78
+    2.36,
+    1.78
    ],
    "ru": [
-    35.46,
-    2.52
+    33.39,
+    1.98
    ],
    "th": [
-    16.88,
-    2.23
+    15.26,
+    2.34
    ],
    "tr": [
-    2.89,
-    2.97
+    2.14,
+    2.35
    ],
    "uk": [
-    8.01,
-    3.97
+    7.96,
+    2.18
    ]
   }
  },
  "twopanel": {
   "cs/cshyphen_ujc": {
-   "fewer": 8.138159860645654,
+   "fewer": 2.483506863840857,
    "smaller": 12.917924528301887
   },
   "cssk/cshyphen": {
-   "fewer": 4.496801140111162,
-   "smaller": 2.881820467689213
+   "fewer": 1.4054907999532549,
+   "smaller": 1.7219050480769231
   }
  },
  "variance_decomposition": {
   "error": {
-   "axis_decades": 1.72,
-   "between_dataset_var": 0.1044,
-   "between_share_pct": 57.1,
-   "median_displacement_decades": 0.57,
-   "method_var": 0.0783
+   "axis_decades": 2.91,
+   "between_dataset_var": 0.4664,
+   "between_share_pct": 94.3,
+   "median_displacement_decades": 0.32,
+   "method_var": 0.028
   },
   "trie": {
-   "axis_decades": 1.75,
-   "between_dataset_var": 0.2254,
-   "between_share_pct": 78.6,
-   "median_displacement_decades": 0.46,
-   "method_var": 0.0612
+   "axis_decades": 1.78,
+   "between_dataset_var": 0.2571,
+   "between_share_pct": 86.3,
+   "median_displacement_decades": 0.39,
+   "method_var": 0.0408
   }
  }
 }
