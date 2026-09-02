@@ -73,6 +73,7 @@ def style() -> None:
         {
             "figure.dpi": 120,
             "savefig.dpi": 120,
+            "pdf.fonttype": 42,
             "font.size": 8.5,
             "axes.titlesize": 9,
             "axes.labelsize": 8.5,

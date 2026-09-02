@@ -211,17 +211,15 @@ def _weight(text: str) -> float:
     return float(text)
 
 
-def load_cases(repo_root: Path) -> List[Case]:
-    analysis = json.loads(
-        (repo_root / "results/gpopt260828_analysis/bootstrap_ci.json").read_text("utf-8")
-    )
+def load_cases(analysis_path: Path, run_dir: Path) -> List[Case]:
+    analysis = json.loads(analysis_path.read_text("utf-8"))
     cases: List[Case] = []
     for entry in sorted(analysis, key=lambda e: e["dataset"]):
         dataset = entry["dataset"]
         baseline_name = entry["best_baseline"]
         history_rows: List[Tuple[float, float]] = []
         best: Tuple[Optional[Tuple[float, float]], float] = (None, -math.inf)
-        path = repo_root / "results/gpopt260828" / dataset / "final_history.csv"
+        path = run_dir / dataset / "final_history.csv"
         with path.open(encoding="utf-8") as handle:
             for record in csv.DictReader(handle):
                 trie = int(record["trie_nodes"])
@@ -759,36 +757,26 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
     fewer = be / same_size[:, 1].min()
 
     y_lo, y_hi = f17_axis(ax, hist[:, 1].tolist() + [be])
-    ax.set_ylim(1 - 0.88, y_hi)
+    # With guides on, the annotation occupies the top band of the axes; push the
+    # axis top further from the best profiles so text never covers the markers.
+    ax.set_ylim(1 - 0.88, y_hi / 1.8 if guides else y_hi)
     x_lo, x_hi = min(hist[:, 0].min(), bt) / 1.8, bt * 2.0
     ax.set_xlim(x_lo, x_hi)
     trie_axis(ax, [x_lo, x_hi])
 
     if guides:
-        ax.plot([same_acc[:, 0].min(), bt], [be, be], color=WARM, lw=0.9, ls=(0, (3, 2)), zorder=3)
-        ax.plot([same_acc[:, 0].min()], [be], "o", ms=3.6, color=WARM, zorder=5)
-        ax.annotate(
-            f"same accuracy,\n{smaller:.1f}× smaller",
-            xy=(math.sqrt(same_acc[:, 0].min() * bt), be),
-            xytext=(0, -12),
-            textcoords="offset points",
+        ax.text(
+            0.035,
+            0.95,
+            f"at baseline accuracy: {smaller:.1f}× smaller\n"
+            f"at baseline size: {fewer:.1f}× fewer residual errors",
+            transform=ax.transAxes,
             fontsize=7.2,
             color=WARM,
-            ha="center",
+            ha="left",
             va="top",
-        )
-        best_same_size = same_size[np.argmin(same_size[:, 1])]
-        ax.plot([bt, bt], [be, best_same_size[1]], color=WARM, lw=0.9, ls=(0, (3, 2)), zorder=3)
-        ax.plot([bt], [best_same_size[1]], "o", ms=3.6, color=WARM, zorder=5)
-        ax.annotate(
-            f"same size,\n{fewer:.1f}× fewer errors",
-            xy=(bt, math.sqrt(be * best_same_size[1])),
-            xytext=(-6, 0),
-            textcoords="offset points",
-            fontsize=7.2,
-            color=WARM,
-            ha="right",
-            va="center",
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.88, "pad": 1.5},
+            zorder=8,
         )
 
     ax.plot([bt], [be], "o", ms=7.0, mfc="white", mec=BLUE, mew=1.5, zorder=6)
@@ -796,21 +784,21 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
     ax.annotate(
         "hand-tuned",
         xy=(bt, be),
-        xytext=(7, -8),
+        xytext=(7, 4),
         textcoords="offset points",
         fontsize=7.4,
         color=BLUE,
         ha="left",
-        va="top",
+        va="bottom",
     )
     ax.annotate(
-        "reported",
+        "selected",
         xy=(case.val_opt_trie, case.val_opt_err),
-        xytext=(11, -3),
+        xytext=(-14, -19),
         textcoords="offset points",
         fontsize=7.4,
         color=GREEN,
-        ha="left",
+        ha="right",
         va="top",
     )
     ax.set_xlabel("pattern trie size (nodes)\u2003←\u2002smaller")
@@ -856,7 +844,7 @@ def _twopanel(cases: List[Case], dataset: str, out_dir: Path, stem: str) -> dict
         va="bottom",
         arrowprops=dict(arrowstyle="-", color=BLUE, lw=0.7, shrinkA=1, shrinkB=4),
     )
-    axes[1].set_title("(b) all 17 datasets: it always happens", loc="left", fontsize=8.6)
+    axes[1].set_title("(b) all 17 datasets", loc="left", fontsize=8.6)
     fig.tight_layout()
     place_labels(axes[1], [c.trie_ratio for c in cases], [c.err_gain for c in cases],
                  [c.label for c in cases], fontsize=7.0, radius=8.0)
@@ -904,7 +892,7 @@ def fig_hero_stack(cases: List[Case], out_dir: Path, stats: dict) -> None:
     axes[0].annotate(
         "every hand-tuned baseline\nis this one point",
         xy=(1.0, 1.0),
-        xytext=(0.585, 1.06),
+        xytext=(0.50, 1.10),
         fontsize=7.4,
         color=BLUE,
         ha="center",
@@ -913,7 +901,7 @@ def fig_hero_stack(cases: List[Case], out_dir: Path, stats: dict) -> None:
     )
     axes[0].text(
         math.sqrt(axes[0].get_xlim()[0] * med_t),
-        1.06,
+        1.02,
         f"median: {1 / med_t:.1f}× smaller,\n{med_e:.1f}× fewer errors",
         fontsize=7.4,
         color=GREEN,
@@ -931,8 +919,11 @@ def fig_hero_stack(cases: List[Case], out_dir: Path, stats: dict) -> None:
             Line2D([], [], marker="o", ls="", color=MUTED, ms=3.6, label="153 evaluated profiles"),
             Line2D([], [], color=GREEN, lw=1.6, label="attainable frontier"),
         ],
-        loc="upper right",
+        loc="lower left",
         fontsize=7.2,
+        frameon=True,
+        framealpha=0.9,
+        edgecolor="none",
     )
 
     fig.tight_layout(h_pad=2.2)
@@ -1221,12 +1212,12 @@ def fig_space(cases: List[Case], out_dir: Path, stats: dict) -> None:
     ax.annotate(
         "hand-tuned",
         xy=(1.0, 1.0),
-        xytext=(-8, -10),
+        xytext=(8, 8),
         textcoords="offset points",
         fontsize=7.6,
         color=BLUE,
-        ha="right",
-        va="top",
+        ha="left",
+        va="bottom",
     )
     ax.legend(
         handles=[
@@ -1265,7 +1256,7 @@ def _breaks(word: str) -> set:
     return out
 
 
-def hyphenation_examples(repo_root: Path, dataset: str, limit: int = 3000) -> dict:
+def hyphenation_examples(run_dir: Path, repo_root: Path, dataset: str, limit: int = 3000) -> dict:
     """Real optimized-profile hyphenations against gold, from the recorded test split."""
     import sys
 
@@ -1273,11 +1264,11 @@ def hyphenation_examples(repo_root: Path, dataset: str, limit: int = 3000) -> di
     from scripts.hyphenator.hyphenator import Hyphenator  # noqa: E402
 
     hyphenator = Hyphenator(
-        str(repo_root / "results/gpopt260828" / dataset / "final_patterns.pat"),
+        str(run_dir / dataset / "final_patterns.pat"),
         hyphenation_mark="-",
         translate_file=str(repo_root / TRANSLATE_FILES[dataset]),
     )
-    gold_path = repo_root / "results/gpopt260828" / dataset / "splits/data.test.wlh"
+    gold_path = run_dir / dataset / "splits/data.test.wlh"
     words = [w.strip() for w in gold_path.read_text("utf-8").splitlines() if w.strip()]
     false_pos, missed, exact = [], [], []
     for word in words[:limit]:
@@ -1295,9 +1286,11 @@ def hyphenation_examples(repo_root: Path, dataset: str, limit: int = 3000) -> di
     return {"false_pos": false_pos, "missed": missed, "exact": exact}
 
 
-def fig_words(cases: List[Case], repo_root: Path, out_dir: Path, stats: dict) -> None:
+def fig_words(
+    cases: List[Case], repo_root: Path, run_dir: Path, out_dir: Path, stats: dict
+) -> None:
     case = next(c for c in cases if c.dataset == QUALITATIVE)
-    examples = hyphenation_examples(repo_root, QUALITATIVE)
+    examples = hyphenation_examples(run_dir, repo_root, QUALITATIVE)
     picks = (
         [("exact", *p) for p in examples["exact"][:4]]
         + [("missed", *p) for p in examples["missed"][:3]]
@@ -1539,9 +1532,16 @@ def diagnosis_stats(cases: List[Case], stats: dict) -> None:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser = argparse.ArgumentParser(
+        description=(__doc__ or "Generate paper figures").splitlines()[0]
+    )
     parser.add_argument("--repo-root", default=".")
     parser.add_argument("--output-dir", default="results/hero_suggestion_figures")
+    parser.add_argument(
+        "--analysis",
+        default="results/gpopt260828_analysis/bootstrap_ci.json",
+    )
+    parser.add_argument("--run-dir", default="results/gpopt260828")
     parser.add_argument("--copy-to", default=None, help="also copy every PDF here")
     parser.add_argument("--only", action="append", help="render only these keys (repeatable)")
     args = parser.parse_args(argv)
@@ -1552,7 +1552,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         out_dir = repo_root / out_dir
 
     style()
-    cases = load_cases(repo_root)
+    analysis_path = Path(args.analysis)
+    if not analysis_path.is_absolute():
+        analysis_path = repo_root / analysis_path
+    run_dir = Path(args.run_dir)
+    if not run_dir.is_absolute():
+        run_dir = repo_root / run_dir
+    cases = load_cases(analysis_path, run_dir)
     print(f"{len(cases)} datasets, {len(cases[0].history)} evaluations each")
     stats: dict = {}
     diagnosis_stats(cases, stats)
@@ -1570,7 +1576,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "lollipop": lambda: fig_lollipop(cases, out_dir, stats),
         "pr": lambda: fig_pr(cases, out_dir, stats),
         "space": lambda: fig_space(cases, out_dir, stats),
-        "words": lambda: fig_words(cases, repo_root, out_dir, stats),
+        "words": lambda: fig_words(cases, repo_root, run_dir, out_dir, stats),
         "profiles": lambda: fig_profiles(cases, out_dir, stats),
     }
     for key in args.only or list(builders):
