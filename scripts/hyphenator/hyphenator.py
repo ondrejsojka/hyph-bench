@@ -27,7 +27,8 @@ class Hyphenator:
         :param word: string to be hyphenated
         :return: word with injected hyphenation marks
         """
-        word_bounded = self.word_boundary + re.sub(re.escape(self.hyphenation_mark), "", word.lower()) + self.word_boundary
+        plain_word = re.sub(re.escape(self.hyphenation_mark), "", word)
+        word_bounded = self.word_boundary + plain_word.lower() + self.word_boundary
         levels = [0 for _ in range(len(word_bounded)-1)]
 
         for i in range(len(word_bounded)-1):
@@ -39,8 +40,40 @@ class Hyphenator:
                 for index, value in outputs:
                     levels[i + index - 1] = max(int(value), levels[i + index - 1])
         hyphenated = ""
-        for i,letter in enumerate(re.sub(re.escape(self.hyphenation_mark), "", word)):
-            if levels[i] > 0 and levels[i] % 2 == 1 and self.left_hyphen_min <= i <= len(word) - self.right_hyphen_min:
+        for i,letter in enumerate(plain_word):
+            if levels[i] > 0 and levels[i] % 2 == 1 and self.left_hyphen_min <= i <= len(plain_word) - self.right_hyphen_min:
                 hyphenated += self.hyphenation_mark
             hyphenated += letter
         return hyphenated
+
+    def score(self, correct: str):
+        """
+        Count hyphenation points of a gold-annotated word against this hyphenator.
+        Gold marks outside the legal zone [left_hyphen_min, len - right_hyphen_min]
+        can never be predicted and are ignored, as PATGEN does.
+        :param correct: word with gold hyphenation marks
+        :return: (good, bad, missed)
+        """
+        mark = self.hyphenation_mark
+        predicted = self.hyphenate(correct)
+        n_letters = len(correct) - correct.count(mark)
+        lo, hi = self.left_hyphen_min, n_letters - self.right_hyphen_min
+        good = bad = missed = 0
+        i_corr = i_pred = letters = 0
+        while i_corr < len(correct) and i_pred < len(predicted):
+            if correct[i_corr] == mark and predicted[i_pred] == mark:
+                good += 1
+                i_corr += 1
+                i_pred += 1
+            elif predicted[i_pred] == mark:
+                bad += 1
+                i_pred += 1
+            elif correct[i_corr] == mark:
+                if lo <= letters <= hi:
+                    missed += 1
+                i_corr += 1
+            else:
+                i_corr += 1
+                i_pred += 1
+                letters += 1
+        return good, bad, missed

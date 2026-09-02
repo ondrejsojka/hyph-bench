@@ -144,23 +144,10 @@ def evaluate_patterns(wordlist_path: str, pattern_path: str, translate_path: str
 
     with open(wordlist_path, encoding="utf-8") as wordlist:
         for correct in wordlist:
-            correct = correct.strip()
-            hyphenated = hyphenator.hyphenate(correct)
-            i_corr, i_hyph = 0, 0
-            while i_corr < len(correct) and i_hyph < len(hyphenated):
-                if correct[i_corr] == "-" and hyphenated[i_hyph] == "-":
-                    good += 1
-                    i_corr += 1
-                    i_hyph += 1
-                elif hyphenated[i_hyph] == "-":
-                    bad += 1
-                    i_hyph += 1
-                elif correct[i_corr] == "-":
-                    missed += 1
-                    i_corr += 1
-                else:
-                    i_corr += 1
-                    i_hyph += 1
+            line_good, line_bad, line_missed = hyphenator.score(correct.strip())
+            good += line_good
+            bad += line_bad
+            missed += line_missed
 
     return {"good": good, "bad": bad, "missed": missed}
 

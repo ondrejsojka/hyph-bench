@@ -139,23 +139,10 @@ class Validator:
         good, bad, missed = 0, 0, 0
         with open(test_file) as test:
             for correct in test:
-                correct = correct.strip()
-                hyphenated = hyphenator.hyphenate(correct)
-                i_corr, i_hyph = 0, 0
-                while i_corr < len(correct) and i_hyph < len(hyphenated):
-                    if correct[i_corr] == self.hyphenation_mark and hyphenated[i_hyph] == self.hyphenation_mark:
-                        good += 1
-                        i_hyph += 1
-                        i_corr += 1
-                    elif hyphenated[i_hyph] == self.hyphenation_mark:
-                        bad += 1
-                        i_hyph += 1
-                    elif correct[i_corr] == self.hyphenation_mark:
-                        missed += 1
-                        i_corr += 1
-                    else:
-                        i_hyph += 1
-                        i_corr += 1
+                line_good, line_bad, line_missed = hyphenator.score(correct.strip())
+                good += line_good
+                bad += line_bad
+                missed += line_missed
         return good, bad, missed
 
     def validate(self, wordlist_file: str, verbose: bool = False):
