@@ -86,6 +86,8 @@ Without `--write-splits` the analysis refuses to run against a run directory tha
 
 The analysis regenerates the selected profile and both hand-tuned baselines with PATGEN, asserts that the regenerated held-out Good/Bad/Missed counts and $F_{1/7}$ reproduce `selected_profile.json` exactly, and writes `bootstrap_ci.json`, `bootstrap_ci_table.tex`, and `summary.json`.
 
+Both hand-tuned comparators are four-level profiles because the search space fixes four levels: `profiles/cshyphen.in` is four levels as published, and `profiles/wortliste.in` is byte-identical to the first four lines of the eight-level `profiles/wortliste8.in`. `results/gpopt260828_analysis/wortliste8_regeneration.json` records the untruncated eight-level profile trained on the recorded `de/wortliste` train split and scored on the recorded test split: $F_{1/7}$ 0.9911 with 50,861 trie nodes, above its four-level truncation (0.9894) but below the `cshyphen` comparator that dataset actually uses (0.9925). Regenerate it with `scripts.regenerate_hand_profile`; the run takes under four minutes on the capacity-raised build. Its pre-fix counterpart recorded $F_{1/7}$ 0.9127, because the pre-fix evaluator let level 5--8 patterns emit hyphens past `len(word) - righthyphenmin` on marked-up input and counted 16,871 of those as Bad instead of 1,558.
+
 ## Historical and auxiliary experiments
 
 Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. Older pre-cutover analyses were scored on a line-index split that was not surface-form-disjoint; the splitter and the analysis scripts that used it (`scripts.legacy_split`, `scripts.analyze_shared_parameters`, `scripts.summarize_threshold_ablation`) have been removed, and their archived outputs are not comparable with the held-out numbers reported here.
@@ -102,6 +104,7 @@ Related scripts:
 | Random/TPE comparison queue | `scripts/run_hpo_baselines_8d.sh` (per-dataset: `python -m scripts.per_level_hpo_baselines`) |
 | Legacy restricted-space comparison | `python -m scripts.compare_hpo_methods` |
 | Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
+| Single hand-profile regeneration | `python -m scripts.regenerate_hand_profile --dataset de/wortliste --profile profiles/wortliste8.in --output results/gpopt260828_analysis/wortliste8_regeneration.json` |
 
 The paper's budget-matched HPO comparison (`tab:hpo-baselines`) runs Random Search and TPE in the same 8-D per-level space, grouped split, and 153-evaluation budget as the final search; the GP column is the recorded main-experiment runs. Its evidence lives under `results/hpo_baselines_grouped/` (run `OUTPUT_DIR=results/hpo_baselines_grouped bash scripts/run_hpo_baselines_8d.sh` to regenerate; seed 42 makes the runs deterministic). All three columns come from runs scored with the corrected right-edge evaluator; results scored with the pre-fix evaluator were deleted and must not be reintroduced. The hand-tuned column comes from the regenerated baselines in `bootstrap_ci.json`. An older restricted four-parameter comparison remains under `results/hpo_representative_150/`; it is superseded and must not be mixed with the 8-D results.
 
