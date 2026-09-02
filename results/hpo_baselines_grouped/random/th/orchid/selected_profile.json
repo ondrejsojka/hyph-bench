@@ -24,16 +24,16 @@
     12,
     23
   ],
-  "validation_objective": 0.9796170838937771,
+  "validation_objective": 0.9796820820282939,
   "held_out_test": {
-    "good": 15794,
-    "bad": 216,
-    "missed": 5222,
+    "good": 15776,
+    "bad": 214,
+    "missed": 5172,
     "train_good": 127023,
     "train_bad": 407,
     "train_missed": 39402,
     "n_patterns": 2885,
     "trie_nodes": 5470
   },
-  "held_out_test_f17": 0.9803775515017888
+  "held_out_test_f17": 0.980535963344264
 }

@@ -66,7 +66,6 @@ results/gpopt260828_analysis/*
 !results/gpopt260828_analysis/summary.json
 !results/gpopt260828_analysis/selector_ablation.json
 !results/gpopt260828_analysis/selector_ablation_table.tex
-!results/gpopt260828_analysis/wortliste8_regeneration.json
 
 # Publish the derived statistics quoted in the figure captions (permutation
 # importance shares, anytime medians, random-draw dominance). Figures themselves
@@ -87,8 +86,6 @@ results/hero_suggestion_figures/*
 results/hpo_baselines_grouped/*
 !results/hpo_baselines_grouped/_logs/
 results/hpo_baselines_grouped/_logs/*
-!results/hpo_baselines_grouped/_logs/*.log
-!results/hpo_baselines_grouped/_logs/run-status.tsv
 !results/hpo_baselines_grouped/*/
 results/hpo_baselines_grouped/*/*
 !results/hpo_baselines_grouped/*/*/
@@ -98,6 +95,8 @@ results/hpo_baselines_grouped/*/*/*/*
 !results/hpo_baselines_grouped/*/*/*/run_config.json
 !results/hpo_baselines_grouped/*/*/*/final_history.csv
 !results/hpo_baselines_grouped/*/*/*/selected_profile.json
+!results/hpo_baselines_grouped/_logs/*.log
+!results/hpo_baselines_grouped/_logs/run-status.tsv
 !results/hpo_representative_150/
 results/hpo_representative_150/*
 !results/hpo_representative_150/*.csv

@@ -1,39 +1,39 @@
 {
   "method": "random",
   "weight_ratios": [
-    "26",
-    "1/5",
-    "26",
-    "14"
+    "1/4",
+    "17",
+    "20",
+    "1/5"
   ],
   "good_weights": [
+    4,
     1,
-    5,
     1,
-    1
+    5
   ],
   "bad_weights": [
-    26,
     1,
-    26,
-    14
+    17,
+    20,
+    1
   ],
   "thresholds": [
-    40,
-    34,
-    42,
-    15
+    22,
+    10,
+    28,
+    8
   ],
-  "validation_objective": 0.9878940722498345,
+  "validation_objective": 0.9943880710862951,
   "held_out_test": {
-    "good": 158470,
-    "bad": 1523,
-    "missed": 16168,
-    "train_good": 1269612,
-    "train_bad": 6261,
-    "train_missed": 127852,
-    "n_patterns": 3529,
-    "trie_nodes": 6353
+    "good": 156312,
+    "bad": 531,
+    "missed": 18326,
+    "train_good": 1253218,
+    "train_bad": 1622,
+    "train_missed": 144246,
+    "n_patterns": 10736,
+    "trie_nodes": 13971
   },
-  "held_out_test_f17": 0.9886708687414176
+  "held_out_test_f17": 0.9943581030147158
 }

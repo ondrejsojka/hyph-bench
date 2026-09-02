@@ -1,0 +1,11 @@
+dataset	method	started_utc	finished_utc	exit
+cssk/cshyphen	tpe	2026-09-01T16:07:52Z	2026-09-01T17:01:13Z	0
+cssk/cshyphen	random	2026-09-01T16:07:52Z	2026-09-01T17:01:15Z	0
+th/orchid	tpe	2026-09-01T17:01:15Z	2026-09-01T17:11:42Z	0
+th/orchid	random	2026-09-01T17:01:13Z	2026-09-01T17:11:47Z	0
+ru/wiktionary	random	2026-09-01T17:11:42Z	2026-09-01T17:23:23Z	0
+ru/wiktionary	tpe	2026-09-01T17:11:47Z	2026-09-01T17:23:28Z	0
+nl/wiktionary	tpe	2026-09-01T17:23:28Z	2026-09-01T18:02:57Z	0
+nl/wiktionary	random	2026-09-01T17:23:23Z	2026-09-01T18:03:00Z	0
+de/wortliste	tpe	2026-09-01T18:03:00Z	2026-09-01T18:52:12Z	0
+de/wortliste	random	2026-09-01T18:02:57Z	2026-09-01T18:53:16Z	0

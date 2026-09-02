@@ -1,0 +1,445 @@
+Proportional trie_normalizer for th/orchid: |D| = 34681
+Method: random
+Objective: F17+Trie(w=0.0005)
+Dataset: /home/dev/hyph-bench/data/th/orchid/orchid.wlh
+Split counts: train=27744, validation=3468, test=3469
+Pattern ranges: [(1, 4), (2, 5), (2, 6), (2, 7)]
+Search space (8-D): per-level weight in ('1/5', '1/4', '1/3', '1/2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'); per-level threshold in [1,42]
+Budget: 30 rounds x batch 5 + 3 extra = 153 evaluations
+
+============================================================
+Iteration 1/30
+  Tested: weights=('1/3', '29', '29', '24'), thresholds=(13, 5, 29, 19)
+  validation: F_1/7=0.884327, good=20134, bad=2675, missed=605, trie_nodes=5762, objective=0.884244
+  Tested: weights=('7', '14', '11', '6'), thresholds=(26, 6, 13, 16)
+  validation: F_1/7=0.963661, good=16918, bad=573, missed=3821, trie_nodes=3309, objective=0.963614
+  Tested: weights=('12', '23', '3', '14'), thresholds=(25, 2, 26, 8)
+  validation: F_1/7=0.963595, good=16524, bad=551, missed=4215, trie_nodes=3039, objective=0.963551
+  Tested: weights=('9', '29', '21', '17'), thresholds=(7, 7, 3, 37)
+  validation: F_1/7=0.962544, good=18718, bad=702, missed=2021, trie_nodes=11033, objective=0.962385
+  Tested: weights=('17', '21', '1/5', '29'), thresholds=(35, 9, 8, 8)
+  validation: F_1/7=0.873974, good=20294, bad=2977, missed=445, trie_nodes=7196, objective=0.873871
+  Best so far: weights=('7', '14', '11', '6'), thresholds=(26, 6, 13, 16), score=0.963614, elapsed=20.7s
+
+============================================================
+Iteration 2/30
+  Tested: weights=('15', '3', '29', '23'), thresholds=(40, 38, 26, 39)
+  validation: F_1/7=0.971433, good=14088, bad=287, missed=6651, trie_nodes=2140, objective=0.971403
+  Tested: weights=('6', '15', '1', '24'), thresholds=(4, 42, 33, 9)
+  validation: F_1/7=0.950003, good=18732, bad=965, missed=2007, trie_nodes=7449, objective=0.949895
+  Tested: weights=('1/5', '24', '21', '21'), thresholds=(33, 4, 16, 5)
+  validation: F_1/7=0.899781, good=20067, bad=2267, missed=672, trie_nodes=7184, objective=0.899677
+  Tested: weights=('1/2', '3', '1/4', '8'), thresholds=(17, 12, 35, 15)
+  validation: F_1/7=0.891367, good=19868, bad=2453, missed=871, trie_nodes=3100, objective=0.891322
+  Tested: weights=('1', '13', '1/4', '27'), thresholds=(11, 28, 14, 22)
+  validation: F_1/7=0.854044, good=20166, bad=3505, missed=573, trie_nodes=3387, objective=0.853995
+  Best so far: weights=('15', '3', '29', '23'), thresholds=(40, 38, 26, 39), score=0.971403, elapsed=42.7s
+
+============================================================
+Iteration 3/30
+  Tested: weights=('28', '24', '18', '26'), thresholds=(34, 8, 38, 23)
+  validation: F_1/7=0.975540, good=12942, bad=172, missed=7797, trie_nodes=2005, objective=0.975511
+  Tested: weights=('26', '18', '8', '1/3'), thresholds=(14, 14, 31, 27)
+  validation: F_1/7=0.977005, good=15335, bad=258, missed=5404, trie_nodes=3938, objective=0.976949
+  Tested: weights=('27', '13', '1', '21'), thresholds=(32, 24, 33, 21)
+  validation: F_1/7=0.903382, good=18382, bad=1958, missed=2357, trie_nodes=2482, objective=0.903346
+  Tested: weights=('14', '11', '1/5', '1/2'), thresholds=(2, 27, 14, 22)
+  validation: F_1/7=0.941598, good=17566, bad=1047, missed=3173, trie_nodes=14810, objective=0.941384
+  Tested: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7)
+  validation: F_1/7=0.977462, good=16461, bad=300, missed=4278, trie_nodes=5682, objective=0.977380
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=67.0s
+
+============================================================
+Iteration 4/30
+  Tested: weights=('14', '20', '9', '30'), thresholds=(41, 11, 21, 13)
+  validation: F_1/7=0.970208, good=15331, bad=370, missed=5408, trie_nodes=2587, objective=0.970171
+  Tested: weights=('24', '27', '7', '1/2'), thresholds=(10, 18, 35, 37)
+  validation: F_1/7=0.976841, good=15992, bad=290, missed=4747, trie_nodes=5019, objective=0.976769
+  Tested: weights=('1', '13', '30', '5'), thresholds=(29, 32, 10, 31)
+  validation: F_1/7=0.865486, good=19493, bad=3066, missed=1246, trie_nodes=1996, objective=0.865457
+  Tested: weights=('1/5', '14', '11', '4'), thresholds=(6, 15, 40, 14)
+  validation: F_1/7=0.868079, good=20095, bad=3103, missed=644, trie_nodes=3712, objective=0.868025
+  Tested: weights=('6', '1/4', '17', '14'), thresholds=(3, 12, 39, 11)
+  validation: F_1/7=0.968252, good=18105, bad=552, missed=2634, trie_nodes=9260, objective=0.968119
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=91.3s
+
+============================================================
+Iteration 5/30
+  Tested: weights=('20', '10', '28', '1'), thresholds=(15, 5, 39, 37)
+  validation: F_1/7=0.976360, good=14812, bad=245, missed=5927, trie_nodes=3556, objective=0.976308
+  Tested: weights=('27', '18', '8', '8'), thresholds=(31, 38, 38, 33)
+  validation: F_1/7=0.973088, good=14153, bad=265, missed=6586, trie_nodes=2156, objective=0.973057
+  Tested: weights=('9', '18', '18', '15'), thresholds=(4, 36, 14, 8)
+  validation: F_1/7=0.963721, good=18195, bad=647, missed=2544, trie_nodes=8241, objective=0.963602
+  Tested: weights=('5', '19', '24', '15'), thresholds=(23, 11, 4, 38)
+  validation: F_1/7=0.949259, good=18762, bad=983, missed=1977, trie_nodes=7267, objective=0.949155
+  Tested: weights=('1/4', '17', '20', '1/5'), thresholds=(22, 10, 28, 8)
+  validation: F_1/7=0.969788, good=13741, bad=294, missed=6998, trie_nodes=5004, objective=0.969716
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=110.2s
+
+============================================================
+Iteration 6/30
+  Tested: weights=('6', '5', '30', '10'), thresholds=(38, 27, 34, 22)
+  validation: F_1/7=0.950549, good=15583, bad=722, missed=5156, trie_nodes=1581, objective=0.950526
+  Tested: weights=('16', '13', '3', '21'), thresholds=(12, 2, 28, 8)
+  validation: F_1/7=0.969182, good=16881, bad=469, missed=3858, trie_nodes=4553, objective=0.969116
+  Tested: weights=('8', '22', '19', '25'), thresholds=(28, 24, 4, 16)
+  validation: F_1/7=0.961478, good=18359, bad=702, missed=2380, trie_nodes=8597, objective=0.961354
+  Tested: weights=('18', '1/3', '2', '27'), thresholds=(26, 1, 5, 28)
+  validation: F_1/7=0.942822, good=19045, bad=1144, missed=1694, trie_nodes=7205, objective=0.942718
+  Tested: weights=('1/5', '2', '15', '20'), thresholds=(28, 10, 30, 10)
+  validation: F_1/7=0.912551, good=18531, bad=1767, missed=2208, trie_nodes=2822, objective=0.912510
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=130.0s
+
+============================================================
+Iteration 7/30
+  Tested: weights=('28', '29', '28', '9'), thresholds=(1, 39, 18, 41)
+  validation: F_1/7=0.967027, good=18138, bad=578, missed=2601, trie_nodes=24802, objective=0.966669
+  Tested: weights=('26', '28', '14', '14'), thresholds=(34, 28, 30, 34)
+  validation: F_1/7=0.975379, good=13695, bad=209, missed=7044, trie_nodes=2233, objective=0.975347
+  Tested: weights=('26', '22', '20', '20'), thresholds=(16, 13, 34, 35)
+  validation: F_1/7=0.977170, good=14424, bad=215, missed=6315, trie_nodes=3426, objective=0.977120
+  Tested: weights=('28', '20', '16', '1/2'), thresholds=(26, 42, 6, 22)
+  validation: F_1/7=0.977165, good=17247, bad=340, missed=3492, trie_nodes=8053, objective=0.977049
+  Tested: weights=('29', '26', '7', '10'), thresholds=(36, 14, 8, 24)
+  validation: F_1/7=0.971479, good=17477, bad=457, missed=3262, trie_nodes=5780, objective=0.971395
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=145.4s
+
+============================================================
+Iteration 8/30
+  Tested: weights=('27', '8', '9', '1/2'), thresholds=(25, 2, 20, 23)
+  validation: F_1/7=0.975794, good=15228, bad=273, missed=5511, trie_nodes=3310, objective=0.975746
+  Tested: weights=('21', '30', '14', '7'), thresholds=(34, 12, 19, 4)
+  validation: F_1/7=0.977247, good=14904, bad=235, missed=5835, trie_nodes=3081, objective=0.977203
+  Tested: weights=('23', '4', '18', '1/3'), thresholds=(3, 23, 23, 27)
+  validation: F_1/7=0.974925, good=17539, bad=395, missed=3200, trie_nodes=11863, objective=0.974754
+  Tested: weights=('6', '17', '1/4', '1/4'), thresholds=(35, 16, 6, 22)
+  validation: F_1/7=0.940792, good=11465, bad=547, missed=9274, trie_nodes=5318, objective=0.940715
+  Tested: weights=('1/5', '29', '25', '20'), thresholds=(18, 8, 7, 11)
+  validation: F_1/7=0.869045, good=20240, bad=3102, missed=499, trie_nodes=4624, objective=0.868978
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=167.1s
+
+============================================================
+Iteration 9/30
+  Tested: weights=('15', '21', '19', '6'), thresholds=(41, 31, 24, 26)
+  validation: F_1/7=0.971608, good=14380, bad=299, missed=6359, trie_nodes=2289, objective=0.971575
+  Tested: weights=('26', '20', '13', '1/2'), thresholds=(21, 20, 8, 19)
+  validation: F_1/7=0.976919, good=16853, bad=327, missed=3886, trie_nodes=6367, objective=0.976827
+  Tested: weights=('19', '2', '1/3', '18'), thresholds=(2, 25, 40, 25)
+  validation: F_1/7=0.918399, good=19476, bad=1740, missed=1263, trie_nodes=15399, objective=0.918177
+  Tested: weights=('10', '17', '18', '1/4'), thresholds=(16, 27, 22, 36)
+  validation: F_1/7=0.970875, good=15940, bad=390, missed=4799, trie_nodes=3183, objective=0.970829
+  Tested: weights=('11', '5', '9', '22'), thresholds=(1, 5, 2, 2)
+  validation: F_1/7=0.960740, good=19229, bad=771, missed=1510, trie_nodes=24502, objective=0.960387
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=191.4s
+
+============================================================
+Iteration 10/30
+  Tested: weights=('25', '1/5', '24', '6'), thresholds=(5, 30, 27, 37)
+  validation: F_1/7=0.976962, good=16713, bad=320, missed=4026, trie_nodes=8372, objective=0.976841
+  Tested: weights=('21', '24', '6', '3'), thresholds=(32, 34, 42, 18)
+  validation: F_1/7=0.970202, good=14672, bad=336, missed=6067, trie_nodes=2099, objective=0.970172
+  Tested: weights=('10', '18', '12', '15'), thresholds=(40, 17, 41, 39)
+  validation: F_1/7=0.962008, good=14220, bad=440, missed=6519, trie_nodes=1507, objective=0.961986
+  Tested: weights=('9', '23', '8', '28'), thresholds=(37, 19, 32, 32)
+  validation: F_1/7=0.960842, good=14957, bad=504, missed=5782, trie_nodes=1785, objective=0.960816
+  Tested: weights=('3', '1/3', '1/2', '1/5'), thresholds=(4, 29, 3, 14)
+  validation: F_1/7=0.955068, good=13992, bad=534, missed=6747, trie_nodes=8995, objective=0.954939
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=215.2s
+
+============================================================
+Iteration 11/30
+  Tested: weights=('27', '1/2', '7', '29'), thresholds=(40, 25, 27, 19)
+  validation: F_1/7=0.970241, good=15148, bad=360, missed=5591, trie_nodes=2320, objective=0.970207
+  Tested: weights=('18', '1/2', '1/3', '20'), thresholds=(4, 35, 30, 4)
+  validation: F_1/7=0.933693, good=19567, bad=1394, missed=1172, trie_nodes=11508, objective=0.933527
+  Tested: weights=('6', '8', '19', '22'), thresholds=(34, 34, 4, 21)
+  validation: F_1/7=0.953342, good=18554, bad=882, missed=2185, trie_nodes=7852, objective=0.953229
+  Tested: weights=('1/4', '15', '12', '27'), thresholds=(15, 5, 7, 32)
+  validation: F_1/7=0.889509, good=20116, bad=2537, missed=623, trie_nodes=5342, objective=0.889432
+  Tested: weights=('1/2', '27', '14', '25'), thresholds=(14, 38, 17, 1)
+  validation: F_1/7=0.938999, good=19565, bad=1273, missed=1174, trie_nodes=24635, objective=0.938644
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=240.2s
+
+============================================================
+Iteration 12/30
+  Tested: weights=('29', '9', '6', '26'), thresholds=(10, 41, 1, 41)
+  validation: F_1/7=0.960370, good=19311, bad=784, missed=1428, trie_nodes=27374, objective=0.959975
+  Tested: weights=('1/4', '27', '14', '30'), thresholds=(4, 24, 41, 22)
+  validation: F_1/7=0.812835, good=20348, bad=4773, missed=391, trie_nodes=4063, objective=0.812777
+  Tested: weights=('1/3', '30', '9', '9'), thresholds=(35, 40, 42, 32)
+  validation: F_1/7=0.815273, good=20123, bad=4640, missed=616, trie_nodes=1979, objective=0.815245
+  Tested: weights=('9', '1/3', '23', '15'), thresholds=(18, 39, 5, 21)
+  validation: F_1/7=0.967154, good=17984, bad=567, missed=2755, trie_nodes=7252, objective=0.967050
+  Tested: weights=('1/5', '12', '1/4', '1'), thresholds=(5, 28, 32, 25)
+  validation: F_1/7=0.862400, good=19699, bad=3186, missed=1040, trie_nodes=3743, objective=0.862346
+  Best so far: weights=('27', '5', '10', '22'), thresholds=(10, 4, 13, 7), score=0.977380, elapsed=265.3s
+
+============================================================
+Iteration 13/30
+  Tested: weights=('16', '1/3', '30', '30'), thresholds=(30, 23, 14, 35)
+  validation: F_1/7=0.977209, good=15433, bad=259, missed=5306, trie_nodes=3751, objective=0.977155
+  Tested: weights=('20', '2', '27', '24'), thresholds=(40, 31, 26, 18)
+  validation: F_1/7=0.975671, good=13636, bad=202, missed=7103, trie_nodes=2262, objective=0.975639
+  Tested: weights=('28', '26', '1/4', '1/5'), thresholds=(16, 35, 42, 7)
+  validation: F_1/7=0.955711, good=8926, bad=181, missed=11813, trie_nodes=4916, objective=0.955640
+  Tested: weights=('18', '20', '12', '18'), thresholds=(25, 38, 2, 12)
+  validation: F_1/7=0.967872, good=18759, bad=595, missed=1980, trie_nodes=17625, objective=0.967618
+  Tested: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15)
+  validation: F_1/7=0.977690, good=15683, bad=262, missed=5056, trie_nodes=4687, objective=0.977622
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=288.2s
+
+============================================================
+Iteration 14/30
+  Tested: weights=('25', '5', '12', '1'), thresholds=(41, 26, 10, 29)
+  validation: F_1/7=0.976121, good=16558, bad=328, missed=4181, trie_nodes=5139, objective=0.976047
+  Tested: weights=('15', '16', '26', '10'), thresholds=(6, 2, 32, 27)
+  validation: F_1/7=0.974371, good=17064, bad=383, missed=3675, trie_nodes=7089, objective=0.974269
+  Tested: weights=('1/4', '26', '24', '30'), thresholds=(42, 24, 33, 40)
+  validation: F_1/7=0.812300, good=20173, bad=4745, missed=566, trie_nodes=2183, objective=0.812269
+  Tested: weights=('18', '9', '1/2', '19'), thresholds=(22, 33, 22, 36)
+  validation: F_1/7=0.861019, good=19589, bad=3203, missed=1150, trie_nodes=3626, objective=0.860967
+  Tested: weights=('17', '9', '29', '25'), thresholds=(36, 20, 18, 12)
+  validation: F_1/7=0.976634, good=14775, bad=239, missed=5964, trie_nodes=3028, objective=0.976590
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=307.6s
+
+============================================================
+Iteration 15/30
+  Tested: weights=('27', '8', '14', '23'), thresholds=(17, 27, 37, 40)
+  validation: F_1/7=0.976892, good=14440, bad=220, missed=6299, trie_nodes=3244, objective=0.976845
+  Tested: weights=('20', '4', '1', '1/5'), thresholds=(15, 25, 17, 19)
+  validation: F_1/7=0.967508, good=15404, bad=419, missed=5335, trie_nodes=4519, objective=0.967443
+  Tested: weights=('3', '8', '27', '13'), thresholds=(29, 8, 9, 2)
+  validation: F_1/7=0.957576, good=18292, bad=777, missed=2447, trie_nodes=6721, objective=0.957479
+  Tested: weights=('18', '5', '1/3', '1'), thresholds=(6, 7, 6, 27)
+  validation: F_1/7=0.896413, good=19608, bad=2289, missed=1131, trie_nodes=9856, objective=0.896271
+  Tested: weights=('2', '28', '13', '5'), thresholds=(20, 42, 21, 14)
+  validation: F_1/7=0.916475, good=18608, bad=1687, missed=2131, trie_nodes=2381, objective=0.916441
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=326.2s
+
+============================================================
+Iteration 16/30
+  Tested: weights=('18', '9', '12', '22'), thresholds=(2, 11, 30, 38)
+  validation: F_1/7=0.970898, good=17948, bad=492, missed=2791, trie_nodes=15140, objective=0.970680
+  Tested: weights=('2', '6', '3', '1/2'), thresholds=(6, 20, 9, 16)
+  validation: F_1/7=0.941962, good=18699, bad=1134, missed=2040, trie_nodes=4571, objective=0.941896
+  Tested: weights=('1/3', '6', '24', '22'), thresholds=(8, 9, 16, 21)
+  validation: F_1/7=0.888012, good=19855, bad=2537, missed=884, trie_nodes=3833, objective=0.887956
+  Tested: weights=('14', '20', '1/4', '24'), thresholds=(27, 4, 37, 39)
+  validation: F_1/7=0.824640, good=19997, bad=4324, missed=742, trie_nodes=3432, objective=0.824591
+  Tested: weights=('14', '15', '1/2', '12'), thresholds=(23, 11, 12, 16)
+  validation: F_1/7=0.888469, good=19833, bad=2522, missed=906, trie_nodes=4697, objective=0.888401
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=345.4s
+
+============================================================
+Iteration 17/30
+  Tested: weights=('1/3', '14', '10', '30'), thresholds=(5, 17, 41, 37)
+  validation: F_1/7=0.843201, good=20200, bad=3822, missed=539, trie_nodes=3671, objective=0.843148
+  Tested: weights=('6', '9', '18', '16'), thresholds=(15, 42, 26, 10)
+  validation: F_1/7=0.956046, good=16967, bad=719, missed=3772, trie_nodes=3119, objective=0.956001
+  Tested: weights=('1/5', '7', '4', '8'), thresholds=(6, 38, 25, 29)
+  validation: F_1/7=0.816790, good=20086, bad=4584, missed=653, trie_nodes=2594, objective=0.816753
+  Tested: weights=('23', '13', '1/3', '15'), thresholds=(25, 32, 19, 6)
+  validation: F_1/7=0.902730, good=19901, bad=2171, missed=838, trie_nodes=6110, objective=0.902642
+  Tested: weights=('1/2', '2', '5', '2'), thresholds=(8, 12, 8, 38)
+  validation: F_1/7=0.905974, good=19549, bad=2046, missed=1190, trie_nodes=3848, objective=0.905919
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=365.5s
+
+============================================================
+Iteration 18/30
+  Tested: weights=('23', '3', '8', '11'), thresholds=(22, 11, 5, 26)
+  validation: F_1/7=0.972859, good=17969, bad=455, missed=2770, trie_nodes=8495, objective=0.972737
+  Tested: weights=('1/3', '30', '7', '24'), thresholds=(11, 29, 32, 26)
+  validation: F_1/7=0.811792, good=20302, bad=4794, missed=437, trie_nodes=2713, objective=0.811753
+  Tested: weights=('24', '5', '2', '19'), thresholds=(40, 24, 25, 12)
+  validation: F_1/7=0.944436, good=17295, bad=968, missed=3444, trie_nodes=2462, objective=0.944400
+  Tested: weights=('13', '11', '8', '28'), thresholds=(35, 41, 6, 31)
+  validation: F_1/7=0.967222, good=17881, bad=560, missed=2858, trie_nodes=6632, objective=0.967127
+  Tested: weights=('6', '16', '2', '13'), thresholds=(23, 3, 15, 6)
+  validation: F_1/7=0.955674, good=17808, bad=783, missed=2931, trie_nodes=3624, objective=0.955622
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=383.9s
+
+============================================================
+Iteration 19/30
+  Tested: weights=('10', '24', '11', '9'), thresholds=(20, 13, 32, 22)
+  validation: F_1/7=0.963305, good=15676, bad=506, missed=5063, trie_nodes=2575, objective=0.963268
+  Tested: weights=('18', '8', '1', '23'), thresholds=(27, 23, 38, 34)
+  validation: F_1/7=0.910684, good=18054, bad=1752, missed=2685, trie_nodes=2536, objective=0.910647
+  Tested: weights=('3', '2', '2', '24'), thresholds=(28, 22, 16, 37)
+  validation: F_1/7=0.928300, good=18214, bad=1384, missed=2525, trie_nodes=2350, objective=0.928266
+  Tested: weights=('4', '27', '10', '15'), thresholds=(39, 27, 5, 40)
+  validation: F_1/7=0.936975, good=18701, bad=1242, missed=2038, trie_nodes=5505, objective=0.936895
+  Tested: weights=('28', '3', '1/3', '22'), thresholds=(25, 36, 6, 34)
+  validation: F_1/7=0.830442, good=20298, bad=4220, missed=441, trie_nodes=6208, objective=0.830352
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=403.7s
+
+============================================================
+Iteration 20/30
+  Tested: weights=('4', '21', '21', '18'), thresholds=(30, 23, 11, 15)
+  validation: F_1/7=0.940750, good=17824, bad=1086, missed=2915, trie_nodes=3012, objective=0.940707
+  Tested: weights=('3', '27', '16', '10'), thresholds=(20, 40, 7, 25)
+  validation: F_1/7=0.920516, good=18755, bad=1612, missed=1984, trie_nodes=3757, objective=0.920462
+  Tested: weights=('14', '17', '1/5', '26'), thresholds=(40, 24, 30, 39)
+  validation: F_1/7=0.807042, good=20184, bad=4913, missed=555, trie_nodes=3384, objective=0.806994
+  Tested: weights=('2', '7', '5', '22'), thresholds=(2, 24, 33, 37)
+  validation: F_1/7=0.892025, good=19929, bad=2445, missed=810, trie_nodes=7285, objective=0.891920
+  Tested: weights=('8', '24', '1/2', '25'), thresholds=(6, 17, 34, 7)
+  validation: F_1/7=0.934996, good=19094, bad=1321, missed=1645, trie_nodes=6572, objective=0.934901
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=423.6s
+
+============================================================
+Iteration 21/30
+  Tested: weights=('21', '2', '16', '17'), thresholds=(18, 31, 40, 39)
+  validation: F_1/7=0.975889, good=14517, bad=239, missed=6222, trie_nodes=3045, objective=0.975846
+  Tested: weights=('12', '1/2', '30', '25'), thresholds=(6, 39, 37, 22)
+  validation: F_1/7=0.968497, good=17262, bad=502, missed=3477, trie_nodes=6326, objective=0.968405
+  Tested: weights=('15', '28', '8', '8'), thresholds=(31, 19, 10, 20)
+  validation: F_1/7=0.971065, good=16949, bad=438, missed=3790, trie_nodes=4683, objective=0.970997
+  Tested: weights=('1', '2', '13', '11'), thresholds=(39, 16, 25, 27)
+  validation: F_1/7=0.910255, good=18438, bad=1808, missed=2301, trie_nodes=1779, objective=0.910229
+  Tested: weights=('17', '10', '1/4', '8'), thresholds=(34, 1, 15, 17)
+  validation: F_1/7=0.864328, good=20070, bad=3201, missed=669, trie_nodes=5503, objective=0.864248
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=443.9s
+
+============================================================
+Iteration 22/30
+  Tested: weights=('10', '16', '2', '3'), thresholds=(37, 40, 16, 12)
+  validation: F_1/7=0.947775, good=17841, bad=944, missed=2898, trie_nodes=2845, objective=0.947734
+  Tested: weights=('1/4', '13', '16', '1/3'), thresholds=(33, 20, 23, 19)
+  validation: F_1/7=0.946132, good=16104, bad=841, missed=4635, trie_nodes=3094, objective=0.946087
+  Tested: weights=('1/5', '19', '3', '29'), thresholds=(7, 18, 4, 42)
+  validation: F_1/7=0.827891, good=20346, bad=4308, missed=393, trie_nodes=3345, objective=0.827843
+  Tested: weights=('18', '10', '1/5', '2'), thresholds=(31, 28, 2, 10)
+  validation: F_1/7=0.903438, good=18948, bad=2030, missed=1791, trie_nodes=7466, objective=0.903330
+  Tested: weights=('14', '17', '1/3', '22'), thresholds=(9, 38, 9, 9)
+  validation: F_1/7=0.895660, good=20105, bad=2377, missed=634, trie_nodes=8037, objective=0.895544
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=466.7s
+
+============================================================
+Iteration 23/30
+  Tested: weights=('18', '10', '15', '11'), thresholds=(13, 40, 33, 6)
+  validation: F_1/7=0.976604, good=15411, bad=268, missed=5328, trie_nodes=3954, objective=0.976547
+  Tested: weights=('4', '19', '1/5', '1/2'), thresholds=(34, 8, 28, 11)
+  validation: F_1/7=0.945490, good=15299, bad=789, missed=5440, trie_nodes=3764, objective=0.945436
+  Tested: weights=('11', '27', '24', '8'), thresholds=(11, 16, 25, 12)
+  validation: F_1/7=0.969140, good=16583, bad=454, missed=4156, trie_nodes=4157, objective=0.969080
+  Tested: weights=('6', '27', '1/5', '1/3'), thresholds=(9, 2, 8, 25)
+  validation: F_1/7=0.939252, good=15002, bad=873, missed=5737, trie_nodes=8019, objective=0.939137
+  Tested: weights=('1/2', '5', '21', '26'), thresholds=(35, 17, 29, 9)
+  validation: F_1/7=0.895180, good=19431, bad=2295, missed=1308, trie_nodes=2927, objective=0.895137
+  Best so far: weights=('29', '27', '12', '18'), thresholds=(12, 8, 20, 15), score=0.977622, elapsed=484.9s
+
+============================================================
+Iteration 24/30
+  Tested: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23)
+  validation: F_1/7=0.979650, good=15461, bad=220, missed=5278, trie_nodes=5470, objective=0.979572
+  Tested: weights=('1/5', '28', '1', '16'), thresholds=(12, 24, 28, 35)
+  validation: F_1/7=0.808170, good=20331, bad=4916, missed=408, trie_nodes=2664, objective=0.808131
+  Tested: weights=('18', '5', '1', '25'), thresholds=(42, 23, 8, 12)
+  validation: F_1/7=0.905789, good=19474, bad=2041, missed=1265, trie_nodes=4271, objective=0.905728
+  Tested: weights=('4', '1/5', '1', '27'), thresholds=(37, 26, 26, 28)
+  validation: F_1/7=0.912081, good=18138, bad=1731, missed=2601, trie_nodes=2177, objective=0.912049
+  Tested: weights=('2', '28', '11', '10'), thresholds=(22, 2, 7, 31)
+  validation: F_1/7=0.933766, good=19100, bad=1349, missed=1639, trie_nodes=6890, objective=0.933667
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=503.5s
+
+============================================================
+Iteration 25/30
+  Tested: weights=('21', '13', '20', '11'), thresholds=(11, 35, 34, 30)
+  validation: F_1/7=0.976205, good=15553, bad=281, missed=5186, trie_nodes=4588, objective=0.976139
+  Tested: weights=('1/3', '17', '5', '10'), thresholds=(13, 15, 31, 13)
+  validation: F_1/7=0.860500, good=20127, bad=3317, missed=612, trie_nodes=3403, objective=0.860451
+  Tested: weights=('17', '1/4', '13', '17'), thresholds=(15, 33, 5, 4)
+  validation: F_1/7=0.975488, good=17682, bad=391, missed=3057, trie_nodes=8786, objective=0.975361
+  Tested: weights=('6', '17', '9', '1/2'), thresholds=(39, 6, 40, 19)
+  validation: F_1/7=0.964706, good=15349, bad=463, missed=5390, trie_nodes=1813, objective=0.964680
+  Tested: weights=('16', '13', '19', '28'), thresholds=(31, 10, 2, 12)
+  validation: F_1/7=0.967909, good=18736, bad=593, missed=2003, trie_nodes=18137, objective=0.967647
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=522.1s
+
+============================================================
+Iteration 26/30
+  Tested: weights=('29', '13', '26', '25'), thresholds=(14, 35, 2, 26)
+  validation: F_1/7=0.970487, good=18473, bad=527, missed=2266, trie_nodes=19981, objective=0.970199
+  Tested: weights=('5', '13', '4', '30'), thresholds=(40, 2, 30, 39)
+  validation: F_1/7=0.957872, good=16347, bad=644, missed=4392, trie_nodes=2988, objective=0.957829
+  Tested: weights=('3', '15', '26', '21'), thresholds=(34, 28, 30, 36)
+  validation: F_1/7=0.918798, good=17219, bad=1481, missed=3520, trie_nodes=1602, objective=0.918775
+  Tested: weights=('3', '16', '28', '1/4'), thresholds=(30, 13, 39, 41)
+  validation: F_1/7=0.954978, good=16219, bad=688, missed=4520, trie_nodes=2002, objective=0.954949
+  Tested: weights=('4', '1', '1/3', '20'), thresholds=(15, 31, 3, 14)
+  validation: F_1/7=0.878242, good=20264, bad=2857, missed=475, trie_nodes=9522, objective=0.878105
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=540.7s
+
+============================================================
+Iteration 27/30
+  Tested: weights=('26', '1/5', '26', '14'), thresholds=(40, 34, 42, 15)
+  validation: F_1/7=0.974475, good=12034, bad=144, missed=8705, trie_nodes=1716, objective=0.974450
+  Tested: weights=('1/4', '1/5', '30', '11'), thresholds=(17, 29, 10, 40)
+  validation: F_1/7=0.963419, good=16808, bad=571, missed=3931, trie_nodes=5650, objective=0.963338
+  Tested: weights=('23', '10', '13', '18'), thresholds=(37, 42, 33, 18)
+  validation: F_1/7=0.974793, good=13575, bad=212, missed=7164, trie_nodes=2035, objective=0.974763
+  Tested: weights=('15', '23', '7', '18'), thresholds=(38, 26, 10, 2)
+  validation: F_1/7=0.973951, good=17112, bad=393, missed=3627, trie_nodes=5255, objective=0.973875
+  Tested: weights=('11', '22', '5', '1/2'), thresholds=(15, 13, 13, 10)
+  validation: F_1/7=0.971273, good=16985, bad=436, missed=3754, trie_nodes=4113, objective=0.971214
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=558.4s
+
+============================================================
+Iteration 28/30
+  Tested: weights=('23', '1/2', '11', '26'), thresholds=(40, 20, 26, 8)
+  validation: F_1/7=0.975862, good=14398, bad=234, missed=6341, trie_nodes=2395, objective=0.975827
+  Tested: weights=('4', '3', '23', '8'), thresholds=(3, 41, 38, 39)
+  validation: F_1/7=0.926570, good=19247, bad=1526, missed=1492, trie_nodes=7686, objective=0.926459
+  Tested: weights=('30', '4', '29', '19'), thresholds=(26, 22, 10, 8)
+  validation: F_1/7=0.978857, good=15813, bad=248, missed=4926, trie_nodes=5606, objective=0.978776
+  Tested: weights=('30', '2', '10', '22'), thresholds=(30, 7, 35, 10)
+  validation: F_1/7=0.975059, good=13852, bad=221, missed=6887, trie_nodes=2249, objective=0.975027
+  Tested: weights=('4', '15', '17', '16'), thresholds=(4, 37, 12, 6)
+  validation: F_1/7=0.945458, good=19051, bad=1087, missed=1688, trie_nodes=6948, objective=0.945358
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=577.0s
+
+============================================================
+Iteration 29/30
+  Tested: weights=('25', '13', '13', '17'), thresholds=(35, 15, 29, 24)
+  validation: F_1/7=0.975371, good=13844, bad=216, missed=6895, trie_nodes=2265, objective=0.975338
+  Tested: weights=('20', '20', '18', '22'), thresholds=(7, 37, 37, 2)
+  validation: F_1/7=0.977169, good=16390, bad=302, missed=4349, trie_nodes=6643, objective=0.977073
+  Tested: weights=('9', '5', '21', '13'), thresholds=(4, 10, 29, 4)
+  validation: F_1/7=0.966851, good=18075, bad=578, missed=2664, trie_nodes=8315, objective=0.966731
+  Tested: weights=('27', '29', '26', '24'), thresholds=(28, 24, 4, 18)
+  validation: F_1/7=0.975274, good=17724, bad=397, missed=3015, trie_nodes=11772, objective=0.975104
+  Tested: weights=('6', '26', '24', '19'), thresholds=(36, 37, 30, 36)
+  validation: F_1/7=0.948312, good=15761, bad=775, missed=4978, trie_nodes=1661, objective=0.948288
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=595.0s
+
+============================================================
+Iteration 30/30
+  Tested: weights=('23', '1/2', '22', '15'), thresholds=(41, 15, 27, 40)
+  validation: F_1/7=0.976452, good=13534, bad=186, missed=7205, trie_nodes=2258, objective=0.976420
+  Tested: weights=('25', '1', '8', '22'), thresholds=(7, 35, 35, 22)
+  validation: F_1/7=0.975982, good=16438, bad=325, missed=4301, trie_nodes=6587, objective=0.975887
+  Tested: weights=('1/2', '28', '20', '1/3'), thresholds=(13, 30, 3, 25)
+  validation: F_1/7=0.939070, good=15612, bad=929, missed=5127, trie_nodes=3612, objective=0.939018
+  Tested: weights=('1/5', '6', '17', '30'), thresholds=(27, 11, 27, 23)
+  validation: F_1/7=0.879353, good=19745, bad=2744, missed=994, trie_nodes=2971, objective=0.879311
+  Tested: weights=('8', '18', '1/4', '26'), thresholds=(41, 41, 32, 6)
+  validation: F_1/7=0.898312, good=19911, bad=2283, missed=828, trie_nodes=5459, objective=0.898233
+  Best so far: weights=('26', '13', '27', '24'), thresholds=(18, 1, 12, 23), score=0.979572, elapsed=611.6s
+
+============================================================
+Extra sampler evaluations: 3
+  Tested: weights=('1/3', '20', '19', '6'), thresholds=(40, 7, 19, 40)
+  validation: F_1/7=0.881294, good=19995, bad=2733, missed=744, trie_nodes=4001, objective=0.881237
+  Tested: weights=('6', '30', '11', '12'), thresholds=(7, 34, 30, 10)
+  validation: F_1/7=0.955478, good=18030, bad=802, missed=2709, trie_nodes=5114, objective=0.955404
+  Tested: weights=('22', '1/5', '1/5', '8'), thresholds=(21, 33, 29, 19)
+  validation: F_1/7=0.860011, good=20006, bad=3308, missed=733, trie_nodes=4715, objective=0.859943
+
+============================================================
+random per-level baseline complete
+Selected weights: ('26', '13', '27', '24')
+PATGEN good_wt: (1, 1, 1, 1); bad_wt: (26, 13, 27, 24); thresholds: (18, 1, 12, 23)
+Held-out test: {'good': 15776, 'bad': 214, 'missed': 5240, 'train_good': 127023, 'train_bad': 407, 'train_missed': 39402, 'n_patterns': 2885, 'trie_nodes': 5470}
+History: results/hpo_baselines_grouped/random/th/orchid/final_history.csv
+Selected profile: results/hpo_baselines_grouped/random/th/orchid/selected_profile.json
