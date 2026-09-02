@@ -45,7 +45,10 @@ The final per-level search uses the following protocol for every manuscript data
 - seed 42 and UCB $\kappa=2.5$;
 - proportional trie normalization by the number of resolved word types $|D|$ and `trie_weight=0.0005`;
 - selection by the best observed validation objective;
-- one held-out test evaluation after selection.
+- one held-out test evaluation after selection;
+- scoring by `Hyphenator.score`: Good/Bad/Missed hyphenation points with `\lefthyphenmin=\righthyphenmin=2` from the `.tra` file, ignoring gold marks outside that legal zone exactly as PATGEN does.
+
+The `gpopt260828` and `hpo_baselines_grouped` searches ran while the evaluator still counted edge-zone gold marks as Missed. Because no pattern set can predict such a mark, every profile's validation Missed count exceeded the current rule's count by the same per-dataset constant (the number of edge-zone gold marks in the validation split), so `final_history.csv` (`validation_missed`, `validation_f17`, `objective_score`), `selected_profile.json`, and every downstream analysis were recounted exactly under the current rule without rerunning PATGEN; the argmax of the objective, and therefore every selected profile, is unchanged.
 
 The dated repository identifier for the final 17-dataset paper run is `gpopt260828`. It is an artifact directory name, not a method name. The default `scripts.run_full_search.sh` command reproduces that matrix with the canonical `scripts.per_level_search` defaults and writes `results/gpopt260828/`.
 
@@ -85,9 +88,9 @@ The analysis regenerates the selected profile and both hand-tuned baselines with
 
 ## Historical and auxiliary experiments
 
-Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. Other archived pre-cutover analyses explicitly use `scripts.legacy_split` to reproduce their original line-index partitions; canonical searches never use that splitter.
+Historical GPopt8 artifacts remain under `results/gpopt8/`. Its launcher pins `PATGEN_OPT_WEIGHT_SPACE=legacy`, preserving the original fractional choices `{1/3, 1/2}` and threshold range `[1,5]`. Older pre-cutover analyses were scored on a line-index split that was not surface-form-disjoint; the splitter and the analysis scripts that used it (`scripts.legacy_split`, `scripts.analyze_shared_parameters`, `scripts.summarize_threshold_ablation`) have been removed, and their archived outputs are not comparable with the held-out numbers reported here.
 
-Frozen run records (`run_config.json` command strings and `_logs/`) may reference the module by its historical name `scripts.paper2_final_search`; the canonical implementation is now `scripts.per_level_search`.
+Frozen run records (`run_config.json` command strings and `_logs/`) may reference the module by its historical name `scripts.paper2_final_search`; the canonical implementation is now `scripts.per_level_search`. The re-scoring pass of 2026-09-02 wrote into staging directories (`results/gpopt260828_edgefixed`, `results/hpo_baselines_grouped_edgefixed`) that were then renamed onto the published names; the `--output-dir` arguments and log paths in the frozen records were normalized to the published directories so every path in a published record resolves.
 
 Related scripts:
 
@@ -100,7 +103,7 @@ Related scripts:
 | Legacy restricted-space comparison | `python -m scripts.compare_hpo_methods` |
 | Reported-result audit | `python -m scripts.analyze_gpopt260828 --write-splits` |
 
-The paper's budget-matched HPO comparison (`tab:hpo-baselines`) runs Random Search and TPE in the same 8-D per-level space, grouped split, and 153-evaluation budget as the final search; the GP column is the recorded main-experiment runs. Its published evidence lives under `results/hpo_baselines_grouped/` (run `OUTPUT_DIR=results/hpo_baselines_grouped bash scripts/run_hpo_baselines_8d.sh` to regenerate; seed 42 makes the runs deterministic). The hand-tuned column comes from the regenerated baselines in `bootstrap_ci.json`. An older restricted four-parameter comparison remains under `results/hpo_representative_150/`; it is superseded and must not be mixed with the 8-D results.
+The paper's budget-matched HPO comparison (`tab:hpo-baselines`) runs Random Search and TPE in the same 8-D per-level space, grouped split, and 153-evaluation budget as the final search; the GP column is the recorded main-experiment runs. Its evidence lives under `results/hpo_baselines_grouped/` (run `OUTPUT_DIR=results/hpo_baselines_grouped bash scripts/run_hpo_baselines_8d.sh` to regenerate; seed 42 makes the runs deterministic). All three columns come from runs scored with the corrected right-edge evaluator; results scored with the pre-fix evaluator were deleted and must not be reintroduced. The hand-tuned column comes from the regenerated baselines in `bootstrap_ci.json`. An older restricted four-parameter comparison remains under `results/hpo_representative_150/`; it is superseded and must not be mixed with the 8-D results.
 
 The threshold ablation under `results/threshold_ablation/` motivates searching thresholds per level at all: with thresholds in `[1,5]` and the GPoptval4 budget (153 evaluations per arm), per-level thresholds beat the fixed-at-1 baseline on 18 of 18 datasets under GP, and shared thresholds are weaker than per-level under every optimizer (see `SUMMARY.md`; histories, per-variant summaries, `ablation_summary.json`, and run logs are alongside). It is background evidence, not a paper table; the final protocol adopts per-level thresholds and extends the searched range to `[1,42]`.
 
