@@ -36,7 +36,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.font_manager as fm
+from scripts.figure_fonts import use_paper_fonts
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch
@@ -755,16 +755,7 @@ _MIN_ERROR = 1e-5
 
 
 def setup_typography() -> None:
-    try:
-        fm.findfont("Times New Roman", fallback_to_default=False)
-        plt.rcParams["font.family"] = "Times New Roman"
-    except Exception:
-        plt.rcParams["font.family"] = "serif"
-    plt.rcParams["mathtext.fontset"] = "stix"
-    plt.rcParams["svg.fonttype"] = "none"
-    # ACL/IEEE reject Type 3 fonts.
-    plt.rcParams["pdf.fonttype"] = 42
-    plt.rcParams["ps.fonttype"] = 42
+    use_paper_fonts()
 
 
 def _row_color(row: Row) -> str:

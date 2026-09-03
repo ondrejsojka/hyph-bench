@@ -51,7 +51,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 
-import matplotlib.font_manager as fm
+from scripts.figure_fonts import use_paper_fonts
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
@@ -105,19 +105,11 @@ def short_name(dataset: str) -> str:
 
 
 def style() -> None:
-    try:
-        fm.findfont("Times New Roman", fallback_to_default=False)
-        plt.rcParams["font.family"] = "Times New Roman"
-    except Exception:
-        plt.rcParams["font.family"] = "serif"
+    use_paper_fonts()
     plt.rcParams.update(
         {
             "figure.dpi": 130,
             "savefig.dpi": 130,
-            "mathtext.fontset": "stix",
-            "pdf.fonttype": 42,
-            "ps.fonttype": 42,
-            "svg.fonttype": "none",
             "font.size": 8.5,
             "axes.titlesize": 9.0,
             "axes.labelsize": 8.5,
@@ -515,7 +507,7 @@ def _gain_axes(
     ax,
     cases: List[Case],
     *,
-    x_label: str = "trie size, optimized / hand-tuned\n←\u2002smaller is better",
+    x_label: str = "trie size, optimized / hand-tuned\n← smaller is better",
 ) -> Tuple[float, float]:
     tr = np.array([c.trie_ratio for c in cases])
     eg = np.array([c.err_gain for c in cases])
@@ -545,7 +537,7 @@ def _gain_axes(
     log_ratio_axis(ax, "x", [1 / 6, 1 / 5, 1 / 4, 1 / 3, 1 / 2, 1.0])
     log_ratio_axis(ax, "y", [1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0])
     ax.set_xlabel(x_label)
-    ax.set_ylabel("errors left, hand-tuned / optimized\n→\u2002fewer is better")
+    ax.set_ylabel("errors left, hand-tuned / optimized\n→ fewer is better")
     return med_t, med_e
 
 
@@ -624,10 +616,10 @@ def fig_slope(cases: List[Case], out_dir: Path, stats: dict) -> None:
     axes[0].set_yticklabels([c.label for c in ordered], fontsize=7.2)
     axes[0].set_xlim(230, 90000)
     trie_axis(axes[0], [400, 60000])
-    axes[0].set_xlabel("pattern trie size (nodes)\u2003←\u2002smaller")
+    axes[0].set_xlabel("pattern trie size (nodes)  ← smaller")
     axes[0].set_title("(a) compactness", loc="left", fontsize=8.6)
     axes[1].set_xlim(5.5e-4, 0.36)
-    axes[1].set_xlabel("errors left, $1-F_{1/7}$\u2003←\u2002fewer")
+    axes[1].set_xlabel("errors left, $1-F_{1/7}$  ← fewer")
     axes[1].set_title("(b) accuracy", loc="left", fontsize=8.6)
     axes[1].xaxis.set_major_locator(FixedLocator([1e-3, 3e-3, 0.01, 0.03, 0.1, 0.3]))
     axes[1].xaxis.set_major_formatter(FuncFormatter(lambda v, _p: f"{v:g}"))
@@ -700,8 +692,8 @@ def fig_frontiers(cases: List[Case], out_dir: Path, stats: dict) -> None:
     ax.set_ylim(0.82, 10.5)
     log_ratio_axis(ax, "x", [1 / 20, 1 / 10, 1 / 5, 1 / 3, 1 / 2, 1.0])
     log_ratio_axis(ax, "y", [1.0, 2.0, 3.0, 5.0, 8.0, 12.0])
-    ax.set_xlabel("trie size, relative to hand-tuned\u2003←\u2002smaller")
-    ax.set_ylabel("errors left, hand-tuned / this profile\n↑\u2002fewer")
+    ax.set_xlabel("trie size, relative to hand-tuned  ← smaller")
+    ax.set_ylabel("errors left, hand-tuned / this profile\n↑ fewer")
     ax.annotate(
         "hand-tuned profile,\nall 17 datasets",
         xy=(1.0, 1.0),
@@ -794,15 +786,15 @@ def _mechanism_panel(ax, case: Case, *, guides: bool = True) -> dict:
     ax.annotate(
         "selected",
         xy=(case.val_opt_trie, case.val_opt_err),
-        xytext=(-14, -19),
+        xytext=(7, 0),
         textcoords="offset points",
         fontsize=7.4,
         color=GREEN,
-        ha="right",
-        va="top",
+        ha="left",
+        va="center",
     )
-    ax.set_xlabel("pattern trie size (nodes)\u2003←\u2002smaller")
-    ax.set_ylabel("$F_{1/7}$ on validation\u2002→\u2002more accurate")
+    ax.set_xlabel("pattern trie size (nodes)  ← smaller")
+    ax.set_ylabel("$F_{1/7}$ on validation → more accurate")
     del y_lo, y_hi
     return {"smaller": smaller, "fewer": fewer}
 
@@ -823,7 +815,7 @@ def _twopanel(cases: List[Case], dataset: str, out_dir: Path, stem: str) -> dict
         fontsize=7.2,
     )
     med_t, med_e = _gain_axes(
-        axes[1], cases, x_label="trie size, optimized / hand-tuned\u2002←\u2002smaller"
+        axes[1], cases, x_label="trie size, optimized / hand-tuned ← smaller"
     )
     axes[1].text(
         1 / 5.8,
@@ -1043,13 +1035,15 @@ def fig_multiples(cases: List[Case], out_dir: Path, stats: dict) -> None:
         ax.tick_params(labelsize=6.2, length=2)
     for ax in flat[len(ordered):]:
         ax.axis("off")
+    # The last column has no bottom-row panel, so its lowest panel carries the x ticks.
+    flat[len(ordered) - 6].tick_params(labelbottom=True)
     flat[0].set_xlim(0.025, 2.0)
     flat[0].set_ylim(0.2, 22.0)
     log_ratio_axis(flat[0], "x", [1 / 20, 1 / 5, 1.0])
     log_ratio_axis(flat[0], "y", [1 / 3, 1.0, 3.0, 10.0])
-    fig.supxlabel("trie size / hand-tuned\u2003←\u2002smaller", fontsize=8.2, y=0.012)
-    fig.supylabel("errors left, hand-tuned / this profile\u2002↑\u2002fewer", fontsize=8.2, x=0.004)
-    fig.tight_layout(rect=(0.028, 0.035, 1, 1))
+    fig.supxlabel("trie size / hand-tuned  ← smaller", fontsize=8.2)
+    fig.supylabel("errors left, hand-tuned / this profile ↑ fewer", fontsize=8.2)
+    fig.tight_layout()
     save(fig, out_dir, "hero_g_multiples")
 
 
@@ -1080,7 +1074,7 @@ def fig_lollipop(cases: List[Case], out_dir: Path, stats: dict) -> None:
     ax.set_ylim(-0.7, n + 0.9)
     ax.set_xlim(0.11, 1.42)
     log_ratio_axis(ax, "x", [1 / 8, 1 / 6, 1 / 5, 1 / 4, 1 / 3, 1 / 2, 1.0])
-    ax.set_xlabel("optimized / hand-tuned\u2003←\u2002better")
+    ax.set_xlabel("optimized / hand-tuned  ← better")
     ax.grid(axis="y", visible=False)
     ax.legend(
         handles=[
@@ -1124,8 +1118,8 @@ def fig_pr(cases: List[Case], out_dir: Path, stats: dict) -> None:
             mew=0.9,
             zorder=4,
         )
-    ax.set_xlabel("recall\u2003→\u2002finds more of the legal break points")
-    ax.set_ylabel("precision\u2002↑\u2002inserts fewer wrong hyphens")
+    ax.set_xlabel("recall  → finds more of the legal break points")
+    ax.set_ylabel("precision ↑ inserts fewer wrong hyphens")
     ax.set_xlim(0.655, 1.035)
     ax.set_ylim(0.876, 1.006)
     ax.legend(
@@ -1197,8 +1191,8 @@ def fig_space(cases: List[Case], out_dir: Path, stats: dict) -> None:
     ax.set_ylim(0.03, 34.0)
     log_ratio_axis(ax, "x", [1 / 100, 1 / 20, 1 / 5, 1.0, 3.0])
     log_ratio_axis(ax, "y", [1 / 20, 1 / 5, 1.0, 5.0, 20.0])
-    ax.set_xlabel("trie size / hand-tuned\u2003←\u2002smaller")
-    ax.set_ylabel("errors left, hand-tuned / this profile\u2002↑\u2002fewer")
+    ax.set_xlabel("trie size / hand-tuned  ← smaller")
+    ax.set_ylabel("errors left, hand-tuned / this profile ↑ fewer")
     ax.text(
         0.0105,
         22.0,

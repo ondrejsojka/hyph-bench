@@ -37,6 +37,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import Matern, WhiteKernel
 from sklearn.inspection import permutation_importance
+from scripts.figure_fonts import use_paper_fonts
+import matplotlib.ticker as mticker
 
 # --- search space ---------------------------------------------------------
 # Mirrors per_level_search.WEIGHT_LABELS and the --min/--max-threshold
@@ -69,11 +71,11 @@ MUTED = "#9aa6b2"
 
 
 def style() -> None:
+    use_paper_fonts()
     plt.rcParams.update(
         {
             "figure.dpi": 120,
             "savefig.dpi": 120,
-            "pdf.fonttype": 42,
             "font.size": 8.5,
             "axes.titlesize": 9,
             "axes.labelsize": 8.5,
@@ -653,7 +655,13 @@ def fig_search_cloud(run: Run, out: Path, index: List[str]) -> None:
     ax.scatter(run.trie[run.winner], run.f17[run.winner], marker="*", s=210,
                color=WARM, edgecolor="white", linewidth=0.6, zorder=5, label="selected")
     ax.set_xscale("log")
-    ax.set_ylim(np.percentile(run.f17, 5) - 0.005, run.f17.max() + 0.004)
+    ax.set_ylim(np.percentile(run.f17, 5) - 0.005, min(1.0006, run.f17.max() + 0.004))
+    ax.yaxis.set_major_locator(mticker.MultipleLocator(0.005))
+    ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.3f"))
+    trie_ticks = [t for t in (2000, 3000, 5000, 10000, 20000, 50000) if run.trie.min() * 0.85 <= t <= run.trie.max() * 1.15]
+    ax.set_xticks(trie_ticks)
+    ax.set_xticklabels([f"{t // 1000}k" for t in trie_ticks])
+    ax.xaxis.set_minor_formatter(mticker.NullFormatter())
     ax.set_xlabel("trie nodes (log scale)")
     ax.set_ylabel("validation $F_{1/7}$")
     ax.set_title("every evaluation of one search, in the plane of Figure 1")
